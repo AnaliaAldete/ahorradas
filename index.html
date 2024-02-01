@@ -11,6 +11,100 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<header class="p-5 bg-emerald-400">
+			<nav class="flex justify-between">
+				<h1 class="flex gap-3 items-center">
+					<i class="fa-solid fa-wallet"></i>AhorrADAs
+				</h1>
+				<ul class="flex gap-5">
+					<li><a>Balance</a></li>
+					<li><a>Categoría</a></li>
+					<li><a>Reporte</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<section>
+				<h2>Balance</h2>
+
+				<div>
+					<div>Ganacias</div>
+					<div>+ $ 0</div>
+				</div>
+
+				<div>
+					<div>Gastos</div>
+					<div>- $ 0</div>
+				</div>
+
+				<div>
+					<div>Total</div>
+					<div>$0</div>
+				</div>
+			</section>
+
+			<section>
+				<div>
+					<h3>Filtros</h3>
+					<button>Ocultar Filtros</button>
+				</div>
+
+				<div>
+					<div>
+						<label for="tipo">Tipo</label>
+						<select name="tipo" id="tipo">
+							<option value="todos">Todos</option>
+							<option value="gasto">Gasto</option>
+							<option value="ganancia">Ganacia</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="categoria">Categoría</label>
+						<select name="categoria" id="categoria">
+							<option value="todas">Todas</option>
+							<option value="comida">Comida</option>
+							<option value="servicios">Servicios</option>
+							<option value="salidas">Salidas</option>
+							<option value="educacion">Educación</option>
+							<option value="transporte">Transporte</option>
+							<option value="trabajo">Trabajo</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="desde">Desde</label>
+						<input type="date" id="desde" />
+					</div>
+
+					<div>
+						<label for="ordenar">Ordenar por</label>
+						<select name="ordenar" id="ordenar">
+							<option value="mas">Más Reciente</option>
+							<option value="menos">Menos Reciente</option>
+							<option value="mayor">Mayor Monto</option>
+							<option value="menor">Menor Monto</option>
+							<option value="A/Z">A/Z</option>
+							<option value="Z/A">Z/A</option>
+						</select>
+					</div>
+				</div>
+			</section>
+			<section class="flex flex-col p-5">
+				<div class="flex justify-between">
+					<h3 class="text-2xl">Operaciones</h3>
+					<button>+Nueva operación</button>
+				</div>
+				<img src="imagenes/undraw_Vault_re_s4my.png" />
+				<p>Sin resultados</p>
+				<p>Cambia los filtros o agrega operaciones</p>
+			</section>
+		</main>
+
+		<footer>
+			<p>Hecho con 💖 Por Ani y Pau</p>
+			<i class="fa-brands fa-github"></i>
+		</footer>
 		<script src="main.js"></script>
 	</body>
 </html>
