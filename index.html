@@ -11,15 +11,27 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<header class="p-5 bg-emerald-400">
-			<nav class="flex justify-between">
-				<h1 class="flex gap-3 items-center">
+		<header class="p-4 bg-emerald-400 text-white">
+			<nav class="flex justify-between items-center">
+				<h1 class="flex gap-3 items-center text-5xl">
 					<i class="fa-solid fa-wallet"></i>AhorrADAs
 				</h1>
-				<ul class="flex gap-5">
-					<li><a>Balance</a></li>
-					<li><a>Categoría</a></li>
-					<li><a>Reporte</a></li>
+				<ul class="flex gap-7">
+					<li>
+						<a class="flex gap-2 items-center"
+							><i class="fa-solid fa-chart-line"></i>Balance</a
+						>
+					</li>
+					<li>
+						<a class="flex gap-2 items-center"
+							><i class="fa-solid fa-tag"></i>Categoría</a
+						>
+					</li>
+					<li>
+						<a class="flex gap-2 items-center"
+							><i class="fa-solid fa-chart-pie"></i>Reporte</a
+						>
+					</li>
 				</ul>
 			</nav>
 		</header>
@@ -90,14 +102,27 @@
 					</div>
 				</div>
 			</section>
-			<section class="flex flex-col p-5">
+			<section class="flex flex-col p-5 border-solid border-2">
 				<div class="flex justify-between">
 					<h3 class="text-2xl">Operaciones</h3>
-					<button>+Nueva operación</button>
+					<button class="bg-emerald-400 p-2 rounded text-white">
+						+ Nueva operación
+					</button>
 				</div>
-				<img src="imagenes/undraw_Vault_re_s4my.png" />
-				<p>Sin resultados</p>
-				<p>Cambia los filtros o agrega operaciones</p>
+				<div class="flex flex-col items-center">
+					<img src="imagenes/undraw_Vault_re_s4my.png" class="w-96" />
+					<p class="text-3xl">Sin resultados</p>
+					<p>Cambia los filtros o agrega operaciones</p>
+				</div>
+			</section>
+			<section
+				class="reportes w-4/6 border-solid border-2 m-auto flex flex-col items-center"
+				id="reportes"
+			>
+				<h2 class="text-4xl">Reportes</h2>
+				<img src="imagenes/undraw_Charts_re_5qe9.png" />
+				<p>Operaciones insuficientes</p>
+				<p>Prueba agregando más operaciones</p>
 			</section>
 		</main>
 
