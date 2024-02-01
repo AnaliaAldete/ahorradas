@@ -36,44 +36,52 @@
 			</nav>
 		</header>
 		<main>
-			<section>
-				<h2>Balance</h2>
+			<section class="w-80 p-4 border-solid border-2 mb-5">
+				<h2 class="text-4xl pb-12">Balance</h2>
 
-				<div>
+				<div class="flex justify-between text-l py-2">
 					<div>Ganacias</div>
-					<div>+ $ 0</div>
+					<div class="text-[#48c774]">+ $ 0</div>
 				</div>
 
-				<div>
+				<div class="flex justify-between text-l py-2">
 					<div>Gastos</div>
-					<div>- $ 0</div>
+					<div class="text-[#f14668]">- $ 0</div>
 				</div>
 
-				<div>
+				<div class="flex justify-between text-xl py-2">
 					<div>Total</div>
 					<div>$0</div>
 				</div>
 			</section>
 
-			<section>
-				<div>
-					<h3>Filtros</h3>
-					<button>Ocultar Filtros</button>
+			<section class="w-80 p-4 border-solid border-2">
+				<div class="flex justify-between pb-4">
+					<h3 class="text-2xl">Filtros</h3>
+					<button class="text-[pink]">Ocultar Filtros</button>
 				</div>
 
 				<div>
-					<div>
-						<label for="tipo">Tipo</label>
-						<select name="tipo" id="tipo">
+					<div class="flex flex-col">
+						<label for="tipo" class="py-1">Tipo</label>
+						<select
+							name="tipo"
+							id="tipo"
+							class="border-solid border-2 p-2 rounded"
+						>
 							<option value="todos">Todos</option>
 							<option value="gasto">Gasto</option>
 							<option value="ganancia">Ganacia</option>
 						</select>
 					</div>
 
-					<div>
-						<label for="categoria">Categoría</label>
-						<select name="categoria" id="categoria">
+					<div class="flex flex-col">
+						<label for="categoria" class="py-1">Categoría</label>
+						<select
+							name="categoria"
+							id="categoria"
+							class="border-solid border-2 p-2 rounded"
+						>
 							<option value="todas">Todas</option>
 							<option value="comida">Comida</option>
 							<option value="servicios">Servicios</option>
@@ -84,14 +92,22 @@
 						</select>
 					</div>
 
-					<div>
-						<label for="desde">Desde</label>
-						<input type="date" id="desde" />
+					<div class="flex flex-col">
+						<label for="desde" class="py-1">Desde</label>
+						<input
+							type="date"
+							id="desde"
+							class="border-solid border-2 p-2 rounded"
+						/>
 					</div>
 
-					<div>
-						<label for="ordenar">Ordenar por</label>
-						<select name="ordenar" id="ordenar">
+					<div class="flex flex-col">
+						<label for="ordenar" class="py-1">Ordenar por</label>
+						<select
+							name="ordenar"
+							id="ordenar"
+							class="border-solid border-2 p-2 rounded"
+						>
 							<option value="mas">Más Reciente</option>
 							<option value="menos">Menos Reciente</option>
 							<option value="mayor">Mayor Monto</option>
@@ -126,7 +142,7 @@
 			</section>
 		</main>
 
-		<footer>
+		<footer class="flex justify-center items-center gap-[10px]">
 			<p>Hecho con 💖 Por Ani y Pau</p>
 			<i class="fa-brands fa-github"></i>
 		</footer>
