@@ -11,6 +11,7 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<!-- INICIO HEADER -->
 		<header class="p-4 bg-emerald-400 text-white">
 			<nav class="flex justify-between items-center">
 				<h1 class="flex gap-3 items-center text-5xl">
@@ -18,7 +19,7 @@
 				</h1>
 				<ul class="flex gap-7">
 					<li>
-						<a class="flex gap-2 items-center"
+						<a class="flex gap-2 items-center" id="enlace-balance"
 							><i class="fa-solid fa-chart-line"></i>Balance</a
 						>
 					</li>
@@ -28,16 +29,23 @@
 						>
 					</li>
 					<li>
-						<a class="flex gap-2 items-center"
+						<a class="flex gap-2 items-center" id="enlace-reporte"
 							><i class="fa-solid fa-chart-pie"></i>Reporte</a
 						>
 					</li>
 				</ul>
 			</nav>
 		</header>
+		<!-- FIN HEADER -->
+
+		<!-- INICIO MAIN -->
 		<main class="flex gap-5 p-10">
-			<div class="w-1/3 flex flex-col items-center gap-5">
-				<section class="w-80 p-4 border-solid border-2">
+			<div
+				class="w-1/3 flex flex-col items-center gap-5"
+				id="container-balance-filtros"
+			>
+				<!-- INICIO SECCION BALANCE -->
+				<section class="w-80 p-4 border-solid border-2" id="seccion-balance">
 					<h2 class="text-4xl pb-12">Balance</h2>
 
 					<div class="flex justify-between text-l py-2">
@@ -55,8 +63,10 @@
 						<div>$0</div>
 					</div>
 				</section>
+				<!-- FIN SECCION BALANCE -->
 
-				<section class="w-80 p-4 border-solid border-2">
+				<!-- INICIO SECCION FILTROS -->
+				<section class="w-80 p-4 border-solid border-2" id="seccion-filtros">
 					<div class="flex justify-between pb-4">
 						<h3 class="text-2xl">Filtros</h3>
 						<button class="text-[blue]">Ocultar Filtros</button>
@@ -119,8 +129,14 @@
 						</div>
 					</div>
 				</section>
+				<!-- FIN SECCION FILTROS -->
 			</div>
-			<section class="flex flex-col p-5 border-solid border-2 w-2/3">
+
+			<!-- INICIO SECCION OPERACIONES -->
+			<section
+				class="flex flex-col p-5 border-solid border-2 w-2/3"
+				id="seccion-operaciones"
+			>
 				<div class="flex justify-between">
 					<h3 class="text-2xl">Operaciones</h3>
 					<button class="bg-emerald-400 p-2 rounded text-white">
@@ -133,21 +149,29 @@
 					<p>Cambia los filtros o agrega operaciones</p>
 				</div>
 			</section>
+
+			<!-- FIN SECCION OPERACIONES -->
+
+			<!-- INICIO SECCION REPORTES  esta oculto por el momento-->
 			<section
-				class="reportes w-4/6 border-solid border-2 m-auto flex flex-col items-center hidden"
-				id="reportes"
+				class="reportes w-4/6 border-solid border-2 m-auto flex flex-col items-center gap-5 hidden p-5"
+				id="seccion-reportes"
 			>
 				<h2 class="text-4xl">Reportes</h2>
 				<img src="imagenes/undraw_Charts_re_5qe9.png" />
-				<p>Operaciones insuficientes</p>
+				<p class="text-3xl">Operaciones insuficientes</p>
 				<p>Prueba agregando más operaciones</p>
 			</section>
+			<!-- FIN SECCION REPORTES -->
 		</main>
+		<!-- FIN MAIN -->
 
+		<!-- INICIO FOOTER -->
 		<footer class="flex justify-center items-center gap-10 bg-emerald-400 p-5">
 			<p>Hecho con 💖 Por Ani y Pau</p>
 			<i class="fa-brands fa-github"></i>
 		</footer>
+		<!-- FIN DE FOOTER -->
 		<script src="main.js"></script>
 	</body>
 </html>
