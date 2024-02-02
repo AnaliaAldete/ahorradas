@@ -40,6 +40,7 @@
 
 		<!-- INICIO MAIN -->
 		<main class="flex gap-5 p-10">
+			<div class="" id="contenedor"></div>
 			<div
 				class="w-1/3 flex flex-col items-center gap-5"
 				id="container-balance-filtros"
@@ -143,14 +144,103 @@
 						+ Nueva operación
 					</button>
 				</div>
+
 				<div class="flex flex-col items-center h-5/6 justify-center">
 					<img src="imagenes/undraw_Vault_re_s4my.png" />
 					<p class="text-3xl">Sin resultados</p>
 					<p>Cambia los filtros o agrega operaciones</p>
 				</div>
 			</section>
-
 			<!-- FIN SECCION OPERACIONES -->
+
+			<!-- INICIO SECCION CATEGORÍAS esta oculto por el momento-->
+			<section class="hidden">
+				<div>
+					<h2>Categoría</h2>
+
+					<div>
+						<label for="nombre">Nombre</label>
+
+						<div>
+							<input type="text" id="nombre" />
+							<button>Agregar</button>
+						</div>
+					</div>
+
+					<div>
+						<div>
+							<p>Comida</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+
+						<div>
+							<p>Servicios</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+
+						<div>
+							<p>Salidas</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+
+						<div>
+							<p>Educación</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+
+						<div>
+							<p>Transporte</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+
+						<div>
+							<p>Trabajo</p>
+							<div>
+								<a href="#editar">Editar</a>
+								<button>Deshabilatar</button>
+								<button>Eliminar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- FIN SECCION CATEGORÍAS -->
+
+			<!-- INICIO SECCION EDITAR-->
+			<section class="hidden">
+				<h2>Editar Categoría</h2>
+
+				<div>
+					<label for="label-editar">Nombre</label>
+					<input type="text" id="label-editar" />
+				</div>
+
+				<div>
+					<button>Cancelar</button>
+					<button>Editar</button>
+				</div>
+			</section>
+			<!-- FIN SECCION EDITAR-->
 
 			<!-- INICIO SECCION REPORTES  esta oculto por el momento-->
 			<section
@@ -168,8 +258,11 @@
 
 		<!-- INICIO FOOTER -->
 		<footer class="flex justify-center items-center gap-10 bg-emerald-400 p-5">
-			<p>Hecho con 💖 Por Ani y Pau</p>
-			<i class="fa-brands fa-github"></i>
+			<div class="flex flex-col items-center">
+				<p>Hecho con 💖 Por</p>
+				<p>👑Code Queens</p>
+			</div>
+			<i class="fa-brands fa-github inline-block w-12 text-4xl"></i>
 		</footer>
 		<!-- FIN DE FOOTER -->
 		<script src="main.js"></script>
