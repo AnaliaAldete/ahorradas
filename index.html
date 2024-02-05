@@ -13,11 +13,20 @@
 	<body>
 		<!-- INICIO HEADER -->
 		<header class="p-4 bg-emerald-400 text-white">
-			<nav class="flex justify-between items-center">
-				<h1 class="flex gap-3 items-center text-5xl">
-					<i class="fa-solid fa-wallet"></i>AhorrADAs
-				</h1>
-				<ul class="flex gap-7">
+			<nav
+				class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
+			>
+				<div class="flex gap-3 items-center w-full justify-between">
+					<h1 class="text-5xl"><i class="fa-solid fa-wallet"></i>AhorrADAs</h1>
+					<button class="lg:hidden" id="btn-menu-hamburguesa">
+						<i class="fa-solid fa-bars block" id="icono-hamburguesa"></i>
+						<i class="fa-solid fa-times hidden" id="icono-x"></i>
+					</button>
+				</div>
+				<ul
+					class="hidden flex flex-col gap-3 lg:gap-7 lg:flex-row"
+					id="menu-nav"
+				>
 					<li>
 						<a class="flex gap-2 items-center" id="enlace-balance"
 							><i class="fa-solid fa-chart-line"></i>Balance</a
@@ -36,6 +45,7 @@
 				</ul>
 			</nav>
 		</header>
+
 		<!-- FIN HEADER -->
 
 		<!-- INICIO MAIN -->
