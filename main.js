@@ -11,15 +11,6 @@ const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
 );
 
-//botones
-const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
-
-//menues
-const menuNav = document.getElementById("menu-nav");
-//iconos
-const iconoHamgurquesa = document.getElementById("icono-hamburguesa");
-const iconoX = document.getElementById("icono-x");
-
 //funcion ocultar pagina principal
 const ocultarPaginaPrincipal = () => {
 	containerBalanceYFiltros.style.display = "none";
@@ -54,9 +45,14 @@ enlaceBalance.addEventListener("click", () => {
 	ocultarReporte();
 });
 
-//funcionalidad menu hamburguesa
+const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
+const menuNav = document.getElementById("menu-nav");
+const iconoHamburguesa = document.getElementById("icono-hamburguesa");
+const iconoX = document.getElementById("icono-x");
+
+// Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
 	menuNav.classList.toggle("hidden");
-	iconoHamgurquesa.classList.toggle("hidden");
+	iconoHamburguesa.classList.toggle("hidden");
 	iconoX.classList.toggle("hidden");
 });
