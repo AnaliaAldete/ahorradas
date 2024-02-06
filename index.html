@@ -55,126 +55,127 @@
 
 		<!-- INICIO MAIN -->
 		<main class="flex flex-col gap-5 p-5 lg:flex-row lg:p-10">
-			<!-- <div class="" id="contenedor"></div> -->
-			<div
-				class="lg:w-1/3 flex flex-col items-center gap-5"
-				id="container-balance-filtros"
-			>
-				<!-- INICIO SECCION BALANCE -->
-				<section
-					class="w-full p-4 border-solid border-2 flex flex-col gap-5"
-					id="seccion-balance"
-				>
-					<h2 class="text-4xl">Balance</h2>
-
-					<div class="flex justify-between text-l">
-						<div>Ganacias</div>
-						<div class="text-[#48c774]">+ $ 0</div>
-					</div>
-
-					<div class="flex justify-between text-l">
-						<div>Gastos</div>
-						<div class="text-[#f14668]">- $ 0</div>
-					</div>
-
-					<div class="flex justify-between text-xl">
-						<div>Total</div>
-						<div>$0</div>
-					</div>
-				</section>
-				<!-- FIN SECCION BALANCE -->
-
-				<!-- INICIO SECCION FILTROS -->
-				<section
-					class="w-full p-4 border-solid border-2 flex flex-col gap-5"
-					id="seccion-filtros"
-				>
-					<div class="flex justify-between">
-						<h3 class="text-2xl">Filtros</h3>
-						<button class="text-[blue]">Ocultar Filtros</button>
-					</div>
-
-					<div class="flex flex-col gap-2">
-						<div class="flex flex-col gap-2">
-							<label for="tipo">Tipo</label>
-							<select
-								name="tipo"
-								id="tipo"
-								class="border-solid border-2 p-2 rounded"
-							>
-								<option value="todos">Todos</option>
-								<option value="gasto">Gasto</option>
-								<option value="ganancia">Ganacia</option>
-							</select>
-						</div>
-
-						<div class="flex flex-col gap-2">
-							<label for="categoria">Categoría</label>
-							<select
-								name="categoria"
-								id="categoria"
-								class="border-solid border-2 p-2 rounded"
-							>
-								<option value="todas">Todas</option>
-								<option value="comida">Comida</option>
-								<option value="servicios">Servicios</option>
-								<option value="salidas">Salidas</option>
-								<option value="educacion">Educación</option>
-								<option value="transporte">Transporte</option>
-								<option value="trabajo">Trabajo</option>
-							</select>
-						</div>
-
-						<div class="flex flex-col gap-2">
-							<label for="desde">Desde</label>
-							<input
-								type="date"
-								id="desde"
-								class="border-solid border-2 p-2 rounded"
-							/>
-						</div>
-
-						<div class="flex flex-col gap-2">
-							<label for="ordenar">Ordenar por</label>
-							<select
-								name="ordenar"
-								id="ordenar"
-								class="border-solid border-2 p-2 rounded"
-							>
-								<option value="mas">Más Reciente</option>
-								<option value="menos">Menos Reciente</option>
-								<option value="mayor">Mayor Monto</option>
-								<option value="menor">Menor Monto</option>
-								<option value="A/Z">A/Z</option>
-								<option value="Z/A">Z/A</option>
-							</select>
-						</div>
-					</div>
-				</section>
-				<!-- FIN SECCION FILTROS -->
-			</div>
-
-			<!-- INICIO SECCION OPERACIONES -->
-			<section
-				class="flex flex-col p-5 gap-3 border-2 lg:w-2/3"
-				id="seccion-operaciones"
-			>
+			<div class="flex max-w-[970px] gap-[15px]" id="contenedor">
 				<div
-					class="flex flex-col items-center gap-3 lg:flex-row justify-between"
+					class="lg:w-1/3 flex flex-col items-center gap-5"
+					id="container-balance-filtros"
 				>
-					<h3 class="text-2xl">Operaciones</h3>
-					<button class="bg-emerald-400 p-2 rounded text-white">
-						+ Nueva operación
-					</button>
+					<!-- INICIO SECCION BALANCE -->
+					<section
+						class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+						id="seccion-balance"
+					>
+						<h2 class="text-4xl">Balance</h2>
+
+						<div class="flex justify-between text-l">
+							<div>Ganacias</div>
+							<div class="text-[#48c774]">+ $ 0</div>
+						</div>
+
+						<div class="flex justify-between text-l">
+							<div>Gastos</div>
+							<div class="text-[#f14668]">- $ 0</div>
+						</div>
+
+						<div class="flex justify-between text-xl">
+							<div>Total</div>
+							<div>$0</div>
+						</div>
+					</section>
+					<!-- FIN SECCION BALANCE -->
+
+					<!-- INICIO SECCION FILTROS -->
+					<section
+						class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+						id="seccion-filtros"
+					>
+						<div class="flex justify-between">
+							<h3 class="text-2xl">Filtros</h3>
+							<button class="text-[blue]">Ocultar Filtros</button>
+						</div>
+
+						<div class="flex flex-col gap-2">
+							<div class="flex flex-col gap-2">
+								<label for="tipo">Tipo</label>
+								<select
+									name="tipo"
+									id="tipo"
+									class="border-solid border-2 p-2 rounded"
+								>
+									<option value="todos">Todos</option>
+									<option value="gasto">Gasto</option>
+									<option value="ganancia">Ganacia</option>
+								</select>
+							</div>
+
+							<div class="flex flex-col gap-2">
+								<label for="categoria">Categoría</label>
+								<select
+									name="categoria"
+									id="categoria"
+									class="border-solid border-2 p-2 rounded"
+								>
+									<option value="todas">Todas</option>
+									<option value="comida">Comida</option>
+									<option value="servicios">Servicios</option>
+									<option value="salidas">Salidas</option>
+									<option value="educacion">Educación</option>
+									<option value="transporte">Transporte</option>
+									<option value="trabajo">Trabajo</option>
+								</select>
+							</div>
+
+							<div class="flex flex-col gap-2">
+								<label for="desde">Desde</label>
+								<input
+									type="date"
+									id="desde"
+									class="border-solid border-2 p-2 rounded"
+								/>
+							</div>
+
+							<div class="flex flex-col gap-2">
+								<label for="ordenar">Ordenar por</label>
+								<select
+									name="ordenar"
+									id="ordenar"
+									class="border-solid border-2 p-2 rounded"
+								>
+									<option value="mas">Más Reciente</option>
+									<option value="menos">Menos Reciente</option>
+									<option value="mayor">Mayor Monto</option>
+									<option value="menor">Menor Monto</option>
+									<option value="A/Z">A/Z</option>
+									<option value="Z/A">Z/A</option>
+								</select>
+							</div>
+						</div>
+					</section>
+					<!-- FIN SECCION FILTROS -->
 				</div>
 
-				<div class="flex flex-col gap-3 items-center h-5/6 justify-center">
-					<img src="imagenes/undraw_Vault_re_s4my.png" />
-					<p class="text-3xl">Sin resultados</p>
-					<p class="text-center">Cambia los filtros o agrega operaciones</p>
-				</div>
-			</section>
-			<!-- FIN SECCION OPERACIONES -->
+				<!-- INICIO SECCION OPERACIONES -->
+				<section
+					class="flex flex-col p-5 gap-3 border-2 lg:w-2/3"
+					id="seccion-operaciones"
+				>
+					<div
+						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
+					>
+						<h3 class="text-2xl">Operaciones</h3>
+						<button class="bg-emerald-400 p-2 rounded text-white">
+							+ Nueva operación
+						</button>
+					</div>
+
+					<div class="flex flex-col gap-3 items-center h-5/6 justify-center">
+						<img src="imagenes/undraw_Vault_re_s4my.png" />
+						<p class="text-3xl">Sin resultados</p>
+						<p class="text-center">Cambia los filtros o agrega operaciones</p>
+					</div>
+				</section>
+				<!-- FIN SECCION OPERACIONES -->
+			</div>
 
 			<!-- INICIO SECCION CATEGORÍAS esta oculto por el momento-->
 			<section class="hidden flex justify-center items-center w-full">
