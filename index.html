@@ -17,13 +17,21 @@
 				class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
 			>
 				<div class="flex gap-3 items-center w-full justify-between">
-					<h1 class="text-5xl"><i class="fa-solid fa-wallet"></i>AhorrADAs</h1>
+					<h1 class="text-5xl flex gap-3">
+						<i class="fa-solid fa-wallet"></i>AhorrADAs
+					</h1>
 					<button class="lg:hidden" id="btn-menu-hamburguesa">
-						<i class="fa-solid fa-bars block" id="icono-hamburguesa"></i>
-						<i class="fa-solid fa-times hidden" id="icono-x"></i>
+						<i
+							class="fa-solid fa-bars block text-2xl"
+							id="icono-hamburguesa"
+						></i>
+						<i class="fa-solid fa-times hidden text-2xl" id="icono-x"></i>
 					</button>
 				</div>
-				<ul class="hidden lg:flex lg:gap-7 lg:flex-row" id="menu-nav">
+				<ul
+					class="hidden flex-col gap-3 lg:flex lg:gap-7 lg:flex-row"
+					id="menu-nav"
+				>
 					<li>
 						<a class="flex gap-2 items-center" id="enlace-balance"
 							><i class="fa-solid fa-chart-line"></i>Balance</a
@@ -46,27 +54,30 @@
 		<!-- FIN HEADER -->
 
 		<!-- INICIO MAIN -->
-		<main class="flex gap-5 p-10 h-[calc(100vh-168px)]">
-			<div class="" id="contenedor"></div>
+		<main class="flex flex-col gap-5 p-5 lg:flex-row lg:p-10">
+			<!-- <div class="" id="contenedor"></div> -->
 			<div
-				class="w-1/3 flex flex-col items-center gap-5"
+				class="lg:w-1/3 flex flex-col items-center gap-5"
 				id="container-balance-filtros"
 			>
 				<!-- INICIO SECCION BALANCE -->
-				<section class="w-80 p-4 border-solid border-2" id="seccion-balance">
-					<h2 class="text-4xl pb-12">Balance</h2>
+				<section
+					class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+					id="seccion-balance"
+				>
+					<h2 class="text-4xl">Balance</h2>
 
-					<div class="flex justify-between text-l py-2">
+					<div class="flex justify-between text-l">
 						<div>Ganacias</div>
 						<div class="text-[#48c774]">+ $ 0</div>
 					</div>
 
-					<div class="flex justify-between text-l py-2">
+					<div class="flex justify-between text-l">
 						<div>Gastos</div>
 						<div class="text-[#f14668]">- $ 0</div>
 					</div>
 
-					<div class="flex justify-between text-xl py-2">
+					<div class="flex justify-between text-xl">
 						<div>Total</div>
 						<div>$0</div>
 					</div>
@@ -74,15 +85,18 @@
 				<!-- FIN SECCION BALANCE -->
 
 				<!-- INICIO SECCION FILTROS -->
-				<section class="w-80 p-4 border-solid border-2" id="seccion-filtros">
-					<div class="flex justify-between pb-4">
+				<section
+					class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+					id="seccion-filtros"
+				>
+					<div class="flex justify-between">
 						<h3 class="text-2xl">Filtros</h3>
 						<button class="text-[blue]">Ocultar Filtros</button>
 					</div>
 
-					<div>
-						<div class="flex flex-col">
-							<label for="tipo" class="py-1">Tipo</label>
+					<div class="flex flex-col gap-2">
+						<div class="flex flex-col gap-2">
+							<label for="tipo">Tipo</label>
 							<select
 								name="tipo"
 								id="tipo"
@@ -94,8 +108,8 @@
 							</select>
 						</div>
 
-						<div class="flex flex-col">
-							<label for="categoria" class="py-1">Categoría</label>
+						<div class="flex flex-col gap-2">
+							<label for="categoria">Categoría</label>
 							<select
 								name="categoria"
 								id="categoria"
@@ -111,8 +125,8 @@
 							</select>
 						</div>
 
-						<div class="flex flex-col">
-							<label for="desde" class="py-1">Desde</label>
+						<div class="flex flex-col gap-2">
+							<label for="desde">Desde</label>
 							<input
 								type="date"
 								id="desde"
@@ -120,8 +134,8 @@
 							/>
 						</div>
 
-						<div class="flex flex-col">
-							<label for="ordenar" class="py-1">Ordenar por</label>
+						<div class="flex flex-col gap-2">
+							<label for="ordenar">Ordenar por</label>
 							<select
 								name="ordenar"
 								id="ordenar"
@@ -142,20 +156,22 @@
 
 			<!-- INICIO SECCION OPERACIONES -->
 			<section
-				class="flex flex-col p-5 border-solid border-2 w-2/3"
+				class="flex flex-col p-5 gap-3 border-2 lg:w-2/3"
 				id="seccion-operaciones"
 			>
-				<div class="flex justify-between">
+				<div
+					class="flex flex-col items-center gap-3 lg:flex-row justify-between"
+				>
 					<h3 class="text-2xl">Operaciones</h3>
 					<button class="bg-emerald-400 p-2 rounded text-white">
 						+ Nueva operación
 					</button>
 				</div>
 
-				<div class="flex flex-col items-center h-5/6 justify-center">
+				<div class="flex flex-col gap-3 items-center h-5/6 justify-center">
 					<img src="imagenes/undraw_Vault_re_s4my.png" />
 					<p class="text-3xl">Sin resultados</p>
-					<p>Cambia los filtros o agrega operaciones</p>
+					<p class="text-center">Cambia los filtros o agrega operaciones</p>
 				</div>
 			</section>
 			<!-- FIN SECCION OPERACIONES -->
@@ -271,15 +287,15 @@
 			</section>
 			<!-- FIN SECCION EDITAR-->
 
-			<!-- INICIO SECCION REPORTES  esta oculto por el momento-->
+			<!-- INICIO SECCION REPORTES-->
 			<section
-				class="reportes w-4/6 border-solid border-2 rounded-md m-auto flex flex-col items-center gap-5 hidden p-5"
+				class="lg:w-4/6 border-solid border-2 rounded-md m-auto flex flex-col items-center gap-5 hidden p-5"
 				id="seccion-reportes"
 			>
 				<h2 class="text-4xl">Reportes</h2>
 				<img src="imagenes/undraw_Charts_re_5qe9.png" />
-				<p class="text-3xl">Operaciones insuficientes</p>
-				<p>Prueba agregando más operaciones</p>
+				<p class="text-3xl text-center">Operaciones insuficientes</p>
+				<p class="text-center">Prueba agregando más operaciones</p>
 			</section>
 			<!-- FIN SECCION REPORTES -->
 		</main>
@@ -287,13 +303,13 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-10 bg-emerald-400 text-white p-5"
+			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>
 				<p>👑Code Queens</p>
 			</div>
-			<i class="fa-brands fa-github inline-block w-12 text-4xl"></i>
+			<i class="fa-brands fa-github inline-block w-12 text-4xl text-center"></i>
 		</footer>
 		<!-- FIN DE FOOTER -->
 		<script src="main.js"></script>
