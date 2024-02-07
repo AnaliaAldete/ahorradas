@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<!-- INICIO HEADER -->
-		<header class="p-4 bg-emerald-400 text-white 2xl:h-[8.5vh]">
+		<header class="p-4 bg-emerald-400 text-white h-[8.5vh]">
 			<nav
 				class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
 			>
@@ -38,7 +38,7 @@
 						>
 					</li>
 					<li>
-						<a class="flex gap-2 items-center"
+						<a class="flex gap-2 items-center" id="enlace-categoria"
 							><i class="fa-solid fa-tag"></i>Categoría</a
 						>
 					</li>
@@ -55,11 +55,11 @@
 
 		<!-- INICIO MAIN -->
 		<main
-			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 2xl:h-[82vh] items-center"
+			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 h-[82vh] items-center"
 		>
 			<div
 				class="flex flex-col lg:flex-row max-w-[970px] gap-[15px] lg:max-h-[646px]"
-				id="contenedor"
+				id="contenedor-principal"
 			>
 				<div
 					class="lg:w-1/3 flex flex-col items-center gap-5 justify-between"
@@ -183,7 +183,10 @@
 			</div>
 
 			<!-- INICIO SECCION CATEGORÍAS esta oculto por el momento-->
-			<section class="hidden flex justify-center items-center w-full">
+			<section
+				class="hidden flex justify-center items-center w-full"
+				id="seccion-categoria"
+			>
 				<div class="border-solid border-2 rounded-md w-2/3 max-w-[850px] p-5">
 					<h2 class="text-4xl pb-12">Categoría</h2>
 
@@ -314,7 +317,7 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5 2xl:h-[9.5vh]"
+			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5 h-[9.5vh]"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>

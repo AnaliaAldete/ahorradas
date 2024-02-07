@@ -1,6 +1,10 @@
+// elementos
+const contenedorPrincipal = document.getElementById("contenedor-principal");
+
 //enlases
 const enlaceReportes = document.getElementById("enlace-reporte");
 const enlaceBalance = document.getElementById("enlace-balance");
+const enlaceCategoria = document.getElementById("enlace-categoria");
 
 // secciones
 const seccionBalance = document.getElementById("seccion-balance");
@@ -10,6 +14,8 @@ const seccionReportes = document.getElementById("seccion-reportes");
 const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
 );
+const seccionCategoria = document.getElementById("seccion-categoria");
+
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
 
@@ -20,40 +26,6 @@ const menuNav = document.getElementById("menu-nav");
 const iconoHamburguesa = document.getElementById("icono-hamburguesa");
 const iconoX = document.getElementById("icono-x");
 
-//funcion ocultar pagina principal
-const ocultarPaginaPrincipal = () => {
-	containerBalanceYFiltros.style.display = "none";
-	seccionOperaciones.style.display = "none";
-};
-
-//funcion para mostrar pagina principal
-const mostrarPaginaPrincipal = () => {
-	containerBalanceYFiltros.style.display = "flex";
-	seccionOperaciones.style.display = "flex";
-};
-
-//funcion ocultar reportes
-const ocultarReporte = () => {
-	seccionReportes.style.display = "none";
-};
-
-//funcion mostrar reporte
-const mostrarReporte = () => {
-	seccionReportes.style.display = "flex";
-};
-
-//evento mostrar reportes
-enlaceReportes.addEventListener("click", () => {
-	ocultarPaginaPrincipal();
-	mostrarReporte();
-});
-
-//evento mostrar pagina principal
-enlaceBalance.addEventListener("click", () => {
-	mostrarPaginaPrincipal();
-	ocultarReporte();
-});
-
 // Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
 	menuNav.classList.toggle("hidden");
@@ -61,3 +33,20 @@ btnMenuHamburguesa.addEventListener("click", () => {
 	iconoHamburguesa.classList.toggle("hidden");
 	iconoX.classList.toggle("hidden");
 });
+
+// funcion para aparecer y desaparecer secciones
+const mostrarSeccion = (contenedor, contenedor2, seccion) => {
+	contenedor.style.display = "none";
+	contenedor2.style.display = "none";
+	seccion.style.display = "flex";
+};
+
+enlaceBalance.addEventListener("click", () =>
+	mostrarSeccion(seccionCategoria, seccionReportes, contenedorPrincipal)
+);
+enlaceCategoria.addEventListener("click", () =>
+	mostrarSeccion(contenedorPrincipal, seccionReportes, seccionCategoria)
+);
+enlaceReportes.addEventListener("click", () =>
+	mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes)
+);
