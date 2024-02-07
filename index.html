@@ -10,9 +10,9 @@
 		<script src="https://cdn.tailwindcss.com"></script>
 		<title>Document</title>
 	</head>
-	<body>
+	<body class="flex flex-col min-h-screen">
 		<!-- INICIO HEADER -->
-		<header class="p-4 bg-emerald-400 text-white h-[8.5vh]">
+		<header class="p-4 bg-emerald-400 text-white">
 			<nav
 				class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
 			>
@@ -33,17 +33,26 @@
 					id="menu-nav"
 				>
 					<li>
-						<a class="flex gap-2 items-center" id="enlace-balance"
+						<a
+							href="Javascript:void(0);"
+							class="flex gap-2 items-center"
+							id="enlace-balance"
 							><i class="fa-solid fa-chart-line"></i>Balance</a
 						>
 					</li>
 					<li>
-						<a class="flex gap-2 items-center" id="enlace-categoria"
+						<a
+							href="Javascript:void(0);"
+							class="flex gap-2 items-center"
+							id="enlace-categoria"
 							><i class="fa-solid fa-tag"></i>Categoría</a
 						>
 					</li>
 					<li>
-						<a class="flex gap-2 items-center" id="enlace-reporte"
+						<a
+							href="Javascript:void(0);"
+							class="flex gap-2 items-center"
+							id="enlace-reporte"
 							><i class="fa-solid fa-chart-pie"></i>Reporte</a
 						>
 					</li>
@@ -55,7 +64,7 @@
 
 		<!-- INICIO MAIN -->
 		<main
-			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 h-[82vh] items-center"
+			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 items-center flex-1"
 		>
 			<div
 				class="flex flex-col lg:flex-row max-w-[970px] gap-[15px] lg:max-h-[646px]"
@@ -182,13 +191,15 @@
 				<!-- FIN SECCION OPERACIONES -->
 			</div>
 
-			<!-- INICIO SECCION CATEGORÍAS esta oculto por el momento-->
+			<!-- INICIO SECCION CATEGORÍAS-->
 			<section
 				class="hidden flex justify-center items-center w-full"
 				id="seccion-categoria"
 			>
-				<div class="border-solid border-2 rounded-md w-2/3 max-w-[850px] p-5">
-					<h2 class="text-4xl pb-12">Categoría</h2>
+				<div
+					class="border-solid border-2 rounded-md max-w-[850px] p-5 w-full lg:w-4/6"
+				>
+					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
 
 					<div>
 						<label for="nombre" class="font-bold pb-2 block">Nombre</label>
@@ -298,7 +309,7 @@
 
 			<!-- INICIO SECCION REPORTES-->
 			<section
-				class="lg:w-4/6 border-solid border-2 rounded-md flex flex-col items-center gap-5 hidden p-10 max-w-[800px]"
+				class="lg:w-4/6 border-solid border-2 rounded-md flex flex-col items-center gap-5 hidden p-5 max-w-[800px]"
 				id="seccion-reportes"
 			>
 				<h2 class="text-4xl">Reportes</h2>
@@ -317,7 +328,7 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5 h-[9.5vh]"
+			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>

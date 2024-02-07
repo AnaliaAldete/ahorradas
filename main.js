@@ -1,4 +1,4 @@
-// elementos
+// contenedores
 const contenedorPrincipal = document.getElementById("contenedor-principal");
 
 //enlases
@@ -7,14 +7,14 @@ const enlaceBalance = document.getElementById("enlace-balance");
 const enlaceCategoria = document.getElementById("enlace-categoria");
 
 // secciones
-const seccionBalance = document.getElementById("seccion-balance");
-const seccionFiltros = document.getElementById("seccion-filtros");
-const seccionOperaciones = document.getElementById("seccion-operaciones");
-const seccionReportes = document.getElementById("seccion-reportes");
+const seccionBalance = document.getElementById("seccion-balance"); //no usada por el momento
+const seccionFiltros = document.getElementById("seccion-filtros"); //no usada por el momento
+const seccionOperaciones = document.getElementById("seccion-operaciones"); //no usada por el momento
 const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
-);
+); //no usada por el momento
 const seccionCategoria = document.getElementById("seccion-categoria");
+const seccionReportes = document.getElementById("seccion-reportes");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
