@@ -15,9 +15,13 @@ const containerBalanceYFiltros = document.getElementById(
 ); //no usada por el momento
 const seccionCategoria = document.getElementById("seccion-categoria");
 const seccionReportes = document.getElementById("seccion-reportes");
+const seccionNuevaOperacion = document.getElementById(
+	"seccion-nueva-operacion"
+);
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
+const btnOperacion = document.getElementById("btn-operacion");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -35,18 +39,20 @@ btnMenuHamburguesa.addEventListener("click", () => {
 });
 
 // funcion para aparecer y desaparecer secciones
-const mostrarSeccion = (contenedor, contenedor2, seccion) => {
+const mostrarSeccion = (contenedor, contenedor2, contenedor3, seccion) => {
 	contenedor.style.display = "none";
 	contenedor2.style.display = "none";
+	contenedor3.style.display = "none";
 	seccion.style.display = "flex";
 };
 
-enlaceBalance.addEventListener("click", () =>
-	mostrarSeccion(seccionCategoria, seccionReportes, contenedorPrincipal)
-);
-enlaceCategoria.addEventListener("click", () =>
-	mostrarSeccion(contenedorPrincipal, seccionReportes, seccionCategoria)
-);
-enlaceReportes.addEventListener("click", () =>
-	mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes)
-);
+// prettier-ignore
+enlaceBalance.addEventListener("click", () => mostrarSeccion(seccionCategoria, seccionReportes, seccionNuevaOperacion, contenedorPrincipal));
+// prettier-ignore
+enlaceCategoria.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionCategoria));
+// prettier-ignore
+enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipal,seccionCategoria,seccionNuevaOperacion,seccionReportes));
+// prettier-ignore
+btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
+
+// funcion para aparecer y desparacer seccion nueva operacion

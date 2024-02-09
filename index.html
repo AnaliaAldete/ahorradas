@@ -64,6 +64,7 @@
 
 		<!-- INICIO MAIN -->
 		<main
+			id="main"
 			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 items-center flex-1"
 		>
 			<div
@@ -76,7 +77,7 @@
 				>
 					<!-- INICIO SECCION BALANCE -->
 					<section
-						class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5"
 						id="seccion-balance"
 					>
 						<h2 class="text-4xl">Balance</h2>
@@ -100,7 +101,7 @@
 
 					<!-- INICIO SECCION FILTROS -->
 					<section
-						class="w-full p-4 border-solid border-2 flex flex-col gap-5"
+						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5"
 						id="seccion-filtros"
 					>
 						<div class="flex justify-between">
@@ -170,14 +171,17 @@
 
 				<!-- INICIO SECCION OPERACIONES -->
 				<section
-					class="flex flex-col p-5 gap-3 border-2 lg:w-2/3"
+					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3"
 					id="seccion-operaciones"
 				>
 					<div
 						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
 					>
 						<h3 class="text-2xl">Operaciones</h3>
-						<button class="bg-emerald-400 p-2 rounded text-white">
+						<button
+							id="btn-operacion"
+							class="bg-emerald-400 p-2 rounded text-white"
+						>
 							+ Nueva operación
 						</button>
 					</div>
@@ -190,6 +194,77 @@
 				</section>
 				<!-- FIN SECCION OPERACIONES -->
 			</div>
+
+			<!-- INICIO SECCION NUEVA OPERACION -->
+			<section
+				class="hidden flex flex-col p-5 gap-3 border-2 rounded-md lg:w-4/6"
+				id="seccion-nueva-operacion"
+			>
+				<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
+
+				<div class="flex flex-col gap-2 font-bold">
+					<label for="descripcion" class="font-bold">Descripción</label>
+					<input
+						type="text"
+						id="descripcion"
+						class="border-solid border-2 p-2 rounded"
+					/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="monto" class="font-bold">Monto</label>
+					<input
+						type="number"
+						id="monto"
+						placeholder="0"
+						maxlength="99999999"
+						class="border-solid border-2 p-2 rounded"
+					/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="nueva-tipo" class="font-bold">Tipo</label>
+					<select
+						name="nueva-tipo"
+						id="nueva-tipo"
+						class="border-solid border-2 p-2 rounded"
+					>
+						<opcion value="gasto">Gasto</opcion>
+						<opcion value="ganancia">Ganancia</opcion>
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="nueva-categoria" class="font-bold">Categoria</label>
+					<select
+						name="nueva-categorria"
+						id="nueva-categoria"
+						class="border-2 p-2 rounded"
+					>
+						<option value="nueva-comida">Comida</option>
+						<option value="nueva-servicios">Servicios</option>
+						<option value="nueva-salidas">Salidas</option>
+						<option value="nueva-educacion">Educación</option>
+						<option value="nueva-transporte">Transporte</option>
+						<option value="nueva-trabajo">Trabajo</option>
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2 pb-7">
+					<label for="fecha" class="font-bold">Fecha</label>
+					<input type="date" id="fecha" class="border-2 p-2 rounded" />
+				</div>
+
+				<div class="flex justify-end gap-2">
+					<button class="rounded-md bg-[#f5f5f5] py-2 px-[17px] text-[grey]">
+						Cancelar
+					</button>
+					<button class="rounded-md bg-emerald-400 py-2 px-[17px] text-white">
+						Agregar
+					</button>
+				</div>
+			</section>
+			<!-- FIN SECCION NUEVA OPERACION -->
 
 			<!-- INICIO SECCION CATEGORÍAS-->
 			<section
@@ -208,10 +283,10 @@
 							<input
 								type="text"
 								id="nombre"
-								class="border-2 border-solid rounded-md w-[88%]"
+								class="border-2 border-solid rounded-md w-[87%]"
 							/>
 							<button
-								class="border-2 border-solid rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
+								class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
 							>
 								Agregar
 							</button>
@@ -278,7 +353,10 @@
 			<!-- FIN SECCION CATEGORÍAS -->
 
 			<!-- INICIO SECCION EDITAR-->
-			<section class="hidden w-full flex justify-center items-center">
+			<section
+				class="hidden w-full flex justify-center items-center"
+				id="seccion-editar"
+			>
 				<div class="border-solid border-2 rounded-md w-2/3 max-w-[850px] p-5">
 					<h2 class="text-4xl pb-12">Editar Categoría</h2>
 
