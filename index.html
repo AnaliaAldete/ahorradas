@@ -8,25 +8,41 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: "class",
+			};
+		</script>
 		<title>Document</title>
 	</head>
-	<body class="flex flex-col min-h-screen">
+	<body class="flex flex-col min-h-screen dark:bg-gray-800">
 		<!-- INICIO HEADER -->
-		<header class="p-4 bg-emerald-400 text-white">
+		<header
+			class="p-4 bg-emerald-400 text-white dark:bg-gray-900"
+			id="encabezado"
+		>
 			<nav
 				class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
 			>
 				<div class="flex gap-3 items-center w-full justify-between">
-					<h1 class="text-5xl flex gap-3">
+					<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
 						<i class="fa-solid fa-wallet"></i>AhorrADAs
 					</h1>
-					<button class="lg:hidden" id="btn-menu-hamburguesa">
-						<i
-							class="fa-solid fa-bars block text-2xl"
-							id="icono-hamburguesa"
-						></i>
-						<i class="fa-solid fa-times hidden text-2xl" id="icono-x"></i>
-					</button>
+					<div class="flex gap-5">
+						<button class="lg:hidden" id="btn-menu-hamburguesa">
+							<i
+								class="fa-solid fa-bars block text-2xl"
+								id="icono-hamburguesa"
+							></i>
+							<i class="fa-solid fa-times hidden text-2xl" id="icono-x"></i>
+						</button>
+						<button
+							class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full"
+							id="btn-modo-oscuro"
+						>
+							<i class="fas fa-moon text-gray-800 text-lg"></i>
+						</button>
+					</div>
 				</div>
 				<ul
 					class="hidden flex-col gap-3 lg:flex lg:gap-7 lg:flex-row"
@@ -65,7 +81,7 @@
 		<!-- INICIO MAIN -->
 		<main
 			id="main"
-			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 items-center flex-1"
+			class="md:flex gap-5 p-5 justify-center lg:flex-row lg:p-10 items-center flex-1 dark:bg-gray-800"
 		>
 			<div
 				class="flex flex-col lg:flex-row max-w-[970px] gap-[15px] lg:max-h-[646px]"
@@ -406,7 +422,7 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5"
+			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5 dark:bg-gray-900"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>

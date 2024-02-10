@@ -1,3 +1,5 @@
+const body = document.body;
+
 // contenedores
 const contenedorPrincipal = document.getElementById("contenedor-principal");
 
@@ -22,6 +24,7 @@ const seccionNuevaOperacion = document.getElementById(
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
 const btnOperacion = document.getElementById("btn-operacion");
+const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -56,3 +59,10 @@ enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipa
 btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
 
 // funcion para aparecer y desparacer seccion nueva operacion
+
+//funcionalidad del modo oscuro
+
+btnModoOscuro.addEventListener("click", () => {
+	console.log("Se hizo clic en el botón de modo oscuro");
+	body.classList.toggle("dark");
+});
