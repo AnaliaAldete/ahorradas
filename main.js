@@ -26,13 +26,13 @@ const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
+const seccionEditar = document.getElementById("seccion-editar");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
 const btnOperacion = document.getElementById("btn-operacion");
 const btnCancelarNueva = document.getElementById("btn-cancelar--nueva");
 const btnCancelarEditar = document.getElementById("btn-cancelar--editar");
-console.log(btnCancelarNueva, btnCancelarEditar);
 const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 
@@ -68,7 +68,6 @@ enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipa
 btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
 
 // funcion para aparecer y desaparecer nueva operacion
-
 const mostrasTablaOperaciones = () => {
 	seccionNuevaOperacion.style.display = "none";
 	contenedorPrincipal.style.display = "flex";
@@ -82,3 +81,16 @@ btnAgregarOperacion.addEventListener("click", mostrasTablaOperaciones);
 btnModoOscuro.addEventListener("click", () => {
 	body.classList.toggle("dark");
 });
+
+// funcion para botones cancelar
+const cancelar = (contenedor, seccion) => {
+	contenedor.style.display = "none";
+	seccion.style.display = "flex";
+};
+
+btnCancelarNueva.addEventListener("click", () =>
+	cancelar(seccionNuevaOperacion, contenedorPrincipal)
+);
+btnCancelarEditar.addEventListener("click", () =>
+	cancelar(seccionEditar, seccionCategoria)
+);
