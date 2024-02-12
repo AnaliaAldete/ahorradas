@@ -1,5 +1,13 @@
+const body = document.body;
+
 // contenedores
 const contenedorPrincipal = document.getElementById("contenedor-principal");
+const contenedorImgOperaciones = document.getElementById(
+	"contenedor-img-operaciones"
+);
+const contenedorTablaOperaciones = document.getElementById(
+	"contenedor-tabla-operaciones"
+);
 
 //enlases
 const enlaceReportes = document.getElementById("enlace-reporte");
@@ -25,6 +33,8 @@ const btnOperacion = document.getElementById("btn-operacion");
 const btnCancelarNueva = document.getElementById("btn-cancelar--nueva");
 const btnCancelarEditar = document.getElementById("btn-cancelar--editar");
 console.log(btnCancelarNueva, btnCancelarEditar);
+const btnModoOscuro = document.getElementById("btn-modo-oscuro");
+const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -36,7 +46,6 @@ const iconoX = document.getElementById("icono-x");
 // Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
 	menuNav.classList.toggle("hidden");
-	menuNav.classList.toggle("flex");
 	iconoHamburguesa.classList.toggle("hidden");
 	iconoX.classList.toggle("hidden");
 });
@@ -58,4 +67,18 @@ enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipa
 // prettier-ignore
 btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
 
-// funcion cancelar
+// funcion para aparecer y desaparecer nueva operacion
+
+const mostrasTablaOperaciones = () => {
+	seccionNuevaOperacion.style.display = "none";
+	contenedorPrincipal.style.display = "flex";
+	contenedorImgOperaciones.style.display = "none";
+	contenedorTablaOperaciones.classList.remove("hidden");
+};
+
+btnAgregarOperacion.addEventListener("click", mostrasTablaOperaciones);
+
+//funcionalidad del modo oscuro
+btnModoOscuro.addEventListener("click", () => {
+	body.classList.toggle("dark");
+});
