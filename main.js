@@ -22,6 +22,9 @@ const seccionNuevaOperacion = document.getElementById(
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
 const btnOperacion = document.getElementById("btn-operacion");
+const btnCancelarNueva = document.getElementById("btn-cancelar--nueva");
+const btnCancelarEditar = document.getElementById("btn-cancelar--editar");
+console.log(btnCancelarNueva, btnCancelarEditar);
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -55,4 +58,4 @@ enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipa
 // prettier-ignore
 btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
 
-// funcion para aparecer y desparacer seccion nueva operacion
+// funcion cancelar
