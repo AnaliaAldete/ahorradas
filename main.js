@@ -78,3 +78,13 @@ btnAgregarOperacion.addEventListener("click", mostrasTablaOperaciones);
 btnModoOscuro.addEventListener("click", () => {
 	body.classList.toggle("dark");
 });
+
+// const datos=[
+//     {
+//     id:uuidv4()
+//     descripcion:
+//     categoria:
+//     fecha:
+//     monto:
+//     }
+// ]
