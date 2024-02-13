@@ -94,3 +94,57 @@ btnCancelarNueva.addEventListener("click", () =>
 btnCancelarEditar.addEventListener("click", () =>
 	cancelar(seccionEditar, seccionCategoria)
 );
+
+//desde aqui probando local storage
+
+//imputs y select
+const inputDescripcion = document.getElementById("input-descripcion");
+const inputMonto = document.getElementById("input-monto");
+const selectTipo = document.getElementById("select-tipo"); //no usada por el momento
+const selectCategoria = document.getElementById("select-categoria");
+const inputFecha = document.getElementById("input-fecha");
+
+const datos = [
+	{
+		id: uuidv4(),
+		descripcion: inputDescripcion.value,
+		monto: inputMonto.value,
+		categoria: selectCategoria.value,
+		fecha: inputFecha.value,
+	},
+];
+
+//pushear a datos los objetos obtenidos de los imputs
+
+let operacionesGuardadas;
+const evaluarLocalStorage = () => {
+	if (localStorage.getItem("operaciones") !== null) {
+		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+		return operacionesGuardadas;
+	} else {
+		localStorage.setItem("operaciones", JSON.stringify(datos));
+	}
+	generarTabla();
+};
+
+const generarTabla = () => {
+	const cuerpoTablaOperaciones = document.getElementById(
+		"cuerpo-tabla-operaciones"
+	);
+	cuerpoTablaOperaciones.innerHTML = "";
+	if (evaluarLocalStorage()) {
+		for (let operacion of datos) {
+			cuerpoTablaOperaciones.innerHTML += `<div class="flex text-center">
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.descripcion}	</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.monto}</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.categoria}</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.fecha}</div>
+								<div class="flex-1 py-2 border-b border-gray-300">
+                                    <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a></div>
+							    </div>;`;
+		}
+	}
+};
+
+generarTabla();
