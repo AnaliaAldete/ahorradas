@@ -77,9 +77,13 @@ const mostrasTablaOperaciones = () => {
 
 btnAgregarOperacion.addEventListener("click", mostrasTablaOperaciones);
 
-//funcionalidad del modo oscuro
+//funcionalidad del modo oscuro y cambio de icono
 btnModoOscuro.addEventListener("click", () => {
-	body.classList.toggle("dark");
+	if (body.classList.toggle("dark")) {
+		btnModoOscuro.innerHTML = `<i class="fa-regular fa-sun text-gray-800 text-lg"></i>`;
+	} else {
+		btnModoOscuro.innerHTML = `<i class="fas fa-moon text-gray-800 text-lg"></i>`;
+	}
 });
 
 // funcion para botones cancelar

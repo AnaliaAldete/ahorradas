@@ -24,7 +24,8 @@
 					<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
 						<i class="fa-solid fa-wallet"></i>AhorrADAs
 					</h1>
-					<div class="flex gap-3 items-center">
+
+					<div class="flex flex-row-reverse gap-3 items-center">
 						<button class="md:hidden" id="btn-menu-hamburguesa">
 							<i
 								class="fa-solid fa-bars block text-2xl"
@@ -32,6 +33,7 @@
 							></i>
 							<i class="fa-solid fa-times hidden text-2xl" id="icono-x"></i>
 						</button>
+
 						<button
 							id="btn-modo-oscuro"
 							class="flex justify-center rounded-full w-7 h-7 bg-white order-2"
@@ -40,6 +42,7 @@
 						</button>
 					</div>
 				</div>
+
 				<ul
 					class="hidden flex flex-col md:flex md:flex-row md:items-center gap-3"
 					id="menu-nav"
@@ -52,6 +55,7 @@
 							><i class="fa-solid fa-chart-line"></i>Balance</a
 						>
 					</li>
+
 					<li>
 						<a
 							href="Javascript:void(0);"
@@ -60,6 +64,7 @@
 							><i class="fa-solid fa-tag"></i>Categoría</a
 						>
 					</li>
+
 					<li>
 						<a
 							href="Javascript:void(0);"
@@ -219,16 +224,22 @@
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								Descripción
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								Categoría
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								Fecha
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								Monto
 							</div>
-							<div class="flex-1 py-2 border-b border-gray-300">Acciones</div>
+
+							<div class="flex-1 py-2 border-b border-gray-300">
+                                Acciones
+                            </div>
 						</div>
 						<!-- para pegar en js:filas de la tabla -->
 						<!-- <div id="cuerpo-tabla-operaciones">
@@ -288,8 +299,8 @@
 						id="nueva-tipo"
 						class="border-solid border-2 p-2 rounded"
 					>
-						<opcion value="gasto">Gasto</opcion>
-						<opcion value="ganancia">Ganancia</opcion>
+						<option value="gasto">Gasto</opcion>
+						<option value="ganancia">Ganancia</opcion>
 					</select>
 				</div>
 
