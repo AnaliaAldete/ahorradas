@@ -262,19 +262,19 @@
 				<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
 
 				<div class="flex flex-col gap-2 font-bold">
-					<label for="descripcion" class="font-bold">Descripción</label>
+					<label for="input-descripcion" class="font-bold">Descripción</label>
 					<input
 						type="text"
-						id="descripcion"
+						id="input-descripcion"
 						class="border-solid border-2 p-2 rounded"
 					/>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="monto" class="font-bold">Monto</label>
+					<label for="input-monto" class="font-bold">Monto</label>
 					<input
 						type="number"
-						id="monto"
+						id="input-monto"
 						placeholder="0"
 						maxlength="99999999"
 						class="border-solid border-2 p-2 rounded"
@@ -282,22 +282,22 @@
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="nueva-tipo" class="font-bold">Tipo</label>
+					<label for="select-tipo" class="font-bold">Tipo</label>
 					<select
-						name="nueva-tipo"
-						id="nueva-tipo"
+						name="select-tipo"
+						id="select-tipo"
 						class="border-solid border-2 p-2 rounded"
 					>
-						<opcion value="gasto">Gasto</opcion>
-						<opcion value="ganancia">Ganancia</opcion>
+						<option value="gasto">Gasto</opcion>
+						<option value="ganancia">Ganancia</opcion>
 					</select>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="nueva-categoria" class="font-bold">Categoria</label>
+					<label for="select-categoria" class="font-bold">Categoria</label>
 					<select
-						name="nueva-categorria"
-						id="nueva-categoria"
+						name="select-categoria"
+						id="select-categoria"
 						class="border-2 p-2 rounded"
 					>
 						<option value="nueva-comida">Comida</option>
@@ -310,8 +310,8 @@
 				</div>
 
 				<div class="flex flex-col gap-2 pb-7">
-					<label for="fecha" class="font-bold">Fecha</label>
-					<input type="date" id="fecha" class="border-2 p-2 rounded" />
+					<label for="input-fecha" class="font-bold">Fecha</label>
+					<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
 				</div>
 
 				<div class="flex justify-end gap-2">
