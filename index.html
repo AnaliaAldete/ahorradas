@@ -13,7 +13,7 @@
 				darkMode: "class",
 			};
 		</script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
 		<title>Document</title>
 	</head>
 	<body class="flex flex-col min-h-screen dark:bg-gray-800">
@@ -25,7 +25,7 @@
 					<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
 						<i class="fa-solid fa-wallet"></i>AhorrADAs
 					</h1>
-					<div class="flex gap-3 items-center">
+					<div class="flex flex-row-reverse gap-3 items-center">
 						<button class="md:hidden" id="btn-menu-hamburguesa">
 							<i
 								class="fa-solid fa-bars block text-2xl"
@@ -218,18 +218,24 @@
 							class="bg-gray-200 flex text-center font-bold"
 						>
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
-								Descripción
+								<span>Descripción</span>
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
-								Categoría
+								<span>Categoría</span>
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
-								Fecha
+								<span>Fecha</span>
 							</div>
+
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
-								Monto
+								<span>Monto</span>
 							</div>
-							<div class="flex-1 py-2 border-b border-gray-300">Acciones</div>
+
+							<div class="flex-1 py-2 border-b border-gray-300">
+								<span>Acciones</span>
+							</div>
 						</div>
 						<!-- para pegar en js:filas de la tabla -->
 						<!-- <div id="cuerpo-tabla-operaciones">
@@ -289,8 +295,8 @@
 						id="select-tipo"
 						class="border-solid border-2 p-2 rounded"
 					>
-						<option value="gasto">Gasto</opcion>
-						<option value="ganancia">Ganancia</opcion>
+						<option value="gasto">Gasto</option>
+						<option value="ganancia">Ganancia</option>
 					</select>
 				</div>
 
