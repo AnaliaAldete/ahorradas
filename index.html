@@ -13,7 +13,8 @@
 				darkMode: "class",
 			};
 		</script>
-		<script src="https://cdn.jsdelivr.net/npm/uuid@9.0.1/dist/index.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+
 		<title>Document</title>
 	</head>
 	<body class="flex flex-col min-h-screen dark:bg-gray-800">
@@ -231,9 +232,10 @@
 							</div>
 							<div class="flex-1 py-2 border-b border-gray-300">Acciones</div>
 						</div>
-						<!-- para pegar en js:filas de la tabla -->
-						<!-- <div id="cuerpo-tabla-operaciones">
-							<div class="flex text-center">
+						
+						<div id="cuerpo-tabla-operaciones">
+                            <!-- para pegar en js:filas de la tabla -->
+							<!-- <div class="flex text-center">
 								<div class="flex-1 py-2 border-b border-r border-gray-300">
 									1
 								</div>
@@ -246,9 +248,9 @@
 								<div class="flex-1 py-2 border-b border-r border-gray-300">
 									4
 								</div>
-								<div class="flex-1 py-2 border-b border-gray-300">5</div>
-							</div>
-						</div> -->
+								<div class="flex-1 py-2 border-b border-gray-300"></div>
+							</div> -->
+						</div> 
 					</div>
 					<!-- Fin tabla operaciones -->
 				</section>
@@ -263,19 +265,19 @@
 				<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
 
 				<div class="flex flex-col gap-2 font-bold">
-					<label for="descripcion" class="font-bold">Descripción</label>
+					<label for="input-descripcion" class="font-bold">Descripción</label>
 					<input
 						type="text"
-						id="descripcion"
+						id="input-descripcion"
 						class="border-solid border-2 p-2 rounded"
 					/>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="monto" class="font-bold">Monto</label>
+					<label for="input-monto" class="font-bold">Monto</label>
 					<input
 						type="number"
-						id="monto"
+						id="input-monto"
 						placeholder="0"
 						maxlength="99999999"
 						class="border-solid border-2 p-2 rounded"
@@ -283,22 +285,22 @@
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="nueva-tipo" class="font-bold">Tipo</label>
+					<label for="select-tipo" class="font-bold">Tipo</label>
 					<select
-						name="nueva-tipo"
-						id="nueva-tipo"
+						name="select-tipo"
+						id="select-tipo"
 						class="border-solid border-2 p-2 rounded"
 					>
-						<opcion value="gasto">Gasto</opcion>
-						<opcion value="ganancia">Ganancia</opcion>
+						<option value="gasto">Gasto</opcion>
+						<option value="ganancia">Ganancia</opcion>
 					</select>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="nueva-categoria" class="font-bold">Categoria</label>
+					<label for="select-categoria" class="font-bold">Categoria</label>
 					<select
-						name="nueva-categorria"
-						id="nueva-categoria"
+						name="select-categoria"
+						id="select-categoria"
 						class="border-2 p-2 rounded"
 					>
 						<option value="nueva-comida">Comida</option>
@@ -311,8 +313,8 @@
 				</div>
 
 				<div class="flex flex-col gap-2 pb-7">
-					<label for="fecha" class="font-bold">Fecha</label>
-					<input type="date" id="fecha" class="border-2 p-2 rounded" />
+					<label for="input-fecha" class="font-bold">Fecha</label>
+					<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
 				</div>
 
 				<div class="flex justify-end gap-2">
@@ -482,3 +484,4 @@
 		<script src="main.js"></script>
 	</body>
 </html>
+
