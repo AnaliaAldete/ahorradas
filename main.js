@@ -75,8 +75,6 @@ const mostrasTablaOperaciones = () => {
 	contenedorTablaOperaciones.classList.remove("hidden");
 };
 
-btnAgregarOperacion.addEventListener("click", mostrasTablaOperaciones);
-
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
 	if (body.classList.toggle("dark")) {
@@ -156,6 +154,12 @@ const generarTabla = () => {
 };
 
 generarTabla();
+
+btnAgregarOperacion.addEventListener("click", () => {
+	console.log("hola");
+	mostrasTablaOperaciones();
+	evaluarLocalStorage();
+});
 
 // let datosIngresados = JSON.parse(localStorage.getItem("operaciones"));
 // datos.push(datosIngresados);
