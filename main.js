@@ -124,7 +124,6 @@ let operacionesGuardadas;
 const evaluarLocalStorage = () => {
 	if (localStorage.getItem("operaciones") !== null) {
 		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-		datos.push(operacionesGuardadas);
 		return operacionesGuardadas;
 	} else {
 		localStorage.setItem("operaciones", JSON.stringify(datos));
@@ -138,26 +137,18 @@ const generarTabla = () => {
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
 	if (evaluarLocalStorage()) {
-		for (let operacion of evaluarLocalStorage()) {
-			cuerpoTablaOperaciones.innerHTML += `
-            <div class="flex text-center">
-				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.descripcion}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.monto}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.categoria}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.fecha}</span></div>
-				<div class="flex-1 py-2 border-b border-gray-300">
-                    <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
-                </div>
-			</div>; 
-            `;
+		for (let operacion of datos) {
+			cuerpoTablaOperaciones.innerHTML += `<div class="flex text-center">
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.descripcion}	</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.monto}</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.categoria}</div>
+								<div class="flex-1 py-2 border-b border-r border-gray-300">${operacion.fecha}</div>
+								<div class="flex-1 py-2 border-b border-gray-300">
+                                    <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a></div>
+							    </div>;`;
 		}
 	}
 };
 
 generarTabla();
-
-// let datosIngresados = JSON.parse(localStorage.getItem("operaciones"));
-// datos.push(datosIngresados);
-// localStorage.setItem("operaciones", JSON.stringify(datos));
-// generarTabla();
