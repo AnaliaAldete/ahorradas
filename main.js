@@ -67,14 +67,6 @@ enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipa
 // prettier-ignore
 btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
 
-// funcion para aparecer y desaparecer nueva operacion
-const mostrasTablaOperaciones = () => {
-	seccionNuevaOperacion.style.display = "none";
-	contenedorPrincipal.style.display = "flex";
-	contenedorImgOperaciones.style.display = "none";
-	contenedorTablaOperaciones.classList.remove("hidden");
-};
-
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
 	if (body.classList.toggle("dark")) {
@@ -99,6 +91,14 @@ btnCancelarEditar.addEventListener("click", () =>
 
 //desde aqui probando local storage
 
+// funcion para aparecer y desaparecer nueva operacion
+const mostrasTablaOperaciones = () => {
+	seccionNuevaOperacion.style.display = "none";
+	contenedorPrincipal.style.display = "flex";
+	contenedorImgOperaciones.style.display = "none";
+	contenedorTablaOperaciones.classList.remove("hidden");
+};
+
 //imputs y select
 const inputDescripcion = document.getElementById("input-descripcion");
 const inputMonto = document.getElementById("input-monto");
@@ -116,13 +116,10 @@ const datos = [
 	},
 ];
 
-//pushear a datos los objetos obtenidos de los imputs
-
 let operacionesGuardadas;
 const evaluarLocalStorage = () => {
 	if (localStorage.getItem("operaciones") !== null) {
 		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-		datos.push(operacionesGuardadas);
 		return operacionesGuardadas;
 	} else {
 		localStorage.setItem("operaciones", JSON.stringify(datos));
@@ -147,7 +144,7 @@ const generarTabla = () => {
                     <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
-			</div>; 
+			</div>
             `;
 		}
 	}
@@ -156,11 +153,18 @@ const generarTabla = () => {
 generarTabla();
 
 btnAgregarOperacion.addEventListener("click", () => {
-	console.log("hola");
+	const nuevaOperacion = {
+		id: uuidv4(),
+		descripcion: inputDescripcion.value,
+		monto: inputMonto.value,
+		categoria: selectCategoria.value,
+		fecha: inputFecha.value,
+	};
+
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+	operacionesGuardadas.push(nuevaOperacion);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
+
+	generarTabla();
 	mostrasTablaOperaciones();
-	evaluarLocalStorage();
 });
-// let datosIngresados = JSON.parse(localStorage.getItem("operaciones"));
-// datos.push(datosIngresados);
-// localStorage.setItem("operaciones", JSON.stringify(datos));
-// generarTabla();
