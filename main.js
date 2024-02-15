@@ -35,6 +35,7 @@ const btnCancelarNueva = document.getElementById("btn-cancelar--nueva");
 const btnCancelarEditar = document.getElementById("btn-cancelar--editar");
 const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
+const btnAgregarCategoria = document.getElementById("btn-agregar-categoria");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -105,35 +106,77 @@ const inputMonto = document.getElementById("input-monto");
 const selectTipo = document.getElementById("select-tipo"); //no usada por el momento
 const selectCategoria = document.getElementById("select-categoria");
 const inputFecha = document.getElementById("input-fecha");
+const inputNombre = document.getElementById("nombre");
 
-const datos = [
+// objeto y variable para tabla operaciones
+const datos = [];
+let operacionesGuardadas;
+
+// objeto y variable para tabla categorias
+const categorias = [
 	{
 		id: uuidv4(),
-		descripcion: inputDescripcion.value,
-		monto: inputMonto.value,
-		categoria: selectCategoria.value,
-		fecha: inputFecha.value,
+		nombreCategoria: "Comida",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Servicio",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Salidas",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Educación",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Transporte",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Trabajo",
 	},
 ];
+let categoriasGuardadas;
 
-let operacionesGuardadas;
-const evaluarLocalStorage = () => {
-	if (localStorage.getItem("operaciones") !== null) {
-		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-		return operacionesGuardadas;
+// funcion para ver si algun usuario ingreso algun dato en local storage
+const evaluarLocalStorage = (nombre, variable, objeto, funcion) => {
+	if (localStorage.getItem(nombre) !== null) {
+		variable = JSON.parse(localStorage.getItem(nombre));
+		return variable;
 	} else {
-		localStorage.setItem("operaciones", JSON.stringify(datos));
+		localStorage.setItem(nombre, JSON.stringify(objeto));
 	}
-	generarTabla();
+	funcion;
 };
 
+// funcion para generar tabla de operaciones si hay datos en local storage
 const generarTabla = () => {
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	if (evaluarLocalStorage()) {
-		for (let operacion of evaluarLocalStorage()) {
+	if (
+		evaluarLocalStorage(
+			"operaciones",
+			operacionesGuardadas,
+			datos,
+			generarTabla
+		)
+	) {
+		for (let operacion of evaluarLocalStorage(
+			"operaciones",
+			operacionesGuardadas,
+			datos,
+			generarTabla
+		)) {
 			cuerpoTablaOperaciones.innerHTML += `
             <div class="flex text-center">
 				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.descripcion}</span></div>
@@ -152,6 +195,7 @@ const generarTabla = () => {
 
 generarTabla();
 
+// evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
 	const nuevaOperacion = {
 		id: uuidv4(),
@@ -167,4 +211,52 @@ btnAgregarOperacion.addEventListener("click", () => {
 
 	generarTabla();
 	mostrasTablaOperaciones();
+});
+
+// funcion para generar tabla de categorias si hay datos en local storage
+const generarTablaCategorias = () => {
+	const tablaCategorias = document.getElementById("tabla-categorias");
+	tablaCategorias.innerHTML = "";
+	if (
+		evaluarLocalStorage(
+			"categoria",
+			categoriasGuardadas,
+			categorias,
+			generarTablaCategorias
+		)
+	) {
+		for (let categoria of evaluarLocalStorage(
+			"categoria",
+			categoriasGuardadas,
+			categorias,
+			generarTablaCategorias
+		)) {
+			tablaCategorias.innerHTML += `
+           <div class="flex justify-between">
+				<p>${categoria.nombreCategoria}</p>
+				<div class="flex gap-x-4 text-[darkturquoise]">
+				    <a href="#editar">Editar</a>
+					<button>Deshabilatar</button>			
+					<button class="text-[#ba5d5d]">Eliminar</button>							
+				</div>			
+			</div>
+            `;
+		}
+	}
+};
+
+generarTablaCategorias();
+
+// evento para agregar y actualizar categorias
+btnAgregarCategoria.addEventListener("click", () => {
+	const nuevaCategoria = {
+		id: uuidv4(),
+		nombreCategoria: inputNombre.value,
+	};
+
+	let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
+	categoriasGuardadas.push(nuevaCategoria);
+	localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
+
+	generarTablaCategorias();
 });
