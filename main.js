@@ -251,7 +251,8 @@ generarTablaCategorias();
 btnAgregarCategoria.addEventListener("click", () => {
 	const nuevaCategoria = {
 		id: uuidv4(),
-		nombreCategoria: inputNombre.value,
+		nombreCategoria:
+			inputNombre.value.charAt(0).toUpperCase() + inputNombre.value.slice(1),
 	};
 
 	let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
