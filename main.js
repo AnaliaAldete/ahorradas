@@ -180,9 +180,9 @@ const generarTabla = () => {
 			cuerpoTablaOperaciones.innerHTML += `
             <div class="flex text-center">
 				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.descripcion}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.monto}</span></div>
 				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.categoria}</span></div>
 				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.fecha}</span></div>
+				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.monto}</span></div>
 				<div class="flex-1 py-2 border-b border-gray-300">
                     <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
@@ -199,18 +199,30 @@ generarTabla();
 btnAgregarOperacion.addEventListener("click", () => {
 	const nuevaOperacion = {
 		id: uuidv4(),
-		descripcion: inputDescripcion.value,
-		monto: inputMonto.value,
-		categoria: selectCategoria.value,
+		descripcion:
+			inputDescripcion.value.charAt(0).toUpperCase() +
+			inputDescripcion.value.slice(1),
+		categoria:
+			selectCategoria.value.charAt(0).toUpperCase() +
+			selectCategoria.value.slice(1),
 		fecha: inputFecha.value,
+		monto: inputMonto.value,
 	};
 
-	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-	operacionesGuardadas.push(nuevaOperacion);
-	localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-
+	if (inputMonto.value > 0) {
+		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+		operacionesGuardadas.push(nuevaOperacion);
+		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
+		mostrasTablaOperaciones();
+	} else {
+		mostrarSeccion(
+			seccionCategoria,
+			seccionReportes,
+			seccionNuevaOperacion,
+			contenedorPrincipal
+		);
+	}
 	generarTabla();
-	mostrasTablaOperaciones();
 });
 
 // funcion para generar tabla de categorias si hay datos en local storage
