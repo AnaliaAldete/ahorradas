@@ -106,15 +106,7 @@ const selectTipo = document.getElementById("select-tipo"); //no usada por el mom
 const selectCategoria = document.getElementById("select-categoria");
 const inputFecha = document.getElementById("input-fecha");
 
-const datos = [
-	{
-		id: uuidv4(),
-		descripcion: inputDescripcion.value,
-		monto: inputMonto.value,
-		categoria: selectCategoria.value,
-		fecha: inputFecha.value,
-	},
-];
+const datos = [];
 
 let operacionesGuardadas;
 const evaluarLocalStorage = () => {
@@ -126,6 +118,7 @@ const evaluarLocalStorage = () => {
 	}
 	generarTabla();
 };
+console.log(evaluarLocalStorage());
 
 const generarTabla = () => {
 	const cuerpoTablaOperaciones = document.getElementById(
