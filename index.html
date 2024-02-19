@@ -280,10 +280,11 @@
 				<div class="flex flex-col gap-2">
 					<label for="input-monto" class="font-bold">Monto</label>
 					<input
-						type="number"
+						type="text"
 						id="input-monto"
 						placeholder="0"
-						maxlength="99999999"
+						minlength="1"
+						maxlength="8"
 						class="border-solid border-2 p-2 rounded"
 					/>
 				</div>
@@ -351,7 +352,7 @@
 					<div>
 						<label for="nombre" class="font-bold pb-2 block">Nombre</label>
 
-						<div class="flex justify-between">
+						<div class="flex justify-between gap-[4px]">
 							<input
 								type="text"
 								id="nombre"
@@ -359,14 +360,16 @@
 							/>
 							<button
 								class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
+								id="btn-agregar-categoria"
 							>
 								Agregar
 							</button>
 						</div>
 					</div>
 
-					<div class="pt-11 leading-[3rem] text-[13px]">
-						<div class="flex justify-between">
+					<!-- inicio tabla categorias -->
+					<div class="pt-11 leading-[3rem] text-[13px]" id="tabla-categorias">
+						<!-- <div class="flex justify-between">
 							<p>Comida</p>
 							<div class="flex gap-x-4 text-[darkturquoise]">
 								<a href="#editar">Editar</a>
@@ -418,8 +421,9 @@
 								<button>Deshabilatar</button>
 								<button class="text-[#ba5d5d]">Eliminar</button>
 							</div>
-						</div>
+						</div> -->
 					</div>
+					<!-- fin tabla categorias -->
 				</div>
 			</section>
 
