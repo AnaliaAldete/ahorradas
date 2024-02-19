@@ -208,7 +208,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 		fecha: inputFecha.value,
 		monto: inputMonto.value,
 	};
-
+	// condicion para que no guarde e imprima una operacion sin monto
 	if (inputMonto.value > 0) {
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
@@ -247,9 +247,9 @@ const generarTablaCategorias = () => {
            <div class="flex justify-between">
 				<p>${categoria.nombreCategoria}</p>
 				<div class="flex gap-x-4 text-[darkturquoise]">
-				    <a href="#editar">Editar</a>
-					<button>Deshabilatar</button>			
-					<button class="text-[#ba5d5d]">Eliminar</button>							
+				    <button><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
+					<button id="on">On</button>			
+					<button><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
 				</div>			
 			</div>
             `;
@@ -266,10 +266,11 @@ btnAgregarCategoria.addEventListener("click", () => {
 		nombreCategoria:
 			inputNombre.value.charAt(0).toUpperCase() + inputNombre.value.slice(1),
 	};
-
-	let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
-	categoriasGuardadas.push(nuevaCategoria);
-	localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
-
+	// condicion para que no guarde e imprima una categoria vacia
+	if (inputNombre.value.length > 0) {
+		let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
+		categoriasGuardadas.push(nuevaCategoria);
+		localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
+	}
 	generarTablaCategorias();
 });
