@@ -247,12 +247,32 @@ const generarTablaCategorias = () => {
            <div class="flex justify-between">
 				<p>${categoria.nombreCategoria}</p>
 				<div class="flex gap-x-4 text-[darkturquoise]">
+                    <button class="on">On</button>			
 				    <button><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
-					<button id="on">On</button>			
 					<button><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
 				</div>			
 			</div>
             `;
+		}
+
+		// probando cambiar texto en el boton
+		// funcion para cambiar texto de btn deshabilitar
+		const btnOn = document.querySelectorAll(".on");
+		console.log(btnOn);
+
+		for (btn of btnOn) {
+			btn.addEventListener("click", () => {
+				console.log("hola");
+				// const deshabilitarCategoria = () => {
+				if (btn.innerHTML === "On") {
+					btn.innerText = "Off";
+					console.log("si");
+				} else {
+					btn.innerText = "On";
+					console.log("no");
+				}
+				// };
+			});
 		}
 	}
 };
