@@ -151,20 +151,11 @@ const evaluarLocalStorage = (nombre, variable, objeto, funcion) => {
 	if (localStorage.getItem(nombre) !== null) {
 		variable = JSON.parse(localStorage.getItem(nombre));
 		return variable;
-
-const datos = [];
-
-let operacionesGuardadas;
-const evaluarLocalStorage = () => {
-	if (localStorage.getItem("operaciones") !== null) {
-		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-		return operacionesGuardadas;
 	} else {
 		localStorage.setItem(nombre, JSON.stringify(objeto));
 	}
 	funcion;
 };
-console.log(evaluarLocalStorage());
 
 // funcion para generar tabla de operaciones si hay datos en local storage
 const generarTabla = () => {
