@@ -285,10 +285,11 @@
 					<input
 						type="text"
 						id="input-monto"
-						placeholder="0"
+						placeholder="Ingresar monto"
 						minlength="1"
 						maxlength="8"
 						class="border-solid border-2 p-2 rounded"
+						onkeypress="return validarMonto(event)"
 					/>
 				</div>
 

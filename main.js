@@ -161,7 +161,6 @@ const evaluarLocalStorage = (nombre, variable, objeto, funcion) => {
 
 // funcion para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
-	console.log(operaciones);
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
@@ -323,63 +322,40 @@ btnOcultarFiltros.addEventListener("click", () => {
 const filtroTipo = document.getElementById("filtro-tipo");
 const filtroCategoria = document.getElementById("filtro-categoria");
 
-// Función para filtrar las operaciones según el tipo seleccionado y generar la tabla
-const filtrarYGenerarTabla = () => {
-	const tipoSeleccionado = filtroTipo.value;
+// Función para filtrar las operaciones según el tipo y categoria seleccionado y generar la tabla
+
+// probando generalizar el filtrado
+const filtrarYGenerarTabla = (filtroSeleccionado, propiedad) => {
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 	let operacionesFiltradas;
 
-	if (tipoSeleccionado !== "todos") {
-		operacionesFiltradas = evaluarLocalStorage(
-			"operaciones",
-			operacionesGuardadas,
-			datos,
-			generarTabla
-		).filter((operacion) => {
-			return operacion.tipo === tipoSeleccionado;
+	if (filtroSeleccionado !== "todos" && filtroSeleccionado !== "todas") {
+		operacionesFiltradas = operacionesGuardadas.filter((operacion) => {
+			return (
+				operacion[propiedad].toLowerCase() === filtroSeleccionado.toLowerCase()
+			);
 		});
 	} else {
-		operacionesFiltradas = evaluarLocalStorage(
-			"operaciones",
-			operacionesGuardadas,
-			datos,
-			generarTabla
-		);
+		operacionesFiltradas = operacionesGuardadas;
 	}
-
 	generarTabla(operacionesFiltradas);
 };
 
 filtroTipo.addEventListener("change", () => {
-	filtrarYGenerarTabla();
+	filtrarYGenerarTabla(filtroTipo.value, "tipo");
 });
 
-// const filtrarYGenerarTabla = (filtroSeleccionado, propiedad) => {
-// 	let operacionesFiltradas;
+filtroCategoria.addEventListener("change", () => {
+	filtrarYGenerarTabla(filtroCategoria.value, "categoria");
+});
 
-// 	if (filtroSeleccionado !== "todos" && filtroSeleccionado !== "todas") {
-// 		operacionesFiltradas = evaluarLocalStorage(
-// 			"operaciones",
-// 			operacionesGuardadas,
-// 			datos,
-// 			generarTabla
-// 		).filter((operacion) => {
-// 			return operacion.propiedad === filtroSeleccionado;
-// 		});
-// 	} else {
-// 		operacionesFiltradas = evaluarLocalStorage(
-// 			"operaciones",
-// 			operacionesGuardadas,
-// 			datos,
-// 			generarTabla
-// 		);
-// 	}
+//validacion del input monto
 
-// 	generarTabla(operacionesFiltradas);
-// };
+const validarMonto = (event) => {
+	if (event.charCode >= 48 && event.charCode <= 57) {
+		return true;
+	}
+	return false;
+};
 
-// filtroTipo.addEventListener("change", () => {
-// 	filtrarYGenerarTabla(filtroTipo.value, tipo);
-// });
-// filtroCategoria.addEventListener("change", () => {
-// 	filtrarYGenerarTabla(filtroCategoria.value, categoria);
-// });
+//inputMonto.addEventListener("keypress", validarMonto);
