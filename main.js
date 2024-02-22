@@ -8,6 +8,7 @@ const contenedorImgOperaciones = document.getElementById(
 const contenedorTablaOperaciones = document.getElementById(
 	"contenedor-tabla-operaciones"
 );
+const contenedorFiltros = document.getElementById("contenedor-filtros");
 
 //enlases
 const enlaceReportes = document.getElementById("enlace-reporte");
@@ -36,6 +37,7 @@ const btnCancelarEditar = document.getElementById("btn-cancelar--editar");
 const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 const btnAgregarCategoria = document.getElementById("btn-agregar-categoria");
+const btnOcultarFiltros = document.getElementById("btn-ocultar-filtros");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -103,7 +105,7 @@ const mostrasTablaOperaciones = () => {
 //imputs y select
 const inputDescripcion = document.getElementById("input-descripcion");
 const inputMonto = document.getElementById("input-monto");
-const selectTipo = document.getElementById("select-tipo"); //no usada por el momento
+const selectTipo = document.getElementById("select-tipo");
 const selectCategoria = document.getElementById("select-categoria");
 const inputFecha = document.getElementById("input-fecha");
 const inputNombre = document.getElementById("nombre");
@@ -158,7 +160,8 @@ const evaluarLocalStorage = (nombre, variable, objeto, funcion) => {
 };
 
 // funcion para generar tabla de operaciones si hay datos en local storage
-const generarTabla = () => {
+const generarTabla = (operaciones) => {
+	console.log(operaciones);
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
@@ -171,12 +174,7 @@ const generarTabla = () => {
 			generarTabla
 		)
 	) {
-		for (let operacion of evaluarLocalStorage(
-			"operaciones",
-			operacionesGuardadas,
-			datos,
-			generarTabla
-		)) {
+		for (let operacion of operaciones) {
 			cuerpoTablaOperaciones.innerHTML += `
             <div class="flex text-center">
 				<div class="flex-1 py-2 border-b border-r border-gray-300"><span>${operacion.descripcion}</span></div>
@@ -193,7 +191,9 @@ const generarTabla = () => {
 	}
 };
 
-generarTabla();
+generarTabla(
+	evaluarLocalStorage("operaciones", operacionesGuardadas, datos, generarTabla)
+);
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
@@ -207,6 +207,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 			selectCategoria.value.slice(1),
 		fecha: inputFecha.value,
 		monto: inputMonto.value,
+		tipo: selectTipo.value, //agergado para los filtros
 	};
 	// condicion para que no guarde e imprima una operacion sin monto
 	if (inputMonto.value > 0) {
@@ -222,7 +223,14 @@ btnAgregarOperacion.addEventListener("click", () => {
 			contenedorPrincipal
 		);
 	}
-	generarTabla();
+	generarTabla(
+		evaluarLocalStorage(
+			"operaciones",
+			operacionesGuardadas,
+			datos,
+			generarTabla
+		)
+	);
 });
 
 // funcion para generar tabla de categorias si hay datos en local storage
@@ -293,4 +301,47 @@ btnAgregarCategoria.addEventListener("click", () => {
 		localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
 	}
 	generarTablaCategorias();
+});
+
+//ocultar filtros
+btnOcultarFiltros.addEventListener("click", () => {
+	contenedorFiltros.classList.toggle("hidden");
+	if (contenedorFiltros.classList.contains("hidden")) {
+		btnOcultarFiltros.innerHTML = "Mostrar filtros";
+	} else {
+		btnOcultarFiltros.innerHTML = "Ocultar filtros";
+	}
+});
+
+//input filtros
+const filtroTipo = document.getElementById("filtro-tipo");
+
+// Función para filtrar las operaciones según el tipo seleccionado y generar la tabla
+const filtrarYGenerarTabla = () => {
+	const tipoSeleccionado = filtroTipo.value;
+	let operacionesFiltradas;
+
+	if (tipoSeleccionado !== "todos") {
+		operacionesFiltradas = evaluarLocalStorage(
+			"operaciones",
+			operacionesGuardadas,
+			datos,
+			generarTabla
+		).filter((operacion) => {
+			return operacion.tipo === tipoSeleccionado;
+		});
+	} else {
+		operacionesFiltradas = evaluarLocalStorage(
+			"operaciones",
+			operacionesGuardadas,
+			datos,
+			generarTabla
+		);
+	}
+
+	generarTabla(operacionesFiltradas);
+};
+
+filtroTipo.addEventListener("change", () => {
+	filtrarYGenerarTabla();
 });
