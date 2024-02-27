@@ -183,7 +183,7 @@ const generarTabla = (operaciones) => {
 				
             <div class="flex md:w-[60%]">
             <div class=" hidden   flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center"><span>${operacion.fecha}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>${operacion.monto}</span></div>
+				<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>$${operacion.monto}</span></div>
 				<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
                     <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
