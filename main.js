@@ -46,6 +46,11 @@ const menuNav = document.getElementById("menu-nav");
 const iconoHamburguesa = document.getElementById("icono-hamburguesa");
 const iconoX = document.getElementById("icono-x");
 
+//cabereca tabla
+const caberecaTablaOperaciones = document.getElementById(
+	"cabecera-tabla-operaciones"
+);
+
 // Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
 	menuNav.classList.toggle("hidden");
@@ -91,16 +96,6 @@ btnCancelarNueva.addEventListener("click", () =>
 btnCancelarEditar.addEventListener("click", () =>
 	cancelar(seccionEditar, seccionCategoria)
 );
-
-//desde aqui probando local storage
-
-// funcion para aparecer y desaparecer nueva operacion
-const mostrasTablaOperaciones = () => {
-	seccionNuevaOperacion.style.display = "none";
-	contenedorPrincipal.style.display = "flex";
-	contenedorImgOperaciones.style.display = "none";
-	contenedorTablaOperaciones.classList.remove("hidden");
-};
 
 //imputs y select
 const inputDescripcion = document.getElementById("input-descripcion");
@@ -165,14 +160,14 @@ const generarTabla = (operaciones) => {
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	if (
-		evaluarLocalStorage(
-			"operaciones",
-			operacionesGuardadas,
-			datos,
-			generarTabla
-		)
-	) {
+	operaciones = evaluarLocalStorage(
+		"operaciones",
+		operacionesGuardadas,
+		datos,
+		generarTabla
+	);
+
+	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
 			cuerpoTablaOperaciones.innerHTML += `
             <div class="flex text-center flex-col md:flex-row">
@@ -192,7 +187,18 @@ const generarTabla = (operaciones) => {
 			</div>
             `;
 		}
-		mostrasTablaOperaciones();
+
+		contenedorImgOperaciones.style.display = "none";
+		contenedorPrincipal.style.display = "flex";
+		const ajustarVisibilidadCabecera = () => {
+			if (window.innerWidth > 767) {
+				caberecaTablaOperaciones.classList.remove("hidden");
+			} else {
+				caberecaTablaOperaciones.classList.add("hidden");
+			}
+		};
+		window.addEventListener("DOMContentLoaded", ajustarVisibilidadCabecera);
+		window.addEventListener("resize", ajustarVisibilidadCabecera);
 	}
 };
 
@@ -212,14 +218,14 @@ btnAgregarOperacion.addEventListener("click", () => {
 			selectCategoria.value.slice(1),
 		fecha: inputFecha.value,
 		monto: inputMonto.value,
-		tipo: selectTipo.value, //agergado para los filtros
+		tipo: selectTipo.value,
 	};
 	// condicion para que no guarde e imprima una operacion sin monto
 	if (inputMonto.value > 0) {
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
 		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-		mostrasTablaOperaciones();
+		seccionNuevaOperacion.style.display = "none";
 	} else {
 		mostrarSeccion(
 			seccionCategoria,
