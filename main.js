@@ -216,7 +216,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 		categoria:
 			selectCategoria.value.charAt(0).toUpperCase() +
 			selectCategoria.value.slice(1),
-		fecha: inputFecha.value,
+		fecha: fechaFormateada,
 		monto: inputMonto.value,
 		tipo: selectTipo.value,
 	};
@@ -365,3 +365,43 @@ const validarMonto = (event) => {
 };
 
 //inputMonto.addEventListener("keypress", validarMonto);
+
+//fechas
+
+let fechaFormateada;
+
+// inputFecha.addEventListener("change", () => {
+// 	let fechaSeleccionada = new Date(inputFecha.value);
+// 	console.log("la fecha seleccionada es:", fechaSeleccionada);
+// 	fechaFormateada = fechaSeleccionada
+// 		.toISOString()
+// 		.split("T")[0]
+// 		.split("-")
+// 		.reverse()
+// 		.join("/");
+// 	console.log("la fecha formateada es:", fechaFormateada);
+// });
+
+let fechaActual = new Date();
+let fechaActualFormateada = fechaActual.toISOString().split("T")[0];
+inputFecha.value = fechaActualFormateada;
+
+const formatearFecha = () => {
+	if (inputFecha.value === fechaActualFormateada) {
+		fechaFormateada = fechaActualFormateada;
+		console.log("hola");
+	} else {
+		let fechaSeleccionada = new Date(inputFecha.value);
+		fechaFormateada = fechaSeleccionada
+			.toISOString()
+			.split("T")[0]
+			.split("-")
+			.reverse()
+			.join("/");
+		console.log("ndsjdh");
+	}
+};
+
+formatearFecha();
+
+inputFecha.addEventListener("change", formatearFecha);
