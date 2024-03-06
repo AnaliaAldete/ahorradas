@@ -170,22 +170,22 @@ const generarTabla = (operaciones) => {
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
 			cuerpoTablaOperaciones.innerHTML += `
-            <div class="flex text-center flex-col md:flex-row">
-            <div class="flex md:flex-row md:w-[40%]">
-				<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] "><span>${operacion.descripcion}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>${operacion.categoria}</span></div>
-            </div>
-				
-            <div class="flex md:w-[60%]">
-            <div class=" hidden   flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center"><span>${operacion.fecha}</span></div>
-				<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>$${operacion.monto}</span></div>
-				<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
+                    <div class="flex text-center flex-col md:flex-row">
+                    <div class="flex md:flex-row md:w-[40%]">
+                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] "><span>${operacion.descripcion}</span></div>
+                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>${operacion.categoria}</span></div>
+                    </div>
+                    
+                    <div class="flex md:w-[60%]">
+                    <div class=" hidden   flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center"><span>${operacion.fecha}</span></div>
+                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>$${operacion.monto}</span></div>
+                    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
                     <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
-                </div>
-            </div>
-			</div>
-            `;
+                    </div>
+                    </div>
+                    </div>
+                    `;
 		}
 
 		contenedorImgOperaciones.style.display = "none";
@@ -242,7 +242,14 @@ btnAgregarOperacion.addEventListener("click", () => {
 			generarTabla
 		)
 	);
+	vaciarInput();
 });
+
+const vaciarInput = () => {
+	inputDescripcion.value = "";
+	inputMonto.value = "";
+	inputFecha.value = fechaActualFormateada;
+};
 
 // funcion para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = () => {
@@ -263,15 +270,15 @@ const generarTablaCategorias = () => {
 			generarTablaCategorias
 		)) {
 			tablaCategorias.innerHTML += `
-           <div class="flex justify-between">
+                <div class="flex justify-between">
 				<p>${categoria.nombreCategoria}</p>
 				<div class="flex gap-x-4 text-[darkturquoise]">
-                    <button class="on">On</button>			
-				    <button><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
-					<button><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
+                <button class="on">On</button>			
+                <button><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
+                <button><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
 				</div>			
-			</div>
-            `;
+                </div>
+                `;
 		}
 
 		// probando cambiar texto en el boton
