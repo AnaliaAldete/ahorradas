@@ -21,13 +21,15 @@ const seccionFiltros = document.getElementById("seccion-filtros"); //no usada po
 const seccionOperaciones = document.getElementById("seccion-operaciones"); //no usada por el momento
 const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
-); //no usada por el momento
+);
+const seccionEditar = document.getElementById("seccion-editar");
+
+//no usada por el momento
 const seccionCategoria = document.getElementById("seccion-categoria");
 const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
-const seccionEditar = document.getElementById("seccion-editar");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
@@ -59,21 +61,30 @@ btnMenuHamburguesa.addEventListener("click", () => {
 });
 
 // funcion para aparecer y desaparecer secciones
-const mostrarSeccion = (contenedor, contenedor2, contenedor3, seccion) => {
-	contenedor.style.display = "none";
-	contenedor2.style.display = "none";
-	contenedor3.style.display = "none";
-	seccion.style.display = "flex";
+// const mostrarSeccion = (contenedor, contenedor2, contenedor3, seccion) => {
+// 	contenedor.style.display = "none";
+// 	contenedor2.style.display = "none";
+// 	contenedor3.style.display = "none";
+// 	seccion.style.display = "flex";
+// };
+
+const mostrarSeccion = (seccion, ...contenedores) => {
+	contenedores.forEach((contenedor) => {
+		// contenedor.style.display = "none";
+		contenedor.classList.add("hidden");
+	});
+	// seccion.style.display = "flex";
+	seccion.classList.remove("hidden");
 };
 
 // prettier-ignore
-enlaceBalance.addEventListener("click", () => mostrarSeccion(seccionCategoria, seccionReportes, seccionNuevaOperacion, contenedorPrincipal));
+enlaceBalance.addEventListener("click", () => mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar ));
 // prettier-ignore
-enlaceCategoria.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionCategoria));
+enlaceCategoria.addEventListener("click", () => mostrarSeccion(seccionCategoria, contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionEditar ));
 // prettier-ignore
-enlaceReportes.addEventListener("click", () => mostrarSeccion(contenedorPrincipal,seccionCategoria,seccionNuevaOperacion,seccionReportes));
+enlaceReportes.addEventListener("click", () => mostrarSeccion(seccionReportes,contenedorPrincipal,seccionCategoria,seccionNuevaOperacion, seccionEditar));
 // prettier-ignore
-btnOperacion.addEventListener("click", () => mostrarSeccion( contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion));
+btnOperacion.addEventListener("click", () => mostrarSeccion(seccionNuevaOperacion, contenedorPrincipal, seccionCategoria, seccionReportes, seccionEditar ));
 
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
@@ -86,8 +97,10 @@ btnModoOscuro.addEventListener("click", () => {
 
 // funcion para botones cancelar
 const cancelar = (contenedor, seccion) => {
-	contenedor.style.display = "none";
-	seccion.style.display = "flex";
+	// contenedor.style.display = "none";
+	contenedor.classList.add("hidden");
+	// seccion.style.display = "flex";
+	seccion.classList.remove("hidden");
 };
 
 btnCancelarNueva.addEventListener("click", () =>
@@ -141,6 +154,7 @@ const categorias = [
 		nombreCategoria: "Trabajo",
 	},
 ];
+console.log(categorias);
 let categoriasGuardadas;
 
 // funcion para ver si algun usuario ingreso algun dato en local storage
@@ -251,6 +265,15 @@ const vaciarInput = () => {
 	inputFecha.value = fechaActualFormateada;
 };
 
+const eventosBtnsEditar = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			// seccionEditar.classList.remove("hidden");
+			cancelar(seccionCategoria, seccionEditar);
+		});
+	});
+};
+
 // funcion para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = () => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -269,22 +292,23 @@ const generarTablaCategorias = () => {
 			categorias,
 			generarTablaCategorias
 		)) {
+			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
                 <div class="flex justify-between">
-				<p>${categoria.nombreCategoria}</p>
+				<p>${nombreCategoria}</p>
 				<div class="flex gap-x-4 text-[darkturquoise]">
-                <button class="on">On</button>			
-                <button><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
-                <button><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
+                <button class="btn-on" id="on-${id}">On</button>			
+                <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
+                <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
 				</div>			
                 </div>
                 `;
 		}
-
+		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		const btnOn = document.querySelectorAll(".on");
-		console.log(btnOn);
+		// console.log(btnOn);
 
 		for (btn of btnOn) {
 			btn.addEventListener("click", () => {
@@ -371,7 +395,7 @@ const validarMonto = (event) => {
 	return false;
 };
 
-//inputMonto.addEventListener("keypress", validarMonto);
+// inputMonto.addEventListener("keypress", (event) => validarMonto(event));
 
 //formatear fechas
 
