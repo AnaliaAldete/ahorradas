@@ -117,6 +117,7 @@ const selectTipo = document.getElementById("select-tipo");
 const selectCategoria = document.getElementById("select-categoria");
 const inputFecha = document.getElementById("input-fecha");
 const inputNombre = document.getElementById("nombre");
+const inputEditarCategoria = document.getElementById("label-editar");
 
 // objeto y variable para tabla operaciones
 const datos = [];
@@ -259,22 +260,34 @@ btnAgregarOperacion.addEventListener("click", () => {
 	vaciarInput();
 });
 
+// función para que aparezca los input vacios después de generar una nueva operación.
 const vaciarInput = () => {
 	inputDescripcion.value = "";
 	inputMonto.value = "";
 	inputFecha.value = fechaActualFormateada;
 };
 
+// función para añadir eventos a los botones de editar
 const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
-			// seccionEditar.classList.remove("hidden");
 			cancelar(seccionCategoria, seccionEditar);
+			console.log(
+				(inputEditarCategoria.value = obtenerId(
+					evaluarLocalStorage(
+						"categoria",
+						categoriasGuardadas,
+						categorias,
+						generarTablaCategorias
+					),
+					btnSeleccionado.id.slice(7)
+				).nombreCategoria)
+			);
 		});
 	});
 };
 
-// funcion para generar tabla de categorias si hay datos en local storage
+// función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = () => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
 	tablaCategorias.innerHTML = "";
@@ -294,7 +307,7 @@ const generarTablaCategorias = () => {
 		)) {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
-                <div class="flex justify-between">
+                <div class="flex justify-between" id="${id}">
 				<p>${nombreCategoria}</p>
 				<div class="flex gap-x-4 text-[darkturquoise]">
                 <button class="btn-on" id="on-${id}">On</button>			
@@ -304,7 +317,9 @@ const generarTablaCategorias = () => {
                 </div>
                 `;
 		}
+		// llamando a mi nodeList de btns,
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
+
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		const btnOn = document.querySelectorAll(".on");
@@ -328,6 +343,10 @@ const generarTablaCategorias = () => {
 };
 
 generarTablaCategorias();
+
+// función para identificar categoria en función del id.
+const obtenerId = (array, categoriaId) =>
+	array.find((elemento) => categoriaId === elemento.id);
 
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
