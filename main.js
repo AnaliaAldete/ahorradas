@@ -40,6 +40,7 @@ const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 const btnAgregarCategoria = document.getElementById("btn-agregar-categoria");
 const btnOcultarFiltros = document.getElementById("btn-ocultar-filtros");
+const btnAceptarEditar = document.querySelector(".aceptar-editar");
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -185,26 +186,33 @@ const generarTabla = (operaciones) => {
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
 			cuerpoTablaOperaciones.innerHTML += `
-                    <div class="flex text-center flex-col md:flex-row">
-                    <div class="flex md:flex-row md:w-[40%]">
-                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] "><span>${operacion.descripcion}</span></div>
-                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>${operacion.categoria}</span></div>
-                    </div>
-                    
-                    <div class="flex md:w-[60%]">
-                    <div class=" hidden   flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center"><span>${operacion.fecha}</span></div>
-                    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]"><span>$${operacion.monto}</span></div>
-                    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-                    <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
-                    </div>
-                    </div>
-                    </div>
-                    `;
+         <div class="flex text-center flex-col md:flex-row">
+	       <div class="flex md:flex-row md:w-[40%]">
+		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+			 <span>${operacion.descripcion}</span>
+		    </div>
+		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+			 <span>${operacion.categoria}</span>
+		    </div>
+	       </div>
+
+	       <div class="flex md:w-[60%]">
+		    <div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center">
+			 <span>${operacion.fecha}</span>
+		    </div>
+		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+			 <span>$${operacion.monto}</span>
+		    </div>
+		    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
+			 <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
+			 <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
+		    </div>
+	       </div>
+         </div>
+         `;
 		}
 
-		contenedorImgOperaciones.style.display = "none";
-		contenedorPrincipal.style.display = "flex";
+		mostrarSeccion(contenedorPrincipal, contenedorImgOperaciones);
 		const ajustarVisibilidadCabecera = () => {
 			if (window.innerWidth > 767) {
 				caberecaTablaOperaciones.classList.remove("hidden");
@@ -271,7 +279,7 @@ const vaciarInput = () => {
 const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
-			cancelar(seccionCategoria, seccionEditar);
+			mostrarSeccion(seccionEditar, seccionCategoria);
 			console.log(
 				(inputEditarCategoria.value = obtenerId(
 					evaluarLocalStorage(
@@ -281,7 +289,11 @@ const eventosBtnsEditar = (btns) => {
 						generarTablaCategorias
 					),
 					btnSeleccionado.id.slice(7)
-				).nombreCategoria)
+				).nombreCategoria),
+				btnAceptarEditar.setAttribute(
+					"id",
+					`confirmar-${btnSeleccionado.id.slice(7)}`
+				)
 			);
 		});
 	});
@@ -347,6 +359,38 @@ generarTablaCategorias();
 // función para identificar categoria en función del id.
 const obtenerId = (array, categoriaId) =>
 	array.find((elemento) => categoriaId === elemento.id);
+
+// función para editar el nombre
+const editarInput = (array, categoriaId) => {
+	console.log(categoriaId);
+	const categoriasEditadas = array.map((categoriaAEditar) => {
+		if (categoriaAEditar.id === categoriaId) {
+			console.log("valor modificado");
+			return {
+				...categoriaAEditar,
+				nombreCategoria: inputEditarCategoria.value,
+			};
+		} else {
+			console.log("valor igual");
+			return categoriaAEditar;
+		}
+	});
+	console.log(categoriasEditadas);
+	generarTablaCategorias(categoriasEditadas);
+};
+
+btnAceptarEditar.addEventListener("click", () => {
+	editarInput(
+		evaluarLocalStorage(
+			"categoria",
+			categoriasGuardadas,
+			categorias,
+			generarTablaCategorias
+		),
+		btnAceptarEditar.id.slice(10)
+	);
+	mostrarSeccion(seccionCategoria, seccionEditar);
+});
 
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
