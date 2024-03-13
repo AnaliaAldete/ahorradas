@@ -160,14 +160,14 @@ console.log(categorias);
 let categoriasGuardadas;
 
 // funcion para ver si algun usuario ingreso algun dato en local storage
-const evaluarLocalStorage = (nombre, variable, objeto, funcion) => {
+const evaluarLocalStorage = (nombre, variable, objeto) => {
 	if (localStorage.getItem(nombre) !== null) {
 		variable = JSON.parse(localStorage.getItem(nombre));
 		return variable;
 	} else {
 		localStorage.setItem(nombre, JSON.stringify(objeto));
 	}
-	funcion;
+	// funcion;
 };
 
 // funcion para generar tabla de operaciones si hay datos en local storage
@@ -176,12 +176,7 @@ const generarTabla = (operaciones) => {
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	operaciones = evaluarLocalStorage(
-		"operaciones",
-		operacionesGuardadas,
-		datos,
-		generarTabla
-	);
+	operaciones = evaluarLocalStorage("operaciones", operacionesGuardadas, datos);
 
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
@@ -225,9 +220,7 @@ const generarTabla = (operaciones) => {
 	}
 };
 
-generarTabla(
-	evaluarLocalStorage("operaciones", operacionesGuardadas, datos, generarTabla)
-);
+generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
@@ -248,23 +241,16 @@ btnAgregarOperacion.addEventListener("click", () => {
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
 		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-		seccionNuevaOperacion.style.display = "none";
+		seccionNuevaOperacion.classList.add("hidden");
 	} else {
 		mostrarSeccion(
+			contenedorPrincipal,
 			seccionCategoria,
 			seccionReportes,
-			seccionNuevaOperacion,
-			contenedorPrincipal
+			seccionNuevaOperacion
 		);
 	}
-	generarTabla(
-		evaluarLocalStorage(
-			"operaciones",
-			operacionesGuardadas,
-			datos,
-			generarTabla
-		)
-	);
+	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 	vaciarInput();
 });
 
@@ -280,43 +266,26 @@ const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(seccionEditar, seccionCategoria);
-			console.log(
-				(inputEditarCategoria.value = obtenerId(
-					evaluarLocalStorage(
-						"categoria",
-						categoriasGuardadas,
-						categorias,
-						generarTablaCategorias
-					),
-					btnSeleccionado.id.slice(7)
-				).nombreCategoria),
-				btnAceptarEditar.setAttribute(
-					"id",
-					`confirmar-${btnSeleccionado.id.slice(7)}`
-				)
+			console.log(inputEditarCategoria.value);
+			inputEditarCategoria.value = obtenerId(
+				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+				btnSeleccionado.id.slice(7)
+			).nombreCategoria;
+			btnAceptarEditar.setAttribute(
+				"id",
+				`confirmar-${btnSeleccionado.id.slice(7)}`
 			);
 		});
 	});
 };
 
 // función para generar tabla de categorias si hay datos en local storage
-const generarTablaCategorias = () => {
+const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
 	tablaCategorias.innerHTML = "";
-	if (
-		evaluarLocalStorage(
-			"categoria",
-			categoriasGuardadas,
-			categorias,
-			generarTablaCategorias
-		)
-	) {
-		for (let categoria of evaluarLocalStorage(
-			"categoria",
-			categoriasGuardadas,
-			categorias,
-			generarTablaCategorias
-		)) {
+
+	if (categorias.length > 0) {
+		for (let categoria of categorias) {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
                 <div class="flex justify-between" id="${id}">
@@ -354,7 +323,9 @@ const generarTablaCategorias = () => {
 	}
 };
 
-generarTablaCategorias();
+generarTablaCategorias(
+	evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
+);
 
 // función para identificar categoria en función del id.
 const obtenerId = (array, categoriaId) =>
@@ -381,12 +352,7 @@ const editarInput = (array, categoriaId) => {
 
 btnAceptarEditar.addEventListener("click", () => {
 	editarInput(
-		evaluarLocalStorage(
-			"categoria",
-			categoriasGuardadas,
-			categorias,
-			generarTablaCategorias
-		),
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 		btnAceptarEditar.id.slice(10)
 	);
 	mostrarSeccion(seccionCategoria, seccionEditar);
@@ -405,7 +371,9 @@ btnAgregarCategoria.addEventListener("click", () => {
 		categoriasGuardadas.push(nuevaCategoria);
 		localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
 	}
-	generarTablaCategorias();
+	generarTablaCategorias(
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
+	);
 });
 
 //ocultar filtros
