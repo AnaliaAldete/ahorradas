@@ -288,14 +288,15 @@
 				<div class="flex flex-col gap-2">
 					<label for="input-monto" class="font-bold">Monto</label>
 					<input
-						type="text"
+						type="number"
 						id="input-monto"
 						placeholder="Ingresar monto"
-						minlength="1"
-						maxlength="8"
 						class="border-solid border-2 p-2 rounded"
-						onkeypress="return validarMonto(event)"
+						required
 					/>
+					<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
+						El número no puede tener más de 10 dígitos.
+					</p>
 				</div>
 
 				<div class="flex flex-col gap-2">

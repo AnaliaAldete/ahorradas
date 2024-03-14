@@ -160,12 +160,6 @@ const generarTabla = (operaciones) => {
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	operaciones = evaluarLocalStorage(
-		"operaciones",
-		operacionesGuardadas,
-		datos,
-		generarTabla
-	);
 
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
@@ -364,14 +358,25 @@ filtroCategoria.addEventListener("change", () => {
 
 //validacion del input monto
 
-const validarMonto = (event) => {
-	if (event.charCode >= 48 && event.charCode <= 57) {
-		return true;
-	}
-	return false;
-};
+// const validarMonto = (event) => {
+// 	if (event.charCode >= 48 && event.charCode <= 57) {
+// 		return true;
+// 	}
+// 	return false;
+// };
 
 //inputMonto.addEventListener("keypress", validarMonto);
+const mensajeError = document.getElementById("mensaje-error");
+
+inputMonto.addEventListener("input", () => {
+	if (/^\d{1,10}$/.test(inputMonto.value)) {
+		inputMonto.classList.remove("border-red-500");
+		mensajeError.classList.add("hidden");
+	} else {
+		inputMonto.classList.add("border-red-500");
+		mensajeError.classList.remove("hidden");
+	}
+});
 
 //formatear fechas
 
@@ -389,3 +394,36 @@ inputFecha.addEventListener("change", () => {
 	let fechaSeleccionada = new Date(inputFecha.value);
 	fechaFormateada = fechaSeleccionada.toISOString().split("T")[0];
 });
+
+// filtro ordenar por mayor/ menor monto
+
+const filtroOrdenar = document.getElementById("filtro-ordenar");
+const generarYOrdenarTablaPorMonto = (operaciones) => {
+	if (filtroOrdenar.value === "menor") {
+		generarTabla(operaciones.sort((a, b) => a.monto - b.monto));
+	} else if (filtroOrdenar.value === "mayor") {
+		generarTabla(operaciones.sort((a, b) => b.monto - a.monto));
+	} else if (filtroOrdenar.value === "Z/A") {
+		generarTabla(
+			operaciones.sort((a, b) => {
+				if (a.descripcion < b.descripcion) return 1;
+				if (a.descripcion > b.descripcion) return -1;
+				return 0;
+			})
+		);
+	} else if (filtroOrdenar.value === "A/Z") {
+		generarTabla(
+			operaciones.sort((a, b) => {
+				if (a.descripcion > b.descripcion) return 1;
+				if (a.descripcion < b.descripcion) return -1;
+				return 0;
+			})
+		);
+	} else {
+		generarTabla(operaciones);
+	}
+};
+
+filtroOrdenar.addEventListener("change", () =>
+	generarYOrdenarTablaPorMonto(JSON.parse(localStorage.getItem("operaciones")))
+);
