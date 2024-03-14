@@ -293,8 +293,17 @@
 						placeholder="Ingresar monto"
 						class="border-solid border-2 p-2 rounded"
 						required
+						min="0"
 					/>
-					<p id="mensaje-error"></p>
+					<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
+						El número no puede tener más de 10 dígitos.
+					</p>
+					<p
+						id="mensaje-input-vacio"
+						class="text-red-500 text-xs italic hidden"
+					>
+						Ingrese un monto por favor
+					</p>
 				</div>
 
 				<div class="flex flex-col gap-2">

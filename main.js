@@ -416,11 +416,18 @@ filtroCategoria.addEventListener("change", () => {
 // 	return false;
 // };
 const mensajeError = document.getElementById("mensaje-error");
+const mensajeError2 = document.getElementById("mensaje-input-vacio");
 
 inputMonto.addEventListener("input", () => {
 	if (/^\d{1,10}$/.test(inputMonto.value)) {
 		inputMonto.classList.remove("border-red-500");
 		mensajeError.classList.add("hidden");
+		mensajeError2.classList.add("hidden");
+	} else if (inputMonto.value.length === 0) {
+		mensajeError2.classList.remove("hidden");
+		inputMonto.classList.add("border-red-500");
+	} else if (inputMonto.value < 0) {
+		inputMonto.value = 0;
 	} else {
 		inputMonto.classList.add("border-red-500");
 		mensajeError.classList.remove("hidden");
