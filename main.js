@@ -62,13 +62,6 @@ btnMenuHamburguesa.addEventListener("click", () => {
 });
 
 // funcion para aparecer y desaparecer secciones
-// const mostrarSeccion = (contenedor, contenedor2, contenedor3, seccion) => {
-// 	contenedor.style.display = "none";
-// 	contenedor2.style.display = "none";
-// 	contenedor3.style.display = "none";
-// 	seccion.style.display = "flex";
-// };
-
 const mostrarSeccion = (seccion, ...contenedores) => {
 	contenedores.forEach((contenedor) => {
 		// contenedor.style.display = "none";
@@ -98,9 +91,7 @@ btnModoOscuro.addEventListener("click", () => {
 
 // funcion para botones cancelar
 const cancelar = (contenedor, seccion) => {
-	// contenedor.style.display = "none";
 	contenedor.classList.add("hidden");
-	// seccion.style.display = "flex";
 	seccion.classList.remove("hidden");
 };
 
@@ -176,7 +167,6 @@ const generarTabla = (operaciones) => {
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	operaciones = evaluarLocalStorage("operaciones", operacionesGuardadas, datos);
 
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
@@ -303,23 +293,23 @@ const generarTablaCategorias = (categorias) => {
 
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
-		const btnOn = document.querySelectorAll(".on");
+		// const btnOn = document.querySelectorAll(".on");
 		// console.log(btnOn);
 
-		for (btn of btnOn) {
-			btn.addEventListener("click", () => {
-				console.log("hola");
-				// const deshabilitarCategoria = () => {
-				if (btn.innerHTML === "On") {
-					btn.innerText = "Off";
-					console.log("si");
-				} else {
-					btn.innerText = "On";
-					console.log("no");
-				}
-				// };
-			});
-		}
+		// for (btn of btnOn) {
+		// 	btn.addEventListener("click", () => {
+		// 		console.log("hola");
+		// 		// const deshabilitarCategoria = () => {
+		// 		if (btn.innerHTML === "On") {
+		// 			btn.innerText = "Off";
+		// 			console.log("si");
+		// 		} else {
+		// 			btn.innerText = "On";
+		// 			console.log("no");
+		// 		}
+		// 		// };
+		// 	});
+		// }
 	}
 };
 
@@ -346,7 +336,7 @@ const editarInput = (array, categoriaId) => {
 			return categoriaAEditar;
 		}
 	});
-	console.log(categoriasEditadas);
+	localStorage.setItem("categoria", JSON.stringify(categoriasEditadas));
 	generarTablaCategorias(categoriasEditadas);
 };
 
@@ -425,8 +415,6 @@ const validarMonto = (event) => {
 	}
 	return false;
 };
-
-// inputMonto.addEventListener("keypress", (event) => validarMonto(event));
 
 //formatear fechas
 
