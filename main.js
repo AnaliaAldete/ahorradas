@@ -409,12 +409,23 @@ filtroCategoria.addEventListener("change", () => {
 
 //validacion del input monto
 
-const validarMonto = (event) => {
-	if (event.charCode >= 48 && event.charCode <= 57) {
-		return true;
+// const validarMonto = (event) => {
+// 	if (event.charCode >= 48 && event.charCode <= 57) {
+// 		return true;
+// 	}
+// 	return false;
+// };
+const mensajeError = document.getElementById("mensaje-error");
+
+inputMonto.addEventListener("input", () => {
+	if (/^\d{1,10}$/.test(inputMonto.value)) {
+		inputMonto.classList.remove("border-red-500");
+		mensajeError.classList.add("hidden");
+	} else {
+		inputMonto.classList.add("border-red-500");
+		mensajeError.classList.remove("hidden");
 	}
-	return false;
-};
+});
 
 //formatear fechas
 

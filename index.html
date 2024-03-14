@@ -288,15 +288,13 @@
 				<div class="flex flex-col gap-2">
 					<label for="input-monto" class="font-bold">Monto</label>
 					<input
-						type="text"
+						type="number"
 						id="input-monto"
 						placeholder="Ingresar monto"
-						minlength="1"
-						maxlength="8"
 						class="border-solid border-2 p-2 rounded"
-						onkeypress="return validarMonto(event)"
-						pattern="\d{4,4}"
+						required
 					/>
+					<p id="mensaje-error"></p>
 				</div>
 
 				<div class="flex flex-col gap-2">
