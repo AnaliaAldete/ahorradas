@@ -432,3 +432,37 @@ inputFecha.addEventListener("change", () => {
 	let fechaSeleccionada = new Date(inputFecha.value);
 	fechaFormateada = fechaSeleccionada.toISOString().split("T")[0];
 });
+
+// filtro ordenar por mayor/ menor monto y de a/z , z/a
+
+const filtroOrdenar = document.getElementById("filtro-ordenar");
+
+const generarYOrdenarTabla = (operaciones) => {
+	if (filtroOrdenar.value === "menor") {
+		generarTabla(operaciones.sort((a, b) => a.monto - b.monto));
+	} else if (filtroOrdenar.value === "mayor") {
+		generarTabla(operaciones.sort((a, b) => b.monto - a.monto));
+	} else if (filtroOrdenar.value === "Z/A") {
+		generarTabla(
+			operaciones.sort((a, b) => {
+				if (a.descripcion < b.descripcion) return 1;
+				if (a.descripcion > b.descripcion) return -1;
+				return 0;
+			})
+		);
+	} else if (filtroOrdenar.value === "A/Z") {
+		generarTabla(
+			operaciones.sort((a, b) => {
+				if (a.descripcion > b.descripcion) return 1;
+				if (a.descripcion < b.descripcion) return -1;
+				return 0;
+			})
+		);
+	} else {
+		generarTabla(operaciones);
+	}
+};
+
+filtroOrdenar.addEventListener("change", () =>
+	generarYOrdenarTabla(JSON.parse(localStorage.getItem("operaciones")))
+);
