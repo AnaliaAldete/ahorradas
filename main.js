@@ -158,7 +158,6 @@ const evaluarLocalStorage = (nombre, variable, objeto) => {
 	} else {
 		localStorage.setItem(nombre, JSON.stringify(objeto));
 	}
-	// funcion;
 };
 
 // funcion para generar tabla de operaciones si hay datos en local storage
@@ -170,6 +169,10 @@ const generarTabla = (operaciones) => {
 
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
+			const obtenerSigno = operacion.tipo === "ganancia" ? "+$" : "-$";
+			const obtenerColor =
+				operacion.tipo === "ganancia" ? "text-green-500" : "text-red-500";
+
 			cuerpoTablaOperaciones.innerHTML += `
          <div class="flex text-center flex-col md:flex-row">
 	       <div class="flex md:flex-row md:w-[40%]">
@@ -186,7 +189,7 @@ const generarTabla = (operaciones) => {
 			 <span>${operacion.fecha}</span>
 		    </div>
 		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-			 <span>$${operacion.monto}</span>
+			 <span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
 		    </div>
 		    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
 			 <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -240,6 +243,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 			seccionNuevaOperacion
 		);
 	}
+
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 	vaciarInput();
 });
@@ -407,14 +411,7 @@ filtroCategoria.addEventListener("change", () => {
 	filtrarYGenerarTabla(filtroCategoria.value, "categoria");
 });
 
-//validacion del input monto
-
-// const validarMonto = (event) => {
-// 	if (event.charCode >= 48 && event.charCode <= 57) {
-// 		return true;
-// 	}
-// 	return false;
-// };
+// validación input monto para que no este vacia y no escriban de más
 const mensajeError = document.getElementById("mensaje-error");
 const mensajeError2 = document.getElementById("mensaje-input-vacio");
 
