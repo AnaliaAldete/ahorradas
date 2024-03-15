@@ -160,18 +160,62 @@ const evaluarLocalStorage = (nombre, variable, objeto) => {
 	}
 };
 
+// funcion para sumar la ganancia de balance
+const balanceGanancia = document.getElementById("balance-ganancia");
+const balanceGasto = document.getElementById("balance-gasto");
+const balanceTotal = document.getElementById("balance-total");
+
+// const sumarGanancia = (operacion, propiedad) => {
+
+// 	if (operacion === "ganancia") {
+// 		resultado += propiedad;
+// 		console.log(resultado);
+
+// 		// balanceGanancia.innerText = resultado;
+// 	} else if (operacion === "gasto") {
+// 		return propiedad;
+// 	}
+// };
+
 // funcion para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
+	let resultadoGanacia = 0;
+	let resultadoGasto = 0;
+	let resultadoTotal = 0;
 
 	if (operaciones.length > 0) {
 		for (let operacion of operaciones) {
 			const obtenerSigno = operacion.tipo === "ganancia" ? "+$" : "-$";
 			const obtenerColor =
 				operacion.tipo === "ganancia" ? "text-green-500" : "text-red-500";
+
+			if (operacion.tipo === "ganancia") {
+				resultadoGanacia += parseInt(operacion.monto);
+				balanceGanancia.innerText = `+$${resultadoGanacia}`;
+				console.log(resultadoGanacia);
+			} else {
+				resultadoGasto += parseInt(operacion.monto);
+				console.log(resultadoGasto);
+				console.log(operacion.monto);
+				balanceGasto.innerText = `-$${resultadoGasto}`;
+			}
+
+			console.log(resultadoTotal);
+			if (resultadoGanacia > resultadoGasto) {
+				resultadoTotal = resultadoGanacia - resultadoGasto;
+				balanceTotal.innerText = `+$${resultadoTotal}`;
+				balanceTotal.classList.add("text-green-500");
+				balanceTotal.classList.remove("text-red-500");
+			} else {
+				resultadoTotal = resultadoGasto - resultadoGanacia;
+				balanceTotal.innerText = `-$${resultadoTotal}`;
+				balanceTotal.classList.remove("text-green-500");
+				balanceTotal.classList.add("text-red-500");
+			}
 
 			cuerpoTablaOperaciones.innerHTML += `
          <div class="flex text-center flex-col md:flex-row">
