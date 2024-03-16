@@ -160,91 +160,101 @@ const evaluarLocalStorage = (nombre, variable, objeto) => {
 	}
 };
 
-// funcion para sumar la ganancia de balance
+// funcionalidades de LA SECCION BALANCE
+
 const balanceGanancia = document.getElementById("balance-ganancia");
 const balanceGasto = document.getElementById("balance-gasto");
 const balanceTotal = document.getElementById("balance-total");
+let resultadoGanacia = 0;
+let resultadoGasto = 0;
+let resultadoTotal = 0;
 
-// const sumarGanancia = (operacion, propiedad) => {
+// Función para sumar ganancias o gastos
+const sumarGananciaOGasto = (tipo, monto) => {
+	if (tipo === "ganancia") {
+		resultadoGanacia += parseInt(monto);
+	} else {
+		resultadoGasto += parseInt(monto);
+	}
+};
 
-// 	if (operacion === "ganancia") {
-// 		resultado += propiedad;
-// 		console.log(resultado);
+// Función para calcular el resultado total entre gasto y ganancia
+const calcularTotal = () => {
+	if (resultadoGanacia > resultadoGasto) {
+		resultadoTotal = resultadoGanacia - resultadoGasto;
+	} else {
+		resultadoTotal = resultadoGasto - resultadoGanacia;
+	}
+};
 
-// 		// balanceGanancia.innerText = resultado;
-// 	} else if (operacion === "gasto") {
-// 		return propiedad;
-// 	}
-// };
+// Función para actualizar el DOM de los balances
+const actualizarBalance = () => {
+	balanceGanancia.innerText = `+$${resultadoGanacia}`;
+	balanceGasto.innerText = `-$${resultadoGasto}`;
 
-// funcion para generar tabla de operaciones si hay datos en local storage
+	calcularTotal();
+	if (resultadoGanacia > resultadoGasto) {
+		balanceTotal.innerText = `+$${resultadoTotal}`;
+		balanceTotal.classList.add("text-green-500");
+		balanceTotal.classList.remove("text-red-500");
+	} else {
+		balanceTotal.innerText = `-$${resultadoTotal}`;
+		balanceTotal.classList.remove("text-green-500");
+		balanceTotal.classList.add("text-red-500");
+	}
+};
+
+// Función para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	let resultadoGanacia = 0;
-	let resultadoGasto = 0;
-	let resultadoTotal = 0;
 
-	if (operaciones.length > 0) {
+	if (operaciones && operaciones.length > 0) {
+		resultadoGanacia = 0;
+		resultadoGasto = 0;
+
 		for (let operacion of operaciones) {
 			const obtenerSigno = operacion.tipo === "ganancia" ? "+$" : "-$";
 			const obtenerColor =
 				operacion.tipo === "ganancia" ? "text-green-500" : "text-red-500";
 
-			if (operacion.tipo === "ganancia") {
-				resultadoGanacia += parseInt(operacion.monto);
-				balanceGanancia.innerText = `+$${resultadoGanacia}`;
-				console.log(resultadoGanacia);
-			} else {
-				resultadoGasto += parseInt(operacion.monto);
-				console.log(resultadoGasto);
-				console.log(operacion.monto);
-				balanceGasto.innerText = `-$${resultadoGasto}`;
-			}
-
-			console.log(resultadoTotal);
-			if (resultadoGanacia > resultadoGasto) {
-				resultadoTotal = resultadoGanacia - resultadoGasto;
-				balanceTotal.innerText = `+$${resultadoTotal}`;
-				balanceTotal.classList.add("text-green-500");
-				balanceTotal.classList.remove("text-red-500");
-			} else {
-				resultadoTotal = resultadoGasto - resultadoGanacia;
-				balanceTotal.innerText = `-$${resultadoTotal}`;
-				balanceTotal.classList.remove("text-green-500");
-				balanceTotal.classList.add("text-red-500");
-			}
+			sumarGananciaOGasto(operacion.tipo, operacion.monto);
 
 			cuerpoTablaOperaciones.innerHTML += `
-         <div class="flex text-center flex-col md:flex-row">
-	       <div class="flex md:flex-row md:w-[40%]">
-		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-			 <span>${operacion.descripcion}</span>
-		    </div>
-		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-			 <span>${operacion.categoria}</span>
-		    </div>
-	       </div>
-
-	       <div class="flex md:w-[60%]">
-		    <div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center">
-			 <span>${operacion.fecha}</span>
-		    </div>
-		    <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-			 <span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
-		    </div>
-		    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-			 <a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
-			 <a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
-		    </div>
-	       </div>
-         </div>
-         `;
+				<div class="flex text-center flex-col md:flex-row">
+					<div class="flex md:flex-row md:w-[40%]">
+						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+							<span>${operacion.descripcion}</span>
+						</div>
+						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+							<span>${operacion.categoria}</span>
+						</div>
+					</div>
+					<div class="flex md:w-[60%]">
+						<div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center">
+							<span>${operacion.fecha}</span>
+						</div>
+						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
+							<span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
+						</div>
+						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
+							<a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
+							<a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
+						</div>
+					</div>
+				</div>
+			`;
 		}
 
+		calcularTotal();
+
+		actualizarBalance();
+
 		mostrarSeccion(contenedorPrincipal, contenedorImgOperaciones);
+
+		// Ajustar visibilidad de la cabecera dependiendo del tamaño de la pantalla
 		const ajustarVisibilidadCabecera = () => {
 			if (window.innerWidth > 767) {
 				caberecaTablaOperaciones.classList.remove("hidden");
@@ -322,7 +332,7 @@ const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
 	tablaCategorias.innerHTML = "";
 
-	if (categorias.length > 0) {
+	if (categorias && categorias.length > 0) {
 		for (let categoria of categorias) {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
