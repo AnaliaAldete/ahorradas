@@ -491,7 +491,11 @@ let fechaFormateada;
 
 //estabalece fecha actual formateada por defecto al input
 let fechaActual = new Date();
-let fechaActualFormateada = fechaActual.toISOString().split("T")[0];
+let fechaActualFormateada = new Date(
+	fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000
+)
+	.toISOString()
+	.split("T")[0];
 inputFecha.value = fechaActualFormateada;
 if (inputFecha.value === fechaActualFormateada) {
 	fechaFormateada = fechaActualFormateada;
@@ -502,7 +506,7 @@ inputFecha.addEventListener("change", () => {
 	fechaFormateada = fechaSeleccionada.toISOString().split("T")[0];
 });
 
-// filtro ordenar por mayor/ menor monto y de a/z , z/a
+// filtro ordenar por mayor/ menor monto y de a/z , z/a y mas/menos reciente
 
 const filtroOrdenar = document.getElementById("filtro-ordenar");
 
@@ -527,6 +531,22 @@ const generarYOrdenarTabla = (operaciones) => {
 				return 0;
 			})
 		);
+	} else if (filtroOrdenar.value === "mas") {
+		generarTabla(
+			operaciones.sort(
+				(a, b) =>
+					new Date(b.fecha.split("/").reverse().join("/")) -
+					new Date(a.fecha.split("/").reverse().join("/"))
+			)
+		);
+	} else if (filtroOrdenar.value === "menos") {
+		generarTabla(
+			operaciones.sort(
+				(a, b) =>
+					new Date(a.fecha.split("/").reverse().join("/")) -
+					new Date(b.fecha.split("/").reverse().join("/"))
+			)
+		);
 	} else {
 		generarTabla(operaciones);
 	}
@@ -535,3 +555,34 @@ const generarYOrdenarTabla = (operaciones) => {
 filtroOrdenar.addEventListener("change", () =>
 	generarYOrdenarTabla(JSON.parse(localStorage.getItem("operaciones")))
 );
+
+//funcionalidad filtros fechas
+
+const inputFiltroFecha = document.getElementById("filtro-fecha");
+
+//establacer por defecto la fecha actual al input del filtro fecha y arregla el desfazaje de un dia
+let fechaDesde = new Date();
+let fechaDesdeFormateada = new Date(
+	fechaDesde.getTime() - fechaDesde.getTimezoneOffset() * 60000
+)
+	.toISOString()
+	.split("T")[0];
+
+inputFiltroFecha.value = fechaDesdeFormateada;
+
+//filtro de fechas de desde
+const filtrarPorFecha = () => {
+	const fechaDesde = new Date(inputFiltroFecha.value);
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+	let operacionesFiltradasPorFecha = operacionesGuardadas.filter(
+		(operacion) => {
+			const fechaOperacion = new Date(
+				operacion.fecha.split("/").reverse().join("/")
+			);
+			return fechaOperacion >= fechaDesde;
+		}
+	);
+	generarTabla(operacionesFiltradasPorFecha);
+};
+
+inputFiltroFecha.addEventListener("change", filtrarPorFecha);
