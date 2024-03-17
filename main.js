@@ -297,7 +297,8 @@ btnAgregarOperacion.addEventListener("click", () => {
 			seccionNuevaOperacion
 		);
 	}
-	caberecaTablaOperaciones.classList.remove = "hidden";
+
+	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 	vaciarInput();
 });
 
