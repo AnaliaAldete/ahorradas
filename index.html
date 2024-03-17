@@ -481,19 +481,108 @@
 			<!-- FIN SECCION EDITAR-->
 
 			<!-- INICIO SECCION REPORTES-->
-			<section
-				class="lg:w-4/6 border-solid border-2 rounded-md flex flex-col items-center gap-5 hidden p-5 max-w-[800px]"
-				id="seccion-reportes"
-			>
-				<h2 class="text-4xl">Reportes</h2>
-				<figure>
-					<img
-						src="imagenes/undraw_Charts_re_5qe9.png"
-						class="md:max-w-[500px]"
-					/>
-				</figure>
-				<p class="text-3xl text-center">Operaciones insuficientes</p>
-				<p class="text-center">Prueba agregando más operaciones</p>
+			<section id="seccion-reportes" class="hidden w-full">
+				<div
+					class="lg:w-4/6 border-2 rounded-md flex flex-col items-center gap-5 p-5 max-w-[800px] m-auto"
+				>
+					<h2 class="text-4xl">Reportes</h2>
+					<div id="container-img-reportes">
+						<figure>
+							<img
+								src="imagenes/undraw_Charts_re_5qe9.png"
+								class="md:max-w-[500px]"
+							/>
+						</figure>
+						<p class="text-3xl text-center">Operaciones insuficientes</p>
+						<p class="text-center">Prueba agregando más operaciones</p>
+					</div>
+					<div class="w-full flex flex-col gap-8 hidden" id="tabla-reportes">
+						<h3 class="text-xl">Resumen</h3>
+						<div class="flex flex-col gap-3">
+							<div class="flex">
+								<div class="w-[50%] font-bold">
+									Categoría con mayor ganancia
+								</div>
+								<div class="w-[25%] text-center">1</div>
+								<div class="w-[25%] text-center">2</div>
+							</div>
+							<div class="flex">
+								<div class="w-[50%] font-bold">Categoría con mayor gasto</div>
+								<div class="w-[25%] text-center">3</div>
+								<div class="w-[25%] text-center">4</div>
+							</div>
+							<div class="flex">
+								<div class="w-[50%] font-bold">Categoría con mayor balance</div>
+								<div class="w-[25%] text-center">5</div>
+								<div class="w-[25%] text-center">6</div>
+							</div>
+							<div class="flex">
+								<div class="w-[50%] font-bold">Mes con mayor ganancia</div>
+								<div class="w-[25%] text-center">7</div>
+								<div class="w-[25%] text-center">8</div>
+							</div>
+							<div class="flex">
+								<div class="w-[50%] font-bold">Mes con mayor gasto</div>
+								<div class="w-[25%] text-center">9</div>
+								<div class="w-[25%] text-center">10</div>
+							</div>
+						</div>
+						<h3 class="text-xl">Totales por categorías</h3>
+						<div class="flex flex-col gap-3 text-center">
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Categoría</div>
+								<div class="w-[25%] font-bold">Ganancias</div>
+								<div class="w-[25%] font-bold">Gastos</div>
+								<div class="w-[25%] font-bold">Balance</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Salidas</div>
+								<div class="w-[25%] text-center">3</div>
+								<div class="w-[25%] text-center">4</div>
+								<div class="w-[25%] text-center">5</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Servicios</div>
+								<div class="w-[25%] text-center">5</div>
+								<div class="w-[25%] text-center">6</div>
+								<div class="w-[25%] text-center">7</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Educación</div>
+								<div class="w-[25%] text-center">7</div>
+								<div class="w-[25%] text-center">8</div>
+								<div class="w-[25%] text-center">9</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Transporte</div>
+								<div class="w-[25%] text-center">9</div>
+								<div class="w-[25%] text-center">10</div>
+								<div class="w-[25%] text-center">11</div>
+							</div>
+						</div>
+						<h3 class="text-xl">Totales por mes</h3>
+						<div class="flex flex-col gap-3 text-center">
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">Mes</div>
+								<div class="w-[25%] font-bold">Ganancias</div>
+								<div class="w-[25%] font-bold">Gastos</div>
+								<div class="w-[25%] font-bold">Balance</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">1</div>
+								<div class="w-[25%] text-center">3</div>
+								<div class="w-[25%] text-center">4</div>
+								<div class="w-[25%] text-center">5</div>
+							</div>
+							<div class="flex">
+								<div class="w-[25%] font-bold text-left">2</div>
+								<div class="w-[25%] text-center">5</div>
+								<div class="w-[25%] text-center">6</div>
+								<div class="w-[25%] text-center">7</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
 			<!-- FIN SECCION REPORTES -->
 		</main>

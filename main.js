@@ -297,8 +297,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 			seccionNuevaOperacion
 		);
 	}
-
-	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+	caberecaTablaOperaciones.classList.remove = "hidden";
 	vaciarInput();
 });
 
@@ -586,3 +585,24 @@ const filtrarPorFecha = () => {
 };
 
 inputFiltroFecha.addEventListener("change", filtrarPorFecha);
+
+//aparecer tablas de reportes cuando hay operaciones cargadas
+
+const tablasReportes = document.getElementById("tabla-reportes");
+const containerImgReportes = document.getElementById("container-img-reportes");
+
+const aparecerReportes = () => {
+	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+
+	if (operacionesGuardadas && operacionesGuardadas.length > 0) {
+		tablasReportes.classList.remove("hidden");
+		containerImgReportes.classList.add("hidden");
+		console.log("hay operaciones");
+	} else {
+		tablasReportes.classList.add("hidden");
+		containerImgReportes.classList.remove("hidden");
+		console.log("no hay operaciones");
+	}
+};
+
+aparecerReportes();
