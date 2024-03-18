@@ -598,12 +598,62 @@ const aparecerReportes = () => {
 	if (operacionesGuardadas && operacionesGuardadas.length > 0) {
 		tablasReportes.classList.remove("hidden");
 		containerImgReportes.classList.add("hidden");
-		console.log("hay operaciones");
 	} else {
 		tablasReportes.classList.add("hidden");
 		containerImgReportes.classList.remove("hidden");
-		console.log("no hay operaciones");
 	}
 };
 
 aparecerReportes();
+
+//funcion para obtener las ganacias por categorias
+const obtenerGananciasPorCategoria = () => {
+	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+
+	const gananciasPorCategoria = operacionesGuardadas.reduce(
+		(total, operacion) => {
+			if (operacion.tipo === "ganancia") {
+				total[operacion.categoria] = total[operacion.categoria] || 0;
+				total[operacion.categoria] += parseInt(operacion.monto);
+			}
+
+			return total;
+		},
+		{}
+	);
+	return gananciasPorCategoria;
+};
+const gananciasPorCategoria = obtenerGananciasPorCategoria();
+
+//funcion para obtener la categoria de mayor ganancia
+
+const obtenerCategoriaMayorGanancia = () => {
+	let mayorCategoria;
+	for (let categoria in gananciasPorCategoria) {
+		if (!mayorCategoria) {
+			mayorCategoria = categoria;
+		} else if (
+			gananciasPorCategoria[categoria] > gananciasPorCategoria[mayorCategoria]
+		) {
+			mayorCategoria = categoria;
+		}
+	}
+
+	return mayorCategoria;
+};
+
+const categoriaMayorGanancia = obtenerCategoriaMayorGanancia();
+
+const containerCategoriaMayorGanancia = document.getElementById(
+	"container-categoria-mayor-ganancia"
+);
+const containerMayorGanaciaCategoria = document.getElementById(
+	"container-mayor-ganacia-categoria"
+);
+//funcion para que aparezcan los valores en reportes
+const actualizarReportes = () => {
+	containerCategoriaMayorGanancia.innerText = categoriaMayorGanancia;
+	containerMayorGanaciaCategoria.innerText =
+		gananciasPorCategoria[categoriaMayorGanancia];
+};
+actualizarReportes();
