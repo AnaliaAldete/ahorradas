@@ -23,13 +23,12 @@ const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
 );
 const seccionEditar = document.getElementById("seccion-editar");
-
-//no usada por el momento
 const seccionCategoria = document.getElementById("seccion-categoria");
 const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
+const ventanaModalEditar = document.getElementById("advertencia-editar");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
@@ -40,7 +39,13 @@ const btnModoOscuro = document.getElementById("btn-modo-oscuro");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 const btnAgregarCategoria = document.getElementById("btn-agregar-categoria");
 const btnOcultarFiltros = document.getElementById("btn-ocultar-filtros");
-const btnAceptarEditar = document.querySelector(".aceptar-editar");
+const btnEditar = document.getElementById("btn-aceptar-editar");
+const btnAdvertenciaAceptarEditar = document.querySelector(
+	".btn-advertencia-editar--aceptar"
+);
+const btnAdvertenciaCancelarEditar = document.getElementById(
+	"btn-advertencia-editar--cancelar"
+);
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -72,13 +77,15 @@ const mostrarSeccion = (seccion, ...contenedores) => {
 };
 
 // prettier-ignore
-enlaceBalance.addEventListener("click", () => mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar ));
+enlaceBalance.addEventListener("click", () => mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
 // prettier-ignore
-enlaceCategoria.addEventListener("click", () => mostrarSeccion(seccionCategoria, contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionEditar ));
+enlaceCategoria.addEventListener("click", () => mostrarSeccion(seccionCategoria, contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
 // prettier-ignore
-enlaceReportes.addEventListener("click", () => mostrarSeccion(seccionReportes,contenedorPrincipal,seccionCategoria,seccionNuevaOperacion, seccionEditar));
+enlaceReportes.addEventListener("click", () => mostrarSeccion(seccionReportes,contenedorPrincipal,seccionCategoria,seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
 // prettier-ignore
-btnOperacion.addEventListener("click", () => mostrarSeccion(seccionNuevaOperacion, contenedorPrincipal, seccionCategoria, seccionReportes, seccionEditar ));
+btnOperacion.addEventListener("click", () => mostrarSeccion(seccionNuevaOperacion, contenedorPrincipal, seccionCategoria, seccionReportes, seccionEditar, ventanaModalEditar));
+// prettier-ignore
+btnEditar.addEventListener("click", () => mostrarSeccion(ventanaModalEditar, contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar ))
 
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
@@ -319,10 +326,13 @@ const eventosBtnsEditar = (btns) => {
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				btnSeleccionado.id.slice(7)
 			).nombreCategoria;
-			btnAceptarEditar.setAttribute(
+			btnAdvertenciaAceptarEditar.setAttribute(
 				"id",
 				`confirmar-${btnSeleccionado.id.slice(7)}`
 			);
+			// poner la categoria a la ventana de advertencia
+			const modalCategorias = document.getElementById("advertencia-categoria");
+			modalCategorias.innerHTML = inputEditarCategoria.value;
 		});
 	});
 };
@@ -398,13 +408,17 @@ const editarInput = (array, categoriaId) => {
 	generarTablaCategorias(categoriasEditadas);
 };
 
-btnAceptarEditar.addEventListener("click", () => {
+btnAdvertenciaAceptarEditar.addEventListener("click", () => {
 	editarInput(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-		btnAceptarEditar.id.slice(10)
+		btnAdvertenciaAceptarEditar.id.slice(10)
 	);
-	mostrarSeccion(seccionCategoria, seccionEditar);
+	mostrarSeccion(seccionCategoria, ventanaModalEditar);
 });
+
+btnAdvertenciaCancelarEditar.addEventListener("click", () =>
+	cancelar(ventanaModalEditar, seccionEditar)
+);
 
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
