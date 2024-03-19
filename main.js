@@ -606,13 +606,13 @@ const aparecerReportes = () => {
 
 aparecerReportes();
 
-//funcion para obtener las ganacias por categorias
-const obtenerGananciasPorCategoria = () => {
+//funcion para obtener las ganacias o gastos por categorias
+const obtenerGananciasOGastosPorCategoria = (tipo) => {
 	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 
-	const gananciasPorCategoria = operacionesGuardadas.reduce(
+	const gananciasOGastosPorCategoria = operacionesGuardadas.reduce(
 		(total, operacion) => {
-			if (operacion.tipo === "ganancia") {
+			if (operacion.tipo === tipo) {
 				total[operacion.categoria] = total[operacion.categoria] || 0;
 				total[operacion.categoria] += parseInt(operacion.monto);
 			}
@@ -621,20 +621,21 @@ const obtenerGananciasPorCategoria = () => {
 		},
 		{}
 	);
-	return gananciasPorCategoria;
+	return gananciasOGastosPorCategoria;
 };
-const gananciasPorCategoria = obtenerGananciasPorCategoria();
 
-//funcion para obtener la categoria de mayor ganancia
+const gananciasPorCategoria = obtenerGananciasOGastosPorCategoria("ganancia");
+const gastosPorCategoria = obtenerGananciasOGastosPorCategoria("gasto");
+console.log(gananciasPorCategoria, gastosPorCategoria);
 
-const obtenerCategoriaMayorGanancia = () => {
+//funcion para obtener la categoria de mayor ganancia o mayor gasto
+
+const obtenerCategoriaMayorGananciaOGasto = (tipo) => {
 	let mayorCategoria;
-	for (let categoria in gananciasPorCategoria) {
+	for (let categoria in tipo) {
 		if (!mayorCategoria) {
 			mayorCategoria = categoria;
-		} else if (
-			gananciasPorCategoria[categoria] > gananciasPorCategoria[mayorCategoria]
-		) {
+		} else if (tipo[categoria] > tipo[mayorCategoria]) {
 			mayorCategoria = categoria;
 		}
 	}
@@ -642,7 +643,12 @@ const obtenerCategoriaMayorGanancia = () => {
 	return mayorCategoria;
 };
 
-const categoriaMayorGanancia = obtenerCategoriaMayorGanancia();
+const categoriaMayorGanancia = obtenerCategoriaMayorGananciaOGasto(
+	gananciasPorCategoria
+);
+const categoriaMayorGasto =
+	obtenerCategoriaMayorGananciaOGasto(gastosPorCategoria);
+console.log(categoriaMayorGanancia, categoriaMayorGasto);
 
 const containerCategoriaMayorGanancia = document.getElementById(
 	"container-categoria-mayor-ganancia"
@@ -650,10 +656,19 @@ const containerCategoriaMayorGanancia = document.getElementById(
 const containerMayorGanaciaCategoria = document.getElementById(
 	"container-mayor-ganacia-categoria"
 );
+const containerCategoriaMayorGasto = document.getElementById(
+	"container-categoria-mayor-gasto"
+);
+const containerMayorGastoCategoria = document.getElementById(
+	"container-mayor-gasto-categoria"
+);
 //funcion para que aparezcan los valores en reportes
 const actualizarReportes = () => {
 	containerCategoriaMayorGanancia.innerText = categoriaMayorGanancia;
 	containerMayorGanaciaCategoria.innerText =
 		gananciasPorCategoria[categoriaMayorGanancia];
+	containerCategoriaMayorGasto.innerText = categoriaMayorGasto;
+	containerMayorGastoCategoria.innerText =
+		gastosPorCategoria[categoriaMayorGasto];
 };
 actualizarReportes();
