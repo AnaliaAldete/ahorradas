@@ -273,7 +273,7 @@
 				class="hidden flex flex-col p-5 gap-3 border-2 rounded-md lg:w-4/6"
 				id="seccion-nueva-operacion"
 			>
-				<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
+				<h2 class="text-4xl pb-7 text-center">Nueva Operación</h2>
 
 				<div class="flex flex-col gap-2 font-bold">
 					<label for="input-descripcion" class="font-bold">Descripción</label>
@@ -355,6 +355,103 @@
 				</div>
 			</section>
 			<!-- FIN SECCION NUEVA OPERACION -->
+
+			<!-- INICIO SECCION EDITAR OPERACION -->
+			<section
+				class="hidden flex flex-col p-5 gap-3 border-2 rounded-md max-w-[850px] w-full"
+				id="editar-nueva-operacion"
+			>
+				<h2 class="text-4xl pb-7">Editar Operación</h2>
+
+				<div class="flex flex-col gap-2 font-bold">
+					<label for="editar-input-descripcion" class="font-bold"
+						>Descripción</label
+					>
+					<input
+						type="text"
+						id="editar-input-descripcion"
+						class="border-solid border-2 p-2 rounded"
+					/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="editar-input-monto" class="font-bold">Monto</label>
+					<input
+						type="number"
+						id="editar-input-monto"
+						class="border-solid border-2 p-2 rounded focus:outline-none"
+						required
+						min="0"
+					/>
+					<p
+						id="editar-mensaje-error"
+						class="text-red-500 text-xs italic hidden"
+					>
+						El número no puede tener más de 10 dígitos.
+					</p>
+					<p
+						id="editar-mensaje-input-vacio"
+						class="text-red-500 text-xs italic hidden"
+					>
+						Ingrese un monto por favor
+					</p>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="editar-select-tipo" class="font-bold">Tipo</label>
+					<select
+						name="editar-select-tipo"
+						id="editar-select-tipo"
+						class="border-solid border-2 p-2 rounded"
+					>
+						<option value="gasto">Gasto</option>
+						<option value="ganancia">Ganancia</option>
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="editar-select-categoria" class="font-bold"
+						>Categoria</label
+					>
+					<select
+						name="editar-select-categoria"
+						id="editar-select-categoria"
+						class="border-2 p-2 rounded"
+					>
+						<option value="comida">Comida</option>
+						<option value="servicios">Servicios</option>
+						<option value="salidas">Salidas</option>
+						<option value="educacion">Educación</option>
+						<option value="transporte">Transporte</option>
+						<option value="trabajo">Trabajo</option>
+					</select>
+				</div>
+
+				<div class="flex flex-col gap-2 pb-7">
+					<label for="editar-input-fecha" class="font-bold">Fecha</label>
+					<input
+						type="date"
+						id="editar-input-fecha"
+						class="border-2 p-2 rounded"
+					/>
+				</div>
+
+				<div class="flex justify-end gap-2">
+					<button
+						class="rounded-md bg-[#f5f5f5] py-2 px-[17px] text-[grey]"
+						id="editar-btn-cancelar--nueva"
+					>
+						Cancelar
+					</button>
+					<button
+						class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
+						id="editar-btn-agregar"
+					>
+						Guardar Cambios
+					</button>
+				</div>
+			</section>
+			<!-- FIN SECCION EDITAR OPERACION -->
 
 			<!-- INICIO SECCION CATEGORÍAS-->
 			<section
@@ -481,7 +578,7 @@
 			</section>
 			<!-- FIN SECCION EDITAR-->
 
-			<!-- VENTANA MODAL EDITAR-->
+			<!--INICIO VENTANA MODAL EDITAR-->
 			<section
 				class="hidden flex flex-col gap-3 border-solid border-2 rounded-md max-w-[850px] p-5 w-full"
 				id="advertencia-editar"
@@ -520,6 +617,7 @@
 					</button>
 				</div>
 			</section>
+			<!--FIN VENTANA MODAL EDITAR-->
 
 			<!-- INICIO SECCION REPORTES-->
 			<section

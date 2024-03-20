@@ -76,16 +76,65 @@ const mostrarSeccion = (seccion, ...contenedores) => {
 	seccion.classList.remove("hidden");
 };
 
-// prettier-ignore
-enlaceBalance.addEventListener("click", () => mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-enlaceCategoria.addEventListener("click", () => mostrarSeccion(seccionCategoria, contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-enlaceReportes.addEventListener("click", () => mostrarSeccion(seccionReportes,contenedorPrincipal,seccionCategoria,seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-btnOperacion.addEventListener("click", () => mostrarSeccion(seccionNuevaOperacion, contenedorPrincipal, seccionCategoria, seccionReportes, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-btnEditar.addEventListener("click", () => mostrarSeccion(ventanaModalEditar, contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar ))
+enlaceBalance.addEventListener("click", () =>
+	mostrarSeccion(
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp
+	)
+);
+
+enlaceCategoria.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionCategoria,
+		contenedorPrincipal,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp
+	)
+);
+
+enlaceReportes.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionReportes,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp
+	)
+);
+
+btnOperacion.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionNuevaOperacion,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp
+	)
+);
+
+btnEditar.addEventListener("click", () =>
+	mostrarSeccion(
+		ventanaModalEditar,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		seccionEditarOp
+	)
+);
 
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
@@ -211,6 +260,16 @@ const actualizarBalance = () => {
 	}
 };
 
+// Función para añadir eventos a los btns de editar operaciones
+const seccionEditarOp = document.getElementById("editar-nueva-operacion");
+const eventosBtnsEditarOp = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			mostrarSeccion(seccionEditarOp, contenedorPrincipal);
+		});
+	});
+};
+
 // Función para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
 	const cuerpoTablaOperaciones = document.getElementById(
@@ -230,7 +289,7 @@ const generarTabla = (operaciones) => {
 			sumarGananciaOGasto(operacion.tipo, operacion.monto);
 
 			cuerpoTablaOperaciones.innerHTML += `
-				<div class="flex text-center flex-col md:flex-row">
+				<div class="flex text-center flex-col md:flex-row" id="${operacion.id}">
 					<div class="flex md:flex-row md:w-[40%]">
 						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
 							<span>${operacion.descripcion}</span>
@@ -246,14 +305,16 @@ const generarTabla = (operaciones) => {
 						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
 							<span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
 						</div>
-						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-							<a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
-							<a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
+						    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
+                            <button class="btn-editar-op" id="op-editar-${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
+                            <button class="btn-eliminar-op" id="op-eliminar-${operacion.id}""><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>							
 						</div>
 					</div>
 				</div>
 			`;
 		}
+		// llamando a mi nodeList de btns
+		eventosBtnsEditarOp(document.querySelectorAll(".btn-editar-op"));
 
 		calcularTotal();
 
@@ -356,7 +417,7 @@ const generarTablaCategorias = (categorias) => {
                 </div>
                 `;
 		}
-		// llamando a mi nodeList de btns,
+		// llamando a mi nodeList de btns
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 
 		// probando cambiar texto en el boton
