@@ -628,9 +628,9 @@ const gananciasPorCategoria = obtenerGananciasOGastosPorCategoria("ganancia");
 const gastosPorCategoria = obtenerGananciasOGastosPorCategoria("gasto");
 console.log(gananciasPorCategoria, gastosPorCategoria);
 
-//funcion para obtener la categoria de mayor ganancia o mayor gasto
+//funcion para obtener la categoria de mayor ganancia o mayor gasto o balance
 
-const obtenerCategoriaMayorGananciaOGasto = (tipo) => {
+const obtenerMayorCategoria = (tipo) => {
 	let mayorCategoria;
 	for (let categoria in tipo) {
 		if (!mayorCategoria) {
@@ -643,32 +643,127 @@ const obtenerCategoriaMayorGananciaOGasto = (tipo) => {
 	return mayorCategoria;
 };
 
-const categoriaMayorGanancia = obtenerCategoriaMayorGananciaOGasto(
-	gananciasPorCategoria
-);
-const categoriaMayorGasto =
-	obtenerCategoriaMayorGananciaOGasto(gastosPorCategoria);
+const categoriaMayorGanancia = obtenerMayorCategoria(gananciasPorCategoria);
+const categoriaMayorGasto = obtenerMayorCategoria(gastosPorCategoria);
 console.log(categoriaMayorGanancia, categoriaMayorGasto);
 
-const containerCategoriaMayorGanancia = document.getElementById(
-	"container-categoria-mayor-ganancia"
-);
-const containerMayorGanaciaCategoria = document.getElementById(
-	"container-mayor-ganacia-categoria"
-);
-const containerCategoriaMayorGasto = document.getElementById(
-	"container-categoria-mayor-gasto"
-);
-const containerMayorGastoCategoria = document.getElementById(
-	"container-mayor-gasto-categoria"
-);
-//funcion para que aparezcan los valores en reportes
-const actualizarReportes = () => {
+const obtenerBalancePorCategoria = () => {
+	const balance = {};
+
+	for (let categoria in gananciasPorCategoria) {
+		const ganancia = gananciasPorCategoria[categoria];
+		const gasto = gastosPorCategoria[categoria] || 0;
+		if (ganancia > gasto) balance[categoria] = ganancia - gasto;
+		else gasto - ganancia;
+	}
+
+	for (let categoria in gastosPorCategoria) {
+		if (!gananciasPorCategoria[categoria]) {
+			balance[categoria] = -gastosPorCategoria[categoria];
+		}
+	}
+
+	return balance;
+};
+
+const balancePorCategoria = obtenerBalancePorCategoria();
+console.log(balancePorCategoria);
+const categoriaMayorBalance = obtenerMayorCategoria(balancePorCategoria);
+console.log(categoriaMayorBalance);
+
+//prettier-ignore
+const containerCategoriaMayorGanancia = document.getElementById("container-categoria-mayor-ganancia");
+// prettier-ignore
+const containerMayorGanaciaCategoria = document.getElementById("container-mayor-ganacia-categoria");
+//prettier-ignore
+const containerCategoriaMayorGasto = document.getElementById("container-categoria-mayor-gasto");
+// prettier-ignore
+const containerMayorGastoCategoria = document.getElementById("container-mayor-gasto-categoria");
+
+//prettier-ignore
+const containerCategoriaMayorBalance = document.getElementById("container-categoria-mayor-balance");
+// prettier-ignore
+const containerMayorBalanceCategoria = document.getElementById("container-mayor-balance-categoria");
+
+//funcion para que aparezca el resumen en reportes
+const actualizarResumen = () => {
 	containerCategoriaMayorGanancia.innerText = categoriaMayorGanancia;
 	containerMayorGanaciaCategoria.innerText =
 		gananciasPorCategoria[categoriaMayorGanancia];
 	containerCategoriaMayorGasto.innerText = categoriaMayorGasto;
 	containerMayorGastoCategoria.innerText =
 		gastosPorCategoria[categoriaMayorGasto];
+	containerCategoriaMayorBalance.innerText = categoriaMayorBalance;
+	containerMayorBalanceCategoria.innerText =
+		balancePorCategoria[categoriaMayorBalance];
 };
-actualizarReportes();
+actualizarResumen();
+
+const actualizarTotalesPorCategoria = () => {
+	const cuerpoTablaTotalesCategorias = document.getElementById(
+		"cuerpo-tabla-totales-categorias"
+	);
+	cuerpoTablaTotalesCategorias.innerHTML = "";
+	const todasCategorias = new Set([
+		...Object.keys(gananciasPorCategoria),
+		...Object.keys(gastosPorCategoria),
+	]);
+	console.log(todasCategorias);
+
+	for (let categoria of todasCategorias) {
+		cuerpoTablaTotalesCategorias.innerHTML += `
+            <div class="flex">           
+			<div class="w-[25%] text-left">${categoria}</div>
+            <div class="w-[25%] text-center">${
+							gananciasPorCategoria[categoria] || 0
+						}</div>
+            <div class="w-[25%] text-center">${
+							gastosPorCategoria[categoria] || 0
+						}</div>
+            <div class="w-[25%] text-center">${
+							balancePorCategoria[categoria]
+						}</div>
+			</div>			
+    `;
+	}
+};
+actualizarTotalesPorCategoria();
+
+//funcion para obtener las ganacias o gastos por fecha
+const obtenerGananciasOGastosPorFecha = (tipo) => {
+	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+
+	const gananciasOGastosPorFecha = operacionesGuardadas.reduce(
+		(total, operacion) => {
+			if (operacion.tipo === tipo) {
+				total[operacion.fecha] = total[operacion.fecha] || 0;
+				total[operacion.fecha] += parseInt(operacion.monto);
+			}
+
+			return total;
+		},
+		{}
+	);
+	return gananciasOGastosPorFecha;
+};
+
+const gananciasPorFecha = obtenerGananciasOGastosPorFecha("ganancia");
+const gastosPorFecha = obtenerGananciasOGastosPorFecha("gasto");
+console.log(gananciasPorFecha, gastosPorFecha);
+
+const obtenerMesMayorGanancia = (tipo) => {
+	let mayor;
+	for (let fecha in tipo) {
+		if (!mayor) {
+			mayor = fecha;
+		} else if (tipo[fecha] > tipo[mayor]) {
+			mayor = fecha;
+		}
+	}
+
+	return mayor;
+};
+
+const mesMayorGanancia = obtenerMayorCategoria(gananciasPorFecha);
+const mesMayorGasto = obtenerMayorCategoria(gastosPorFecha);
+console.log(mesMayorGanancia, mesMayorGasto);
