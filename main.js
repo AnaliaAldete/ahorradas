@@ -606,69 +606,104 @@ const aparecerReportes = () => {
 
 aparecerReportes();
 
-//funcion para obtener las ganacias o gastos por categorias
-const obtenerGananciasOGastosPorCategoria = (tipo) => {
+//funcion para obtener las ganacias o gastos por categorias o por fecha
+const obtenerGananciasOGastosPorPropiedad = (tipo, propiedad) => {
 	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 
-	const gananciasOGastosPorCategoria = operacionesGuardadas.reduce(
+	const gananciasOGastosPorpropiedad = operacionesGuardadas.reduce(
 		(total, operacion) => {
 			if (operacion.tipo === tipo) {
-				total[operacion.categoria] = total[operacion.categoria] || 0;
-				total[operacion.categoria] += parseInt(operacion.monto);
+				total[operacion[propiedad]] = total[operacion[propiedad]] || 0;
+				total[operacion[propiedad]] += parseInt(operacion.monto);
 			}
 
 			return total;
 		},
 		{}
 	);
-	return gananciasOGastosPorCategoria;
+	return gananciasOGastosPorpropiedad;
 };
 
-const gananciasPorCategoria = obtenerGananciasOGastosPorCategoria("ganancia");
-const gastosPorCategoria = obtenerGananciasOGastosPorCategoria("gasto");
+const gananciasPorCategoria = obtenerGananciasOGastosPorPropiedad(
+	"ganancia",
+	"categoria"
+);
+const gastosPorCategoria = obtenerGananciasOGastosPorPropiedad(
+	"gasto",
+	"categoria"
+);
 console.log(gananciasPorCategoria, gastosPorCategoria);
 
-//funcion para obtener la categoria de mayor ganancia o mayor gasto o balance
+const gananciasPorFecha = obtenerGananciasOGastosPorPropiedad(
+	"ganancia",
+	"fecha"
+);
+const gastosPorFecha = obtenerGananciasOGastosPorPropiedad("gasto", "fecha");
+console.log(gananciasPorFecha, gastosPorFecha);
 
-const obtenerMayorCategoria = (tipo) => {
-	let mayorCategoria;
-	for (let categoria in tipo) {
-		if (!mayorCategoria) {
-			mayorCategoria = categoria;
-		} else if (tipo[categoria] > tipo[mayorCategoria]) {
-			mayorCategoria = categoria;
+//funcion para obtener la categoria o el mes de mayor ganancia o mayor gasto o mayor balance
+
+const obtenerMayorPropiedad = (tipo, propiedad) => {
+	let mayor;
+	for (let propiedad in tipo) {
+		if (!mayor) {
+			mayor = propiedad;
+		} else if (tipo[propiedad] > tipo[mayor]) {
+			mayor = propiedad;
 		}
 	}
 
-	return mayorCategoria;
+	return mayor;
 };
 
-const categoriaMayorGanancia = obtenerMayorCategoria(gananciasPorCategoria);
-const categoriaMayorGasto = obtenerMayorCategoria(gastosPorCategoria);
-console.log(categoriaMayorGanancia, categoriaMayorGasto);
+const categoriaMayorGanancia = obtenerMayorPropiedad(
+	gananciasPorCategoria,
+	"categoria"
+);
+const categoriaMayorGasto = obtenerMayorPropiedad(
+	gastosPorCategoria,
+	"categoria"
+);
 
-const obtenerBalancePorCategoria = () => {
+const mesMayorGanancia = obtenerMayorPropiedad(gananciasPorFecha, "fecha");
+const mesMayorGasto = obtenerMayorPropiedad(gastosPorFecha, "fecha");
+
+//funcion para obtener el balance de la categoria o del fecha
+const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
 	const balance = {};
 
-	for (let categoria in gananciasPorCategoria) {
-		const ganancia = gananciasPorCategoria[categoria];
-		const gasto = gastosPorCategoria[categoria] || 0;
-		if (ganancia > gasto) balance[categoria] = ganancia - gasto;
+	for (let propiedad in ganancias) {
+		const ganancia = ganancias[propiedad];
+		const gasto = gastos[propiedad] || 0;
+		if (ganancia > gasto) balance[propiedad] = ganancia - gasto;
 		else gasto - ganancia;
 	}
 
-	for (let categoria in gastosPorCategoria) {
-		if (!gananciasPorCategoria[categoria]) {
-			balance[categoria] = -gastosPorCategoria[categoria];
+	for (let propiedad in gastos) {
+		if (!ganancias[propiedad]) {
+			balance[propiedad] = -gastos[propiedad];
 		}
 	}
 
 	return balance;
 };
 
-const balancePorCategoria = obtenerBalancePorCategoria();
+const balancePorCategoria = obtenerBalancePorPropiedad(
+	"categoria",
+	gananciasPorCategoria,
+	gastosPorCategoria
+);
+const balancePorFecha = obtenerBalancePorPropiedad(
+	"fecha",
+	gananciasPorFecha,
+	gastosPorFecha
+);
 console.log(balancePorCategoria);
-const categoriaMayorBalance = obtenerMayorCategoria(balancePorCategoria);
+console.log(balancePorFecha);
+const categoriaMayorBalance = obtenerMayorPropiedad(
+	balancePorCategoria,
+	"categoria"
+);
 console.log(categoriaMayorBalance);
 
 //prettier-ignore
@@ -684,6 +719,14 @@ const containerMayorGastoCategoria = document.getElementById("container-mayor-ga
 const containerCategoriaMayorBalance = document.getElementById("container-categoria-mayor-balance");
 // prettier-ignore
 const containerMayorBalanceCategoria = document.getElementById("container-mayor-balance-categoria");
+// prettier-ignore
+const containerMesMayorGanacia = document.getElementById("container-mes-mayor-ganacia");
+// prettier-ignore
+const containerMayorGananciaMes = document.getElementById("container-mayor-ganancia-mes");
+// prettier-ignore
+const containerMesMayorGasto = document.getElementById("container-mes-mayor-gasto");
+// prettier-ignore
+const containerMayorGastoMes = document.getElementById("container-mayor-gasto-mes");
 
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
@@ -696,74 +739,54 @@ const actualizarResumen = () => {
 	containerCategoriaMayorBalance.innerText = categoriaMayorBalance;
 	containerMayorBalanceCategoria.innerText =
 		balancePorCategoria[categoriaMayorBalance];
+	containerMesMayorGanacia.innerText = mesMayorGanancia;
+	containerMayorGananciaMes.innerText = gananciasPorFecha[mesMayorGanancia];
+	containerMesMayorGasto.innerText = mesMayorGasto;
+	containerMayorGastoMes.innerText = gastosPorFecha[mesMayorGasto];
 };
 actualizarResumen();
 
-const actualizarTotalesPorCategoria = () => {
-	const cuerpoTablaTotalesCategorias = document.getElementById(
-		"cuerpo-tabla-totales-categorias"
-	);
-	cuerpoTablaTotalesCategorias.innerHTML = "";
-	const todasCategorias = new Set([
-		...Object.keys(gananciasPorCategoria),
-		...Object.keys(gastosPorCategoria),
+const cuerpoTablaTotalesCategorias = document.getElementById(
+	"cuerpo-tabla-totales-categorias"
+);
+const cuerpoTablaTotalesMes = document.getElementById(
+	"cuerpo-tabla-totales-mes"
+);
+const actualizarTotalesPorPropiedad = (
+	tabla,
+	propiedad,
+	ganancias,
+	gastos,
+	balance
+) => {
+	tabla.innerHTML = "";
+	const todasPropiedades = new Set([
+		...Object.keys(ganancias),
+		...Object.keys(gastos),
 	]);
-	console.log(todasCategorias);
 
-	for (let categoria of todasCategorias) {
-		cuerpoTablaTotalesCategorias.innerHTML += `
+	for (let propiedad of todasPropiedades) {
+		tabla.innerHTML += `
             <div class="flex">           
-			<div class="w-[25%] text-left">${categoria}</div>
-            <div class="w-[25%] text-center">${
-							gananciasPorCategoria[categoria] || 0
-						}</div>
-            <div class="w-[25%] text-center">${
-							gastosPorCategoria[categoria] || 0
-						}</div>
-            <div class="w-[25%] text-center">${
-							balancePorCategoria[categoria]
-						}</div>
+			<div class="w-[25%] text-left">${propiedad}</div>
+            <div class="w-[25%] text-center">${ganancias[propiedad] || 0}</div>
+            <div class="w-[25%] text-center">${gastos[propiedad] || 0}</div>
+            <div class="w-[25%] text-center">${balance[propiedad]}</div>
 			</div>			
     `;
 	}
 };
-actualizarTotalesPorCategoria();
-
-//funcion para obtener las ganacias o gastos por fecha
-const obtenerGananciasOGastosPorFecha = (tipo) => {
-	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-
-	const gananciasOGastosPorFecha = operacionesGuardadas.reduce(
-		(total, operacion) => {
-			if (operacion.tipo === tipo) {
-				total[operacion.fecha] = total[operacion.fecha] || 0;
-				total[operacion.fecha] += parseInt(operacion.monto);
-			}
-
-			return total;
-		},
-		{}
-	);
-	return gananciasOGastosPorFecha;
-};
-
-const gananciasPorFecha = obtenerGananciasOGastosPorFecha("ganancia");
-const gastosPorFecha = obtenerGananciasOGastosPorFecha("gasto");
-console.log(gananciasPorFecha, gastosPorFecha);
-
-const obtenerMesMayorGanancia = (tipo) => {
-	let mayor;
-	for (let fecha in tipo) {
-		if (!mayor) {
-			mayor = fecha;
-		} else if (tipo[fecha] > tipo[mayor]) {
-			mayor = fecha;
-		}
-	}
-
-	return mayor;
-};
-
-const mesMayorGanancia = obtenerMayorCategoria(gananciasPorFecha);
-const mesMayorGasto = obtenerMayorCategoria(gastosPorFecha);
-console.log(mesMayorGanancia, mesMayorGasto);
+actualizarTotalesPorPropiedad(
+	cuerpoTablaTotalesCategorias,
+	"categoria",
+	gananciasPorCategoria,
+	gastosPorCategoria,
+	balancePorCategoria
+);
+actualizarTotalesPorPropiedad(
+	cuerpoTablaTotalesMes,
+	"fecha",
+	gananciasPorFecha,
+	gastosPorFecha,
+	balancePorFecha
+);
