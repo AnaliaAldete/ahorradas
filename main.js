@@ -28,6 +28,9 @@ const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
+const ventanaModalEditarOp = document.getElementById(
+	"advertencia-editar--operaciones"
+);
 const ventanaModalEditar = document.getElementById("advertencia-editar");
 
 //botones
@@ -84,7 +87,8 @@ enlaceBalance.addEventListener("click", () =>
 		seccionNuevaOperacion,
 		seccionEditar,
 		ventanaModalEditar,
-		seccionEditarOp
+		seccionEditarOp,
+		ventanaModalEditarOp
 	)
 );
 
@@ -96,7 +100,8 @@ enlaceCategoria.addEventListener("click", () =>
 		seccionNuevaOperacion,
 		seccionEditar,
 		ventanaModalEditar,
-		seccionEditarOp
+		seccionEditarOp,
+		ventanaModalEditarOp
 	)
 );
 
@@ -108,7 +113,8 @@ enlaceReportes.addEventListener("click", () =>
 		seccionNuevaOperacion,
 		seccionEditar,
 		ventanaModalEditar,
-		seccionEditarOp
+		seccionEditarOp,
+		ventanaModalEditarOp
 	)
 );
 
@@ -120,7 +126,8 @@ btnOperacion.addEventListener("click", () =>
 		seccionReportes,
 		seccionEditar,
 		ventanaModalEditar,
-		seccionEditarOp
+		seccionEditarOp,
+		ventanaModalEditarOp
 	)
 );
 
@@ -262,13 +269,68 @@ const actualizarBalance = () => {
 
 // Función para añadir eventos a los btns de editar operaciones
 const seccionEditarOp = document.getElementById("editar-nueva-operacion");
+const editarDescripcion = document.getElementById("editar-input-descripcion");
+const editarMonto = document.getElementById("editar-input-monto");
+const editarTipo = document.getElementById("editar-select-tipo");
+const editarSelectCategoria = document.getElementById(
+	"editar-select-categoria"
+);
+const editarFecha = document.getElementById("editar-input-fecha");
+const btnAdvertenciaAceptarEditarOp = document.querySelector(
+	".btn-advertencia-editar--aceptar-op"
+);
+
 const eventosBtnsEditarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(seccionEditarOp, contenedorPrincipal);
+			const operacionAEditar = obtenerId(
+				evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+				btnSeleccionado.id.slice(9)
+			);
+			console.log(operacionAEditar);
+			if (operacionAEditar) {
+				editarDescripcion.value = operacionAEditar.descripcion;
+				editarMonto.value = operacionAEditar.monto;
+				editarTipo.value = operacionAEditar.tipo;
+				editarSelectCategoria.value = operacionAEditar.categoria;
+				console.log(operacionAEditar.categoria);
+				console.log(editarSelectCategoria.value);
+				editarFecha.value = operacionAEditar.fecha
+					.split("/")
+					.reverse()
+					.join("-");
+				console.log(editarFecha.value, operacionAEditar.fecha);
+			}
+			btnAdvertenciaAceptarEditarOp.setAttribute(
+				"id",
+				`confirmar-${btnSeleccionado.id.slice(9)}`
+			);
 		});
 	});
 };
+
+// funcion hidden
+const hidden = (mostrar, ocultar) => {
+	mostrar.classList.remove("hidden");
+	ocultar.classList.add("hidden");
+};
+
+// aparece ventana advertencia
+const btnGuardarCambios = document.getElementById("editar-btn-agregar");
+const btnAdvertenciaCancelarEditarOP = document.getElementById(
+	"btn-advertencia-editar--cancelar-op"
+);
+console.log(btnAdvertenciaCancelarEditarOP);
+
+btnGuardarCambios.addEventListener("click", () => {
+	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
+});
+
+// btn cancelar
+btnAdvertenciaCancelarEditarOP.addEventListener("click", () =>
+	cancelar(ventanaModalEditarOp, seccionEditarOp)
+);
 
 // Función para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
@@ -305,15 +367,15 @@ const generarTabla = (operaciones) => {
 						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
 							<span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
 						</div>
-						    <div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-                            <button class="btn-editar-op" id="op-editar-${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
-                            <button class="btn-eliminar-op" id="op-eliminar-${operacion.id}""><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>							
+						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
+						    <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
+                            <button class="btn-eliminar" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
 						</div>
 					</div>
 				</div>
 			`;
 		}
-		// llamando a mi nodeList de btns
+		// llamando a mi nodeList de btns,
 		eventosBtnsEditarOp(document.querySelectorAll(".btn-editar-op"));
 
 		calcularTotal();
@@ -336,6 +398,50 @@ const generarTabla = (operaciones) => {
 };
 
 generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+
+// funcion para editar las operaciones
+const editarSeccionOperaciones = (array, operacionId) => {
+	console.log(operacionId);
+	const operacionesEditadas = array.map((operacionAEditar) => {
+		console.log(operacionAEditar);
+		console.log(operacionAEditar.id);
+		if (operacionAEditar.id === operacionId) {
+			return {
+				...operacionAEditar,
+				descripcion: editarDescripcion.value,
+				categoria: editarSelectCategoria.value,
+				fecha: editarFecha.value,
+				monto: editarMonto.value,
+				tipo: editarTipo.value,
+				// console.log(operacionAEditar.categoria);
+				// console.log(editarSelectCategoria.value);
+				// console.log(editarFecha.value, operacionAEditar.fecha);
+			};
+		} else {
+			return {
+				...operacionAEditar,
+			};
+		}
+	});
+	localStorage.setItem("operaciones", JSON.stringify(operacionesEditadas));
+	generarTabla(operacionesEditadas);
+};
+
+// evento para imprimir la tabla editada
+btnAdvertenciaAceptarEditarOp.addEventListener("click", () => {
+	editarSeccionOperaciones(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		btnAdvertenciaAceptarEditarOp.id.slice(10)
+	);
+	mostrarSeccion(contenedorPrincipal, ventanaModalEditarOp);
+});
+
+//cancelar seccion editar operacion
+document
+	.getElementById("editar-btn-cancelar--nueva")
+	.addEventListener("click", () =>
+		cancelar(seccionEditarOp, contenedorPrincipal)
+	);
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
