@@ -32,6 +32,10 @@ const ventanaModalEditarOp = document.getElementById(
 	"advertencia-editar--operaciones"
 );
 const ventanaModalEditar = document.getElementById("advertencia-editar");
+const ventanaModalEliminarOp = document.getElementById(
+	"advertencia-eliminar--operaciones"
+);
+const ventanaModalEliminar = document.getElementById("advertencia-eliminar");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
@@ -88,7 +92,9 @@ enlaceBalance.addEventListener("click", () =>
 		seccionEditar,
 		ventanaModalEditar,
 		seccionEditarOp,
-		ventanaModalEditarOp
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
 	)
 );
 
@@ -101,7 +107,9 @@ enlaceCategoria.addEventListener("click", () =>
 		seccionEditar,
 		ventanaModalEditar,
 		seccionEditarOp,
-		ventanaModalEditarOp
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
 	)
 );
 
@@ -114,7 +122,9 @@ enlaceReportes.addEventListener("click", () =>
 		seccionEditar,
 		ventanaModalEditar,
 		seccionEditarOp,
-		ventanaModalEditarOp
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
 	)
 );
 
@@ -127,7 +137,9 @@ btnOperacion.addEventListener("click", () =>
 		seccionEditar,
 		ventanaModalEditar,
 		seccionEditarOp,
-		ventanaModalEditarOp
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
 	)
 );
 
@@ -139,7 +151,9 @@ btnEditar.addEventListener("click", () =>
 		seccionReportes,
 		seccionNuevaOperacion,
 		seccionEditar,
-		seccionEditarOp
+		seccionEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
 	)
 );
 
@@ -210,7 +224,6 @@ const categorias = [
 		nombreCategoria: "Trabajo",
 	},
 ];
-console.log(categorias);
 let categoriasGuardadas;
 
 // funcion para ver si algun usuario ingreso algun dato en local storage
@@ -321,7 +334,6 @@ const btnGuardarCambios = document.getElementById("editar-btn-agregar");
 const btnAdvertenciaCancelarEditarOP = document.getElementById(
 	"btn-advertencia-editar--cancelar-op"
 );
-console.log(btnAdvertenciaCancelarEditarOP);
 
 btnGuardarCambios.addEventListener("click", () => {
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
@@ -369,7 +381,7 @@ const generarTabla = (operaciones) => {
 						</div>
 						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
 						    <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
-                            <button class="btn-eliminar" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
+                            <button class="btn-eliminar-op" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
 						</div>
 					</div>
 				</div>
@@ -504,6 +516,29 @@ const eventosBtnsEditar = (btns) => {
 	});
 };
 
+// funcion para añadir eventos a los botones de eliminar
+const btnAceptarEliminar = document.querySelector(
+	".btn-advertencia-eliminar--aceptar"
+);
+console.log(btnAceptarEliminar);
+
+const eventosBtnsEliminar = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			const categoriaAEliminar = obtenerId(
+				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+				btnSeleccionado.id.slice(9)
+			);
+			console.log(categoriaAEliminar);
+			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
+			btnAceptarEliminar.setAttribute(
+				"id",
+				`confirm-${btnSeleccionado.id.slice(9)}`
+			);
+		});
+	});
+};
+
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -525,6 +560,7 @@ const generarTablaCategorias = (categorias) => {
 		}
 		// llamando a mi nodeList de btns
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
+		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
@@ -586,6 +622,30 @@ btnAdvertenciaAceptarEditar.addEventListener("click", () => {
 btnAdvertenciaCancelarEditar.addEventListener("click", () =>
 	cancelar(ventanaModalEditar, seccionEditar)
 );
+
+//funcion confirmar elimar categoria
+const confirmarEliminarCategorias = (array, categoriaId) => {
+	const arrayConCategoriaEliminada = array.filter((categoriaAEliminar) => {
+		categoriaAEliminar.id !== categoriaId;
+		// console.log(categoriaAEliminar);
+		// console.log(categoriaId);
+	});
+	console.log(arrayConCategoriaEliminada);
+	localStorage.setItem(
+		"categoria",
+		JSON.stringify(arrayConCategoriaEliminada),
+		generarTablaCategorias(arrayConCategoriaEliminada)
+	);
+};
+
+//evento confirmar elimar categoria
+btnAceptarEliminar.addEventListener("click", () => {
+	confirmarEliminarCategorias(
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+		btnAceptarEliminar.id.slice(10)
+	);
+	mostrarSeccion(seccionCategoria, ventanaModalEliminar);
+});
 
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
