@@ -826,11 +826,11 @@ const actualizarTotalesPorPropiedad = (
 					: "text-red-500"
 				: "text-green-500";
 		tabla.innerHTML += `
-            <div class="flex">           
-                <div class="w-[25%] text-left">${propiedad}</div>
-                <div class="w-[25%] text-center text-green-500">${textoGanancia}</div>
-                <div class="w-[25%] text-center text-red-500">${textoGasto}</div>
-                <div class="w-[25%] text-center ${colorBalance}">${textoBalance}</div>
+            <div class="flex">            
+                <div class="w-[25%] text-left border border-gray-300 md:border-none">${propiedad}</div>
+                <div class="w-[25%] text-center text-green-500 border border-gray-300 md:border-none">${textoGanancia}</div>
+                <div class="w-[25%] text-center text-red-500 border border-gray-300 md:border-none">${textoGasto}</div>
+                <div class="w-[25%] text-center border border-gray-300 md:border-none ${colorBalance}">${textoBalance}</div>
             </div>         
         `;
 	}
