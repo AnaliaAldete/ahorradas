@@ -675,13 +675,12 @@ const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
 	for (let propiedad in ganancias) {
 		const ganancia = ganancias[propiedad];
 		const gasto = gastos[propiedad] || 0;
-		if (ganancia > gasto) balance[propiedad] = ganancia - gasto;
-		else gasto - ganancia;
+		balance[propiedad] = Math.abs(ganancia - gasto);
 	}
 
 	for (let propiedad in gastos) {
 		if (!ganancias[propiedad]) {
-			balance[propiedad] = -gastos[propiedad];
+			balance[propiedad] = gastos[propiedad];
 		}
 	}
 
@@ -730,19 +729,33 @@ const containerMayorGastoMes = document.getElementById("container-mayor-gasto-me
 
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
+	const textoBalance =
+		gananciasPorCategoria[categoriaMayorGanancia] >
+		gastosPorCategoria[categoriaMayorGasto]
+			? `+$${balancePorCategoria[categoriaMayorBalance]}`
+			: `-$${balancePorCategoria[categoriaMayorBalance]}`;
+	const colorBalance =
+		gananciasPorCategoria[categoriaMayorGanancia] >
+		gastosPorCategoria[categoriaMayorGasto]
+			? "text-green-500"
+			: "text-red-500";
+
 	containerCategoriaMayorGanancia.innerText = categoriaMayorGanancia;
-	containerMayorGanaciaCategoria.innerText =
-		gananciasPorCategoria[categoriaMayorGanancia];
+	containerMayorGanaciaCategoria.innerText = `+$${gananciasPorCategoria[categoriaMayorGanancia]}`;
+	containerMayorGanaciaCategoria.classList.add("text-green-500");
 	containerCategoriaMayorGasto.innerText = categoriaMayorGasto;
-	containerMayorGastoCategoria.innerText =
-		gastosPorCategoria[categoriaMayorGasto];
+	containerMayorGastoCategoria.innerText = `-$${gastosPorCategoria[categoriaMayorGasto]}`;
+	gastosPorCategoria[categoriaMayorGasto];
+	containerMayorGastoCategoria.classList.add("text-red-500");
 	containerCategoriaMayorBalance.innerText = categoriaMayorBalance;
-	containerMayorBalanceCategoria.innerText =
-		balancePorCategoria[categoriaMayorBalance];
+	containerMayorBalanceCategoria.innerText = textoBalance;
+	containerMayorBalanceCategoria.classList.add(colorBalance);
 	containerMesMayorGanacia.innerText = mesMayorGanancia;
-	containerMayorGananciaMes.innerText = gananciasPorFecha[mesMayorGanancia];
+	containerMayorGananciaMes.innerText = `+$${gananciasPorFecha[mesMayorGanancia]}`;
+	containerMayorGananciaMes.classList.add("text-green-500");
 	containerMesMayorGasto.innerText = mesMayorGasto;
-	containerMayorGastoMes.innerText = gastosPorFecha[mesMayorGasto];
+	containerMayorGastoMes.innerText = `-$${gastosPorFecha[mesMayorGasto]}`;
+	containerMayorGastoMes.classList.add("text-red-500");
 };
 actualizarResumen();
 
@@ -766,16 +779,36 @@ const actualizarTotalesPorPropiedad = (
 	]);
 
 	for (let propiedad of todasPropiedades) {
+		const ganancia = ganancias[propiedad] || 0;
+		const gasto = gastos[propiedad] || 0;
+		const balancePropiedad = balance[propiedad] || 0;
+
+		const textoGanancia = ganancia !== 0 ? `+$${ganancia}` : "$0";
+		const textoGasto = gasto !== 0 ? `-$${gasto}` : "$0";
+
+		const textoBalance =
+			balancePropiedad !== 0
+				? ganancia > gasto
+					? `+$${balancePropiedad}`
+					: `-$${balancePropiedad}`
+				: "$0";
+		const colorBalance =
+			balancePropiedad !== 0
+				? ganancia > gasto
+					? "text-green-500"
+					: "text-red-500"
+				: "text-green-500";
 		tabla.innerHTML += `
             <div class="flex">           
-			<div class="w-[25%] text-left">${propiedad}</div>
-            <div class="w-[25%] text-center">${ganancias[propiedad] || 0}</div>
-            <div class="w-[25%] text-center">${gastos[propiedad] || 0}</div>
-            <div class="w-[25%] text-center">${balance[propiedad]}</div>
-			</div>			
-    `;
+                <div class="w-[25%] text-left">${propiedad}</div>
+                <div class="w-[25%] text-center text-green-500">${textoGanancia}</div>
+                <div class="w-[25%] text-center text-red-500">${textoGasto}</div>
+                <div class="w-[25%] text-center ${colorBalance}">${textoBalance}</div>
+            </div>         
+        `;
 	}
 };
+
 actualizarTotalesPorPropiedad(
 	cuerpoTablaTotalesCategorias,
 	"categoria",
