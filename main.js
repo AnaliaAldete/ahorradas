@@ -300,6 +300,21 @@ btnAgregarOperacion.addEventListener("click", () => {
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 	vaciarInput();
+	actualizarResumen();
+	actualizarTotalesPorPropiedad(
+		cuerpoTablaTotalesCategorias,
+		"categoria",
+		gananciasPorCategoria,
+		gastosPorCategoria,
+		balancePorCategoria
+	);
+	actualizarTotalesPorPropiedad(
+		cuerpoTablaTotalesMes,
+		"fecha",
+		gananciasPorMes,
+		gastosPorMes,
+		balancePorMes
+	);
 });
 
 // función para que aparezca los input vacios después de generar una nueva operación.
@@ -606,40 +621,54 @@ const aparecerReportes = () => {
 
 aparecerReportes();
 
-//funcion para obtener las ganacias o gastos por categorias o por fecha
-const obtenerGananciasOGastosPorPropiedad = (tipo, propiedad) => {
+//funcion para obtener las ganacias o gastos por categorias
+const obtenerGananciasOGastosPorCategoria = (tipo) => {
 	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 
-	const gananciasOGastosPorpropiedad = operacionesGuardadas.reduce(
+	const gananciasOGastosPorCategoria = operacionesGuardadas.reduce(
 		(total, operacion) => {
 			if (operacion.tipo === tipo) {
-				total[operacion[propiedad]] = total[operacion[propiedad]] || 0;
-				total[operacion[propiedad]] += parseInt(operacion.monto);
+				total[operacion.categoria] = total[operacion.categoria] || 0;
+				total[operacion.categoria] += parseInt(operacion.monto);
 			}
 
 			return total;
 		},
 		{}
 	);
-	return gananciasOGastosPorpropiedad;
+
+	return gananciasOGastosPorCategoria;
 };
 
-const gananciasPorCategoria = obtenerGananciasOGastosPorPropiedad(
-	"ganancia",
-	"categoria"
-);
-const gastosPorCategoria = obtenerGananciasOGastosPorPropiedad(
-	"gasto",
-	"categoria"
-);
-console.log(gananciasPorCategoria, gastosPorCategoria);
+const gananciasPorCategoria = obtenerGananciasOGastosPorCategoria("ganancia");
+const gastosPorCategoria = obtenerGananciasOGastosPorCategoria("gasto");
 
-const gananciasPorFecha = obtenerGananciasOGastosPorPropiedad(
-	"ganancia",
-	"fecha"
-);
-const gastosPorFecha = obtenerGananciasOGastosPorPropiedad("gasto", "fecha");
-console.log(gananciasPorFecha, gastosPorFecha);
+//funcion para obtener las ganacias o gastos por mes
+const obtenerGananciasOGastosPorMes = (tipo) => {
+	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+
+	const gananciasOGastosPorMes = operacionesGuardadas.reduce(
+		(total, operacion) => {
+			if (operacion.tipo === tipo) {
+				const fechaDividida = operacion.fecha.split("/");
+				const mes = fechaDividida[1];
+				const año = fechaDividida[2];
+
+				const periodo = `${mes}/${año}`;
+				total[periodo] = total[periodo] || 0;
+				total[periodo] += parseInt(operacion.monto);
+			}
+
+			return total;
+		},
+		{}
+	);
+
+	return gananciasOGastosPorMes;
+};
+
+const gananciasPorMes = obtenerGananciasOGastosPorMes("ganancia");
+const gastosPorMes = obtenerGananciasOGastosPorMes("gasto");
 
 //funcion para obtener la categoria o el mes de mayor ganancia o mayor gasto o mayor balance
 
@@ -665,8 +694,8 @@ const categoriaMayorGasto = obtenerMayorPropiedad(
 	"categoria"
 );
 
-const mesMayorGanancia = obtenerMayorPropiedad(gananciasPorFecha, "fecha");
-const mesMayorGasto = obtenerMayorPropiedad(gastosPorFecha, "fecha");
+const mesMayorGanancia = obtenerMayorPropiedad(gananciasPorMes, "fecha");
+const mesMayorGasto = obtenerMayorPropiedad(gastosPorMes, "fecha");
 
 //funcion para obtener el balance de la categoria o del fecha
 const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
@@ -692,18 +721,16 @@ const balancePorCategoria = obtenerBalancePorPropiedad(
 	gananciasPorCategoria,
 	gastosPorCategoria
 );
-const balancePorFecha = obtenerBalancePorPropiedad(
+const balancePorMes = obtenerBalancePorPropiedad(
 	"fecha",
-	gananciasPorFecha,
-	gastosPorFecha
+	gananciasPorMes,
+	gastosPorMes
 );
-console.log(balancePorCategoria);
-console.log(balancePorFecha);
+
 const categoriaMayorBalance = obtenerMayorPropiedad(
 	balancePorCategoria,
 	"categoria"
 );
-console.log(categoriaMayorBalance);
 
 //prettier-ignore
 const containerCategoriaMayorGanancia = document.getElementById("container-categoria-mayor-ganancia");
@@ -723,7 +750,7 @@ const containerMesMayorGanacia = document.getElementById("container-mes-mayor-ga
 // prettier-ignore
 const containerMayorGananciaMes = document.getElementById("container-mayor-ganancia-mes");
 // prettier-ignore
-const containerMesMayorGasto = document.getElementById("container-mes-mayor-gasto");
+const containerfechaMayorGasto = document.getElementById("container-mes-mayor-gasto");
 // prettier-ignore
 const containerMayorGastoMes = document.getElementById("container-mayor-gasto-mes");
 
@@ -751,10 +778,10 @@ const actualizarResumen = () => {
 	containerMayorBalanceCategoria.innerText = textoBalance;
 	containerMayorBalanceCategoria.classList.add(colorBalance);
 	containerMesMayorGanacia.innerText = mesMayorGanancia;
-	containerMayorGananciaMes.innerText = `+$${gananciasPorFecha[mesMayorGanancia]}`;
+	containerMayorGananciaMes.innerText = `+$${gananciasPorMes[mesMayorGanancia]}`;
 	containerMayorGananciaMes.classList.add("text-green-500");
-	containerMesMayorGasto.innerText = mesMayorGasto;
-	containerMayorGastoMes.innerText = `-$${gastosPorFecha[mesMayorGasto]}`;
+	containerfechaMayorGasto.innerText = mesMayorGasto;
+	containerMayorGastoMes.innerText = `-$${gastosPorMes[mesMayorGasto]}`;
 	containerMayorGastoMes.classList.add("text-red-500");
 };
 actualizarResumen();
@@ -819,7 +846,9 @@ actualizarTotalesPorPropiedad(
 actualizarTotalesPorPropiedad(
 	cuerpoTablaTotalesMes,
 	"fecha",
-	gananciasPorFecha,
-	gastosPorFecha,
-	balancePorFecha
+	gananciasPorMes,
+	gastosPorMes,
+	balancePorMes
 );
+
+//acordarse de ver que no actualiza en cargar una nueva operacion
