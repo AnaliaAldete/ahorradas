@@ -1,3 +1,4 @@
+//------------------------------ELEMENTOS----------------------------------------------------------------------------------------------------
 const body = document.body;
 
 // contenedores
@@ -16,9 +17,6 @@ const enlaceBalance = document.getElementById("enlace-balance");
 const enlaceCategoria = document.getElementById("enlace-categoria");
 
 // secciones
-const seccionBalance = document.getElementById("seccion-balance"); //no usada por el momento
-const seccionFiltros = document.getElementById("seccion-filtros"); //no usada por el momento
-const seccionOperaciones = document.getElementById("seccion-operaciones"); //no usada por el momento
 const containerBalanceYFiltros = document.getElementById(
 	"container-balance-filtros"
 );
@@ -50,6 +48,21 @@ const btnAdvertenciaCancelarEditar = document.getElementById(
 //menues
 const menuNav = document.getElementById("menu-nav");
 
+//imputs y select
+const inputDescripcion = document.getElementById("input-descripcion");
+const inputMonto = document.getElementById("input-monto");
+const selectTipo = document.getElementById("select-tipo");
+const selectCategoria = document.getElementById("select-categoria");
+const inputFecha = document.getElementById("input-fecha");
+const inputNombre = document.getElementById("nombre");
+const inputEditarCategoria = document.getElementById("label-editar");
+
+//input y select de filtros
+const filtroTipo = document.getElementById("filtro-tipo");
+const filtroCategoria = document.getElementById("filtro-categoria");
+const filtroOrdenar = document.getElementById("filtro-ordenar");
+const inputFiltroFecha = document.getElementById("filtro-fecha");
+
 //iconos
 const iconoHamburguesa = document.getElementById("icono-hamburguesa");
 const iconoX = document.getElementById("icono-x");
@@ -58,6 +71,16 @@ const iconoX = document.getElementById("icono-x");
 const caberecaTablaOperaciones = document.getElementById(
 	"cabecera-tabla-operaciones"
 );
+//div de balance
+const balanceGanancia = document.getElementById("balance-ganancia");
+const balanceGasto = document.getElementById("balance-gasto");
+const balanceTotal = document.getElementById("balance-total");
+
+//div de reportes
+const tablasReportes = document.getElementById("tabla-reportes");
+const containerImgReportes = document.getElementById("container-img-reportes");
+
+//----------------------------------------------------FIN DE ELEMENTOS--------------------------------------------------------------------------------------------------
 
 // Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
@@ -109,53 +132,11 @@ btnCancelarEditar.addEventListener("click", () =>
 	cancelar(seccionEditar, seccionCategoria)
 );
 
-//imputs y select
-const inputDescripcion = document.getElementById("input-descripcion");
-const inputMonto = document.getElementById("input-monto");
-const selectTipo = document.getElementById("select-tipo");
-const selectCategoria = document.getElementById("select-categoria");
-const inputFecha = document.getElementById("input-fecha");
-const inputNombre = document.getElementById("nombre");
-const inputEditarCategoria = document.getElementById("label-editar");
+//-------------------------------INICIO SECCION OPERACIONES-----------------------------------------------------------------------------------
 
 // objeto y variable para tabla operaciones
 const datos = [];
 let operacionesGuardadas;
-
-// objeto y variable para tabla categorias
-const categorias = [
-	{
-		id: uuidv4(),
-		nombreCategoria: "Comida",
-	},
-
-	{
-		id: uuidv4(),
-		nombreCategoria: "Servicio",
-	},
-
-	{
-		id: uuidv4(),
-		nombreCategoria: "Salidas",
-	},
-
-	{
-		id: uuidv4(),
-		nombreCategoria: "Educación",
-	},
-
-	{
-		id: uuidv4(),
-		nombreCategoria: "Transporte",
-	},
-
-	{
-		id: uuidv4(),
-		nombreCategoria: "Trabajo",
-	},
-];
-console.log(categorias);
-let categoriasGuardadas;
 
 // funcion para ver si algun usuario ingreso algun dato en local storage
 const evaluarLocalStorage = (nombre, variable, objeto) => {
@@ -169,9 +150,6 @@ const evaluarLocalStorage = (nombre, variable, objeto) => {
 
 // funcionalidades de LA SECCION BALANCE
 
-const balanceGanancia = document.getElementById("balance-ganancia");
-const balanceGasto = document.getElementById("balance-gasto");
-const balanceTotal = document.getElementById("balance-total");
 let resultadoGanacia = 0;
 let resultadoGasto = 0;
 let resultadoTotal = 0;
@@ -331,6 +309,63 @@ const vaciarInput = () => {
 	inputFecha.value = fechaActualFormateada;
 };
 
+// validación input monto para que no este vacia y no escriban de más
+const mensajeError = document.getElementById("mensaje-error");
+const mensajeError2 = document.getElementById("mensaje-input-vacio");
+
+inputMonto.addEventListener("input", () => {
+	if (/^\d{1,10}$/.test(inputMonto.value)) {
+		inputMonto.classList.remove("border-red-500");
+		mensajeError.classList.add("hidden");
+		mensajeError2.classList.add("hidden");
+	} else if (inputMonto.value.length === 0) {
+		mensajeError2.classList.remove("hidden");
+		inputMonto.classList.add("border-red-500");
+	} else if (inputMonto.value < 0) {
+		inputMonto.value = 0;
+	} else {
+		inputMonto.classList.add("border-red-500");
+		mensajeError.classList.remove("hidden");
+	}
+});
+//----------------------------FIN SECCION OPERACIONES--------------------------------------------------------------------------------------------
+
+//-------------------------------INICIO SECCION CATEGORIAS----------------------------------------------------------------------------------------
+// objeto y variable para tabla categorias
+const categorias = [
+	{
+		id: uuidv4(),
+		nombreCategoria: "Comida",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Servicio",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Salidas",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Educación",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Transporte",
+	},
+
+	{
+		id: uuidv4(),
+		nombreCategoria: "Trabajo",
+	},
+];
+console.log(categorias);
+let categoriasGuardadas;
+
 // función para añadir eventos a los botones de editar
 const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
@@ -452,6 +487,9 @@ btnAgregarCategoria.addEventListener("click", () => {
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 	);
 });
+//---------------------------FIN SECCION CATEGORIAS-----------------------------------------------------------------------------
+
+//----------------------------------------- INICIO SECCION FILTROS-----------------------------------------------------------------
 
 //ocultar filtros
 btnOcultarFiltros.addEventListener("click", () => {
@@ -463,13 +501,7 @@ btnOcultarFiltros.addEventListener("click", () => {
 	}
 });
 
-//input y select de filtros
-const filtroTipo = document.getElementById("filtro-tipo");
-const filtroCategoria = document.getElementById("filtro-categoria");
-
-// Función para filtrar las operaciones según el tipo y categoria seleccionado y generar la tabla
-
-// probando generalizar el filtrado
+// Filtrar las operaciones según TIPO y CATEGORIA  y generar la tabla
 const filtrarYGenerarTabla = (filtroSeleccionado, propiedad) => {
 	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 	let operacionesFiltradas;
@@ -494,50 +526,7 @@ filtroCategoria.addEventListener("change", () => {
 	filtrarYGenerarTabla(filtroCategoria.value, "categoria");
 });
 
-// validación input monto para que no este vacia y no escriban de más
-const mensajeError = document.getElementById("mensaje-error");
-const mensajeError2 = document.getElementById("mensaje-input-vacio");
-
-inputMonto.addEventListener("input", () => {
-	if (/^\d{1,10}$/.test(inputMonto.value)) {
-		inputMonto.classList.remove("border-red-500");
-		mensajeError.classList.add("hidden");
-		mensajeError2.classList.add("hidden");
-	} else if (inputMonto.value.length === 0) {
-		mensajeError2.classList.remove("hidden");
-		inputMonto.classList.add("border-red-500");
-	} else if (inputMonto.value < 0) {
-		inputMonto.value = 0;
-	} else {
-		inputMonto.classList.add("border-red-500");
-		mensajeError.classList.remove("hidden");
-	}
-});
-
-//formatear fechas
-
-let fechaFormateada;
-
-//estabalece fecha actual formateada por defecto al input
-let fechaActual = new Date();
-let fechaActualFormateada = new Date(
-	fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000
-)
-	.toISOString()
-	.split("T")[0];
-inputFecha.value = fechaActualFormateada;
-if (inputFecha.value === fechaActualFormateada) {
-	fechaFormateada = fechaActualFormateada;
-}
-//formatea fechas seleccionadas en el input
-inputFecha.addEventListener("change", () => {
-	let fechaSeleccionada = new Date(inputFecha.value);
-	fechaFormateada = fechaSeleccionada.toISOString().split("T")[0];
-});
-
 // filtro ordenar por mayor/ menor monto y de a/z , z/a y mas/menos reciente
-
-const filtroOrdenar = document.getElementById("filtro-ordenar");
 
 const generarYOrdenarTabla = (operaciones) => {
 	if (filtroOrdenar.value === "menor") {
@@ -585,18 +574,13 @@ filtroOrdenar.addEventListener("change", () =>
 	generarYOrdenarTabla(JSON.parse(localStorage.getItem("operaciones")))
 );
 
-//funcionalidad filtros fechas
-
-const inputFiltroFecha = document.getElementById("filtro-fecha");
-
-//establacer por defecto la fecha actual al input del filtro fecha y arregla el desfazaje de un dia
+//Establacer por defecto la fecha actual al input del filtro fecha y arregla el desfazaje de un dia
 let fechaDesde = new Date();
 let fechaDesdeFormateada = new Date(
 	fechaDesde.getTime() - fechaDesde.getTimezoneOffset() * 60000
 )
 	.toISOString()
 	.split("T")[0];
-
 inputFiltroFecha.value = fechaDesdeFormateada;
 
 //filtro de fechas de desde
@@ -616,10 +600,34 @@ const filtrarPorFecha = () => {
 
 inputFiltroFecha.addEventListener("change", filtrarPorFecha);
 
-//aparecer tablas de reportes cuando hay operaciones cargadas
+// ------------------------------FIN SECCION FILTROS---------------------------------------------------------------------------------------
 
-const tablasReportes = document.getElementById("tabla-reportes");
-const containerImgReportes = document.getElementById("container-img-reportes");
+//--------------INICIO FORMATEAR FECHAS------------------------------------------------------------------------------------------
+
+let fechaFormateada;
+
+//estabalece fecha actual formateada por defecto al input
+let fechaActual = new Date();
+let fechaActualFormateada = new Date(
+	fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000
+)
+	.toISOString()
+	.split("T")[0];
+inputFecha.value = fechaActualFormateada;
+if (inputFecha.value === fechaActualFormateada) {
+	fechaFormateada = fechaActualFormateada;
+}
+//formatea fechas seleccionadas en el input
+inputFecha.addEventListener("change", () => {
+	let fechaSeleccionada = new Date(inputFecha.value);
+	fechaFormateada = fechaSeleccionada.toISOString().split("T")[0];
+});
+
+//-------------------------------FIN FORMATEAR FECHAS-------------------------------------------------------------------------------------------
+
+//----------------------------INICIO SECCION REPORTES-----------------------------------------------------------------------------
+
+//aparecer tablas de reportes cuando hay operaciones cargadas
 
 const aparecerReportes = () => {
 	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
