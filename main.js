@@ -67,10 +67,17 @@ const inputFiltroFecha = document.getElementById("filtro-fecha");
 const iconoHamburguesa = document.getElementById("icono-hamburguesa");
 const iconoX = document.getElementById("icono-x");
 
-//cabereca tabla
+//tablas
 const caberecaTablaOperaciones = document.getElementById(
 	"cabecera-tabla-operaciones"
 );
+const cuerpoTablaTotalesCategorias = document.getElementById(
+	"cuerpo-tabla-totales-categorias"
+);
+const cuerpoTablaTotalesMes = document.getElementById(
+	"cuerpo-tabla-totales-mes"
+);
+
 //div de balance
 const balanceGanancia = document.getElementById("balance-ganancia");
 const balanceGasto = document.getElementById("balance-gasto");
@@ -82,6 +89,7 @@ const containerImgReportes = document.getElementById("container-img-reportes");
 
 //----------------------------------------------------FIN DE ELEMENTOS--------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------FUNCIONES GENERALES------------------------------------------------------------------------------------
 // Funcionalidad menú hamburguesa
 btnMenuHamburguesa.addEventListener("click", () => {
 	menuNav.classList.toggle("hidden");
@@ -154,7 +162,7 @@ let resultadoGanacia = 0;
 let resultadoGasto = 0;
 let resultadoTotal = 0;
 
-// Función para sumar ganancias o gastos
+// Función para sumar ganancias o gastos generales
 const sumarGananciaOGasto = (tipo, monto) => {
 	if (tipo === "ganancia") {
 		resultadoGanacia += parseInt(monto);
@@ -163,7 +171,7 @@ const sumarGananciaOGasto = (tipo, monto) => {
 	}
 };
 
-// Función para calcular el resultado total entre gasto y ganancia
+// Función para calcular el resultado total entre gasto y ganancia generales
 const calcularTotal = () => {
 	if (resultadoGanacia > resultadoGasto) {
 		resultadoTotal = resultadoGanacia - resultadoGasto;
@@ -172,7 +180,7 @@ const calcularTotal = () => {
 	}
 };
 
-// Función para actualizar el DOM de los balances
+// Función para actualizar el DOM de los balances generales
 const actualizarBalance = () => {
 	balanceGanancia.innerText = `+$${resultadoGanacia}`;
 	balanceGasto.innerText = `-$${resultadoGasto}`;
@@ -299,7 +307,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 		gananciasPorMes,
 		gastosPorMes,
 		balancePorMes
-	);
+	); //ver porque no se actualiza
 });
 
 // función para que aparezca los input vacios después de generar una nueva operación.
@@ -363,7 +371,7 @@ const categorias = [
 		nombreCategoria: "Trabajo",
 	},
 ];
-console.log(categorias);
+
 let categoriasGuardadas;
 
 // función para añadir eventos a los botones de editar
@@ -808,12 +816,6 @@ const actualizarResumen = () => {
 };
 actualizarResumen();
 
-const cuerpoTablaTotalesCategorias = document.getElementById(
-	"cuerpo-tabla-totales-categorias"
-);
-const cuerpoTablaTotalesMes = document.getElementById(
-	"cuerpo-tabla-totales-mes"
-);
 const actualizarTotalesPorPropiedad = (
 	tabla,
 	propiedad,
