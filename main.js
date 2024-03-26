@@ -26,7 +26,15 @@ const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
+// ventanas modales
+const ventanaModalEditarOp = document.getElementById(
+	"advertencia-editar--operaciones"
+);
 const ventanaModalEditar = document.getElementById("advertencia-editar");
+const ventanaModalEliminarOp = document.getElementById(
+	"advertencia-eliminar--operaciones"
+);
+const ventanaModalEliminar = document.getElementById("advertencia-eliminar");
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
@@ -43,6 +51,16 @@ const btnAdvertenciaAceptarEditar = document.querySelector(
 );
 const btnAdvertenciaCancelarEditar = document.getElementById(
 	"btn-advertencia-editar--cancelar"
+);
+const btnGuardarCambios = document.getElementById("editar-btn-agregar");
+const btnAdvertenciaCancelarEditarOP = document.getElementById(
+	"btn-advertencia-editar--cancelar-op"
+);
+const btnAceptarEliminar = document.querySelector(
+	".btn-advertencia-eliminar--aceptar"
+);
+const btnAdvertenciaCancelarEliminar = document.getElementById(
+	"btn-advertencia-eliminar--cancelar"
 );
 
 //menues
@@ -87,6 +105,50 @@ const balanceTotal = document.getElementById("balance-total");
 const tablasReportes = document.getElementById("tabla-reportes");
 const containerImgReportes = document.getElementById("container-img-reportes");
 
+//elemntos de edicion
+const seccionEditarOp = document.getElementById("editar-nueva-operacion");
+const editarDescripcion = document.getElementById("editar-input-descripcion");
+const editarMonto = document.getElementById("editar-input-monto");
+const editarTipo = document.getElementById("editar-select-tipo");
+const editarSelectCategoria = document.getElementById(
+	"editar-select-categoria"
+);
+const editarFecha = document.getElementById("editar-input-fecha");
+const btnAdvertenciaAceptarEditarOp = document.querySelector(
+	".btn-advertencia-editar--aceptar-op"
+);
+//containes de los elementos de reportes
+const containerCategoriaMayorGanancia = document.getElementById(
+	"container-categoria-mayor-ganancia"
+);
+const containerMayorGanaciaCategoria = document.getElementById(
+	"container-mayor-ganacia-categoria"
+);
+const containerCategoriaMayorGasto = document.getElementById(
+	"container-categoria-mayor-gasto"
+);
+const containerMayorGastoCategoria = document.getElementById(
+	"container-mayor-gasto-categoria"
+);
+const containerCategoriaMayorBalance = document.getElementById(
+	"container-categoria-mayor-balance"
+);
+const containerMayorBalanceCategoria = document.getElementById(
+	"container-mayor-balance-categoria"
+);
+const containerMesMayorGanacia = document.getElementById(
+	"container-mes-mayor-ganacia"
+);
+const containerMayorGananciaMes = document.getElementById(
+	"container-mayor-ganancia-mes"
+);
+const containerfechaMayorGasto = document.getElementById(
+	"container-mes-mayor-gasto"
+);
+const containerMayorGastoMes = document.getElementById(
+	"container-mayor-gasto-mes"
+);
+
 //----------------------------------------------------FIN DE ELEMENTOS--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------FUNCIONES GENERALES------------------------------------------------------------------------------------
@@ -107,16 +169,79 @@ const mostrarSeccion = (seccion, ...contenedores) => {
 	seccion.classList.remove("hidden");
 };
 
-// prettier-ignore
-enlaceBalance.addEventListener("click", () => mostrarSeccion(contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-enlaceCategoria.addEventListener("click", () => mostrarSeccion(seccionCategoria, contenedorPrincipal, seccionReportes, seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-enlaceReportes.addEventListener("click", () => mostrarSeccion(seccionReportes,contenedorPrincipal,seccionCategoria,seccionNuevaOperacion, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-btnOperacion.addEventListener("click", () => mostrarSeccion(seccionNuevaOperacion, contenedorPrincipal, seccionCategoria, seccionReportes, seccionEditar, ventanaModalEditar));
-// prettier-ignore
-btnEditar.addEventListener("click", () => mostrarSeccion(ventanaModalEditar, contenedorPrincipal, seccionCategoria, seccionReportes, seccionNuevaOperacion, seccionEditar ))
+enlaceBalance.addEventListener("click", () =>
+	mostrarSeccion(
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp,
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
+	)
+);
+
+enlaceCategoria.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionCategoria,
+		contenedorPrincipal,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp,
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
+	)
+);
+
+enlaceReportes.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionReportes,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionNuevaOperacion,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp,
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
+	)
+);
+
+btnOperacion.addEventListener("click", () =>
+	mostrarSeccion(
+		seccionNuevaOperacion,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionEditar,
+		ventanaModalEditar,
+		seccionEditarOp,
+		ventanaModalEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
+	)
+);
+
+btnEditar.addEventListener("click", () =>
+	mostrarSeccion(
+		ventanaModalEditar,
+		contenedorPrincipal,
+		seccionCategoria,
+		seccionReportes,
+		seccionNuevaOperacion,
+		seccionEditar,
+		seccionEditarOp,
+		ventanaModalEliminar,
+		ventanaModalEliminarOp
+	)
+);
 
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
@@ -197,6 +322,89 @@ const actualizarBalance = () => {
 	}
 };
 
+// Función para añadir eventos a los btns de editar operaciones
+
+const eventosBtnsEditarOp = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			mostrarSeccion(seccionEditarOp, contenedorPrincipal);
+			const operacionAEditar = obtenerId(
+				evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+				btnSeleccionado.id.slice(9)
+			);
+			console.log(operacionAEditar);
+			if (operacionAEditar) {
+				editarDescripcion.value = operacionAEditar.descripcion;
+				editarMonto.value = operacionAEditar.monto;
+				editarTipo.value = operacionAEditar.tipo;
+				editarSelectCategoria.value = operacionAEditar.categoria;
+				console.log(operacionAEditar.categoria);
+				console.log(editarSelectCategoria.value);
+				editarFecha.value = operacionAEditar.fecha
+					.split("/")
+					.reverse()
+					.join("-");
+				console.log(editarFecha.value, operacionAEditar.fecha);
+			}
+			btnAdvertenciaAceptarEditarOp.setAttribute(
+				"id",
+				`confirmar-${btnSeleccionado.id.slice(9)}`
+			);
+		});
+	});
+};
+
+// funcion hidden
+// const hidden = (mostrar, ocultar) => {
+// 	mostrar.classList.remove("hidden");
+// 	ocultar.classList.add("hidden");
+// };
+
+// aparece ventana advertencia
+
+btnGuardarCambios.addEventListener("click", () => {
+	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
+});
+
+// btn cancelar
+btnAdvertenciaCancelarEditarOP.addEventListener("click", () =>
+	cancelar(ventanaModalEditarOp, contenedorPrincipal)
+);
+
+// funcion para añadir eventos a los botones de eliminar
+const btnAdvertenciaEliminarOp = document.querySelector(
+	".btn-advertencia-eliminar--aceptar-op"
+);
+console.log(btnAdvertenciaEliminarOp);
+
+const eventosBtnsEliminarOp = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			confirmarEliminarOperacion(
+				evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+				obtenerId(
+					evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+					btnSeleccionado.id.slice(11)
+				)
+			);
+			mostrarSeccion(ventanaModalEliminarOp, contenedorPrincipal);
+			btnAdvertenciaEliminarOp.setAttribute(
+				"id",
+				`confirmar-${btnSeleccionado.id.slice(11)}`
+			);
+		});
+	});
+};
+
+// Ajustar visibilidad de la cabecera de la tabla dependiendo del tamaño de la pantalla
+const ajustarVisibilidadCabecera = () => {
+	if (window.innerWidth > 767) {
+		caberecaTablaOperaciones.classList.remove("hidden");
+	} else {
+		caberecaTablaOperaciones.classList.add("hidden");
+	}
+};
+
 // Función para generar tabla de operaciones si hay datos en local storage
 const generarTabla = (operaciones) => {
 	const cuerpoTablaOperaciones = document.getElementById(
@@ -216,7 +424,7 @@ const generarTabla = (operaciones) => {
 			sumarGananciaOGasto(operacion.tipo, operacion.monto);
 
 			cuerpoTablaOperaciones.innerHTML += `
-				<div class="flex text-center flex-col md:flex-row">
+				<div class="flex text-center flex-col md:flex-row" id="${operacion.id}">
 					<div class="flex md:flex-row md:w-[40%]">
 						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
 							<span>${operacion.descripcion}</span>
@@ -233,13 +441,16 @@ const generarTabla = (operaciones) => {
 							<span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
 						</div>
 						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-							<a href="Javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i></a>
-							<a href="Javascript:void(0)"><i class="fa-solid fa-trash-can"></i></a>
+							 <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
+                            <button class="btn-eliminar-op" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
 						</div>
 					</div>
 				</div>
 			`;
 		}
+		// llamando a mi nodeList de btns,
+		eventosBtnsEditarOp(document.querySelectorAll(".btn-editar-op"));
+		eventosBtnsEliminarOp(document.querySelectorAll(".btn-eliminar-op"));
 
 		calcularTotal();
 
@@ -247,20 +458,57 @@ const generarTabla = (operaciones) => {
 
 		mostrarSeccion(contenedorPrincipal, contenedorImgOperaciones);
 
-		// Ajustar visibilidad de la cabecera dependiendo del tamaño de la pantalla
-		const ajustarVisibilidadCabecera = () => {
-			if (window.innerWidth > 767) {
-				caberecaTablaOperaciones.classList.remove("hidden");
-			} else {
-				caberecaTablaOperaciones.classList.add("hidden");
-			}
-		};
+		ajustarVisibilidadCabecera();
 		window.addEventListener("DOMContentLoaded", ajustarVisibilidadCabecera);
 		window.addEventListener("resize", ajustarVisibilidadCabecera);
 	}
 };
 
 generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+
+// funcion para editar las operaciones
+const editarSeccionOperaciones = (array, operacionId) => {
+	console.log(operacionId);
+	const operacionesEditadas = array.map((operacionAEditar) => {
+		console.log(operacionAEditar);
+		console.log(operacionAEditar.id);
+		if (operacionAEditar.id === operacionId) {
+			return {
+				...operacionAEditar,
+				descripcion: editarDescripcion.value,
+				categoria: editarSelectCategoria.value,
+				fecha: editarFecha.value,
+				monto: editarMonto.value,
+				tipo: editarTipo.value,
+				// console.log(operacionAEditar.categoria);
+				// console.log(editarSelectCategoria.value);
+				// console.log(editarFecha.value, operacionAEditar.fecha);
+			};
+		} else {
+			return {
+				...operacionAEditar,
+			};
+		}
+	});
+	localStorage.setItem("operaciones", JSON.stringify(operacionesEditadas));
+	generarTabla(operacionesEditadas);
+};
+
+// evento para imprimir la tabla editada
+btnAdvertenciaAceptarEditarOp.addEventListener("click", () => {
+	editarSeccionOperaciones(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		btnAdvertenciaAceptarEditarOp.id.slice(10)
+	);
+	mostrarSeccion(contenedorPrincipal, ventanaModalEditarOp);
+});
+
+//cancelar seccion editar operacion
+document
+	.getElementById("editar-btn-cancelar--nueva")
+	.addEventListener("click", () =>
+		cancelar(seccionEditarOp, contenedorPrincipal)
+	);
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
@@ -388,12 +636,64 @@ const eventosBtnsEditar = (btns) => {
 				"id",
 				`confirmar-${btnSeleccionado.id.slice(7)}`
 			);
-			// poner la categoria a la ventana de advertencia
-			const modalCategorias = document.getElementById("advertencia-categoria");
-			modalCategorias.innerHTML = inputEditarCategoria.value;
+			CategoriaVentanaModal(modalCategoria);
 		});
 	});
 };
+
+// funcion para poner la categoria a la ventana de advertencia
+const modalCategoria = document.getElementById("advertencia-categoria");
+const modalEliminarCategoria = document.getElementById(
+	"eliminar-advertencia-categoria"
+);
+
+const CategoriaVentanaModal = (span) =>
+	(span.innerHTML = inputEditarCategoria.value);
+
+// funcion para añadir eventos a los botones de eliminar
+const eventosBtnsEliminar = (btns) => {
+	btns.forEach((btnSeleccionado) => {
+		btnSeleccionado.addEventListener("click", () => {
+			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
+			confirmarEliminarCategoria(
+				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+				obtenerId(
+					evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+					btnSeleccionado.id.slice(9)
+				)
+			);
+			btnAceptarEliminar.setAttribute(
+				"id",
+				`confirm-${btnSeleccionado.id.slice(9)}`
+			);
+			inputEditarCategoria.value = obtenerId(
+				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+				btnSeleccionado.id.slice(9)
+			).nombreCategoria;
+
+			CategoriaVentanaModal(modalEliminarCategoria);
+		});
+	});
+};
+
+// //funcion confirmar elimar operacion
+const confirmarEliminarOperacion = (array, operacionId) => {
+	const operacionesFiltradas = array.filter(
+		(operacionAEliminar) => operacionAEliminar.id !== operacionId
+	);
+	console.log(operacionesFiltradas);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+	generarTabla(operacionesFiltradas);
+};
+
+// evento confirmar eliminar operacion
+btnAdvertenciaEliminarOp.addEventListener("click", () => {
+	confirmarEliminarOperacion(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		btnAdvertenciaEliminarOp.id.slice(10)
+	);
+	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+});
 
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
@@ -416,6 +716,7 @@ const generarTablaCategorias = (categorias) => {
 		}
 		// llamando a mi nodeList de btns,
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
+		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
@@ -474,8 +775,33 @@ btnAdvertenciaAceptarEditar.addEventListener("click", () => {
 	mostrarSeccion(seccionCategoria, ventanaModalEditar);
 });
 
+// evento para cancelar modal editar
 btnAdvertenciaCancelarEditar.addEventListener("click", () =>
-	cancelar(ventanaModalEditar, seccionEditar)
+	cancelar(ventanaModalEditar, seccionCategoria)
+);
+
+//funcion confirmar elimar categoria
+const confirmarEliminarCategoria = (array, categoriaId) => {
+	const arrayFiltrado = array.filter(
+		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
+	);
+	console.log(arrayFiltrado);
+	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
+		generarTablaCategorias(arrayFiltrado);
+};
+
+//evento confirmar elimar categoria
+btnAceptarEliminar.addEventListener("click", () => {
+	confirmarEliminarCategoria(
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+		btnAceptarEliminar.id.slice(8)
+	);
+	mostrarSeccion(seccionCategoria, ventanaModalEliminar);
+});
+
+// evento cancelar modal eliminar
+btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
+	cancelar(ventanaModalEliminar, seccionCategoria)
 );
 
 // evento para agregar y actualizar categorias
@@ -761,28 +1087,6 @@ const categoriaMayorBalance = obtenerMayorPropiedad(
 	balancePorCategoria,
 	"categoria"
 );
-
-//prettier-ignore
-const containerCategoriaMayorGanancia = document.getElementById("container-categoria-mayor-ganancia");
-// prettier-ignore
-const containerMayorGanaciaCategoria = document.getElementById("container-mayor-ganacia-categoria");
-//prettier-ignore
-const containerCategoriaMayorGasto = document.getElementById("container-categoria-mayor-gasto");
-// prettier-ignore
-const containerMayorGastoCategoria = document.getElementById("container-mayor-gasto-categoria");
-
-//prettier-ignore
-const containerCategoriaMayorBalance = document.getElementById("container-categoria-mayor-balance");
-// prettier-ignore
-const containerMayorBalanceCategoria = document.getElementById("container-mayor-balance-categoria");
-// prettier-ignore
-const containerMesMayorGanacia = document.getElementById("container-mes-mayor-ganacia");
-// prettier-ignore
-const containerMayorGananciaMes = document.getElementById("container-mayor-ganancia-mes");
-// prettier-ignore
-const containerfechaMayorGasto = document.getElementById("container-mes-mayor-gasto");
-// prettier-ignore
-const containerMayorGastoMes = document.getElementById("container-mayor-gasto-mes");
 
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
