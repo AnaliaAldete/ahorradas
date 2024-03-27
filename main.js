@@ -62,6 +62,12 @@ const btnAceptarEliminar = document.querySelector(
 const btnAdvertenciaCancelarEliminar = document.getElementById(
 	"btn-advertencia-eliminar--cancelar"
 );
+const btnAdvertenciaEliminarOp = document.querySelector(
+	".btn-advertencia-eliminar--aceptar-op"
+);
+const btnAdvertenciaCancelarEliminarOp = document.getElementById(
+	"btn-advertencia-eliminar--cancelar-op"
+);
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -162,10 +168,8 @@ btnMenuHamburguesa.addEventListener("click", () => {
 // funcion para aparecer y desaparecer secciones
 const mostrarSeccion = (seccion, ...contenedores) => {
 	contenedores.forEach((contenedor) => {
-		// contenedor.style.display = "none";
 		contenedor.classList.add("hidden");
 	});
-	// seccion.style.display = "flex";
 	seccion.classList.remove("hidden");
 };
 
@@ -183,7 +187,6 @@ enlaceBalance.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 enlaceCategoria.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionCategoria,
@@ -198,7 +201,6 @@ enlaceCategoria.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 enlaceReportes.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionReportes,
@@ -213,7 +215,6 @@ enlaceReportes.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 btnOperacion.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionNuevaOperacion,
@@ -228,7 +229,6 @@ btnOperacion.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 btnEditar.addEventListener("click", () =>
 	mostrarSeccion(
 		ventanaModalEditar,
@@ -323,7 +323,6 @@ const actualizarBalance = () => {
 };
 
 // Función para añadir eventos a los btns de editar operaciones
-
 const eventosBtnsEditarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
@@ -361,22 +360,16 @@ const eventosBtnsEditarOp = (btns) => {
 // };
 
 // aparece ventana advertencia
-
 btnGuardarCambios.addEventListener("click", () => {
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
 });
 
-// btn cancelar
+// btn cancelar modal de editar operacion
 btnAdvertenciaCancelarEditarOP.addEventListener("click", () =>
 	cancelar(ventanaModalEditarOp, contenedorPrincipal)
 );
 
 // funcion para añadir eventos a los botones de eliminar
-const btnAdvertenciaEliminarOp = document.querySelector(
-	".btn-advertencia-eliminar--aceptar-op"
-);
-console.log(btnAdvertenciaEliminarOp);
-
 const eventosBtnsEliminarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
@@ -395,6 +388,11 @@ const eventosBtnsEliminarOp = (btns) => {
 		});
 	});
 };
+
+//btn cancelar modal de eliminar operacion
+btnAdvertenciaCancelarEliminarOp.addEventListener("click", () =>
+	cancelar(ventanaModalEliminarOp, contenedorPrincipal)
+);
 
 // Ajustar visibilidad de la cabecera de la tabla dependiendo del tamaño de la pantalla
 const ajustarVisibilidadCabecera = () => {
@@ -480,9 +478,6 @@ const editarSeccionOperaciones = (array, operacionId) => {
 				fecha: editarFecha.value,
 				monto: editarMonto.value,
 				tipo: editarTipo.value,
-				// console.log(operacionAEditar.categoria);
-				// console.log(editarSelectCategoria.value);
-				// console.log(editarFecha.value, operacionAEditar.fecha);
 			};
 		} else {
 			return {
@@ -540,8 +535,11 @@ btnAgregarOperacion.addEventListener("click", () => {
 	}
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+
 	vaciarInput();
+
 	actualizarResumen();
+
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesCategorias,
 		"categoria",
@@ -549,6 +547,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 		gastosPorCategoria,
 		balancePorCategoria
 	);
+
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesMes,
 		"fecha",
@@ -655,6 +654,7 @@ const eventosBtnsEliminar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
+
 			confirmarEliminarCategoria(
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				obtenerId(
