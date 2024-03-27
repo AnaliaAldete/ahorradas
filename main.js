@@ -695,6 +695,22 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
 });
 
+// funcion para cargar el select de categorias
+const cargarSelect = (categorias) => {
+	filtroCategoria.innerHTML = "";
+	filtroCategoria.innerHTML = `<option value="todas">Todas</option>`;
+
+	if (categorias && categorias.length >= 0) {
+		for (option of categorias) {
+			const { nombreCategoria } = option;
+			filtroCategoria.innerHTML += `
+       <option value="${nombreCategoria}">${nombreCategoria}</option>
+       `;
+		}
+	}
+};
+
+// console.log(cargarSelect());
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -704,20 +720,23 @@ const generarTablaCategorias = (categorias) => {
 		for (let categoria of categorias) {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
-                <div class="flex justify-between" id="${id}">
-				<p>${nombreCategoria}</p>
-				<div class="flex gap-x-4 text-[darkturquoise]">
-                <button class="btn-on" id="on-${id}">On</button>			
-                <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
-                <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
-				</div>			
-                </div>
-                `;
+            <div class="flex justify-between" id="${id}">
+            <p>${nombreCategoria}</p>
+            <div class="flex gap-x-4 text-[darkturquoise]">
+            <button class="btn-on" id="on-${id}">On</button>			
+            <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
+            <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
+            </div>			
+            </div>
+            `;
 		}
 		// llamando a mi nodeList de btns,
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
+		cargarSelect(
+			evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
+		);
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		// const btnOn = document.querySelectorAll(".on");
@@ -743,26 +762,6 @@ const generarTablaCategorias = (categorias) => {
 generarTablaCategorias(
 	evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 );
-
-// funcion para cargar el select de categorias
-const cargarSelect = (categorias) => {
-	const selectCategoria = document.getElementById("select-categoria");
-	console.log(selectCategoria);
-	selectCategoria.innerHTML = "";
-
-	if (categorias && categorias.length >= 0) {
-		for (option of categorias) {
-			const { nombreCategoria } = option;
-			selectCategoria.innerHTML = `<option value="todas">Todas</option>`;
-			selectCategoria.innerHTML += `
-       <option value="${nombreCategoria}">${nombreCategoria}.charAt(0).toUpperCase() +
-			${nombreCategoria}.slice(1)</option>
-       `;
-		}
-	}
-};
-
-cargarSelect(evaluarLocalStorage("categoria", categoriasGuardadas, categorias));
 
 // función para identificar categoria en función del id.
 const obtenerId = (array, categoriaId) =>
