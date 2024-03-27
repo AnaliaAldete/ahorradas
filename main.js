@@ -545,16 +545,24 @@ btnAgregarOperacion.addEventListener("click", () => {
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesCategorias,
 		"categoria",
-		gananciasPorCategoria,
-		gastosPorCategoria,
-		balancePorCategoria
+		obtenerGananciasOGastosPorCategoria("ganancia"),
+		obtenerGananciasOGastosPorCategoria("gasto"),
+		obtenerBalancePorPropiedad(
+			"categoria",
+			obtenerGananciasOGastosPorCategoria("ganancia"),
+			obtenerGananciasOGastosPorCategoria("gasto")
+		)
 	);
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesMes,
 		"fecha",
-		gananciasPorMes,
-		gastosPorMes,
-		balancePorMes
+		obtenerGananciasOGastosPorMes("ganancia"),
+		obtenerGananciasOGastosPorMes("gasto"),
+		obtenerBalancePorPropiedad(
+			"fecha",
+			obtenerGananciasOGastosPorMes("ganancia"),
+			obtenerGananciasOGastosPorMes("gasto")
+		)
 	); //ver porque no se actualiza
 });
 
@@ -992,12 +1000,8 @@ const obtenerGananciasOGastosPorCategoria = (tipo) => {
 		},
 		{}
 	);
-
 	return gananciasOGastosPorCategoria;
 };
-
-const gananciasPorCategoria = obtenerGananciasOGastosPorCategoria("ganancia");
-const gastosPorCategoria = obtenerGananciasOGastosPorCategoria("gasto");
 
 //funcion para obtener las ganacias o gastos por mes
 const obtenerGananciasOGastosPorMes = (tipo) => {
@@ -1014,20 +1018,14 @@ const obtenerGananciasOGastosPorMes = (tipo) => {
 				total[periodo] = total[periodo] || 0;
 				total[periodo] += parseInt(operacion.monto);
 			}
-
 			return total;
 		},
 		{}
 	);
-
 	return gananciasOGastosPorMes;
 };
 
-const gananciasPorMes = obtenerGananciasOGastosPorMes("ganancia");
-const gastosPorMes = obtenerGananciasOGastosPorMes("gasto");
-
 //funcion para obtener la categoria o el mes de mayor ganancia o mayor gasto o mayor balance
-
 const obtenerMayorPropiedad = (tipo, propiedad) => {
 	let mayor;
 	for (let propiedad in tipo) {
@@ -1037,21 +1035,8 @@ const obtenerMayorPropiedad = (tipo, propiedad) => {
 			mayor = propiedad;
 		}
 	}
-
 	return mayor;
 };
-
-const categoriaMayorGanancia = obtenerMayorPropiedad(
-	gananciasPorCategoria,
-	"categoria"
-);
-const categoriaMayorGasto = obtenerMayorPropiedad(
-	gastosPorCategoria,
-	"categoria"
-);
-
-const mesMayorGanancia = obtenerMayorPropiedad(gananciasPorMes, "fecha");
-const mesMayorGasto = obtenerMayorPropiedad(gastosPorMes, "fecha");
 
 //funcion para obtener el balance de la categoria o del fecha
 const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
@@ -1062,60 +1047,122 @@ const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
 		const gasto = gastos[propiedad] || 0;
 		balance[propiedad] = Math.abs(ganancia - gasto);
 	}
-
 	for (let propiedad in gastos) {
 		if (!ganancias[propiedad]) {
 			balance[propiedad] = gastos[propiedad];
 		}
 	}
-
 	return balance;
 };
 
-const balancePorCategoria = obtenerBalancePorPropiedad(
-	"categoria",
-	gananciasPorCategoria,
-	gastosPorCategoria
-);
-const balancePorMes = obtenerBalancePorPropiedad(
-	"fecha",
-	gananciasPorMes,
-	gastosPorMes
-);
-
 const categoriaMayorBalance = obtenerMayorPropiedad(
-	balancePorCategoria,
+	obtenerBalancePorPropiedad(
+		"categoria",
+		obtenerGananciasOGastosPorCategoria("ganancia"),
+		obtenerGananciasOGastosPorCategoria("gasto")
+	),
 	"categoria"
 );
 
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
 	const textoBalance =
-		gananciasPorCategoria[categoriaMayorGanancia] >
-		gastosPorCategoria[categoriaMayorGasto]
-			? `+$${balancePorCategoria[categoriaMayorBalance]}`
-			: `-$${balancePorCategoria[categoriaMayorBalance]}`;
+		obtenerGananciasOGastosPorCategoria("ganancia")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("ganancia"),
+				"categoria"
+			)
+		] >
+		obtenerGananciasOGastosPorCategoria("gasto")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("gasto"),
+				"categoria"
+			)
+		]
+			? `+$${
+					obtenerBalancePorPropiedad(
+						"categoria",
+						obtenerGananciasOGastosPorCategoria("ganancia"),
+						obtenerGananciasOGastosPorCategoria("gasto")
+					)[categoriaMayorBalance]
+			  }`
+			: `-$${
+					obtenerBalancePorPropiedad(
+						"categoria",
+						obtenerGananciasOGastosPorCategoria("ganancia"),
+						obtenerGananciasOGastosPorCategoria("gasto")
+					)[categoriaMayorBalance]
+			  }`;
 	const colorBalance =
-		gananciasPorCategoria[categoriaMayorGanancia] >
-		gastosPorCategoria[categoriaMayorGasto]
+		obtenerGananciasOGastosPorCategoria("ganancia")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("ganancia"),
+				"categoria"
+			)
+		] >
+		obtenerGananciasOGastosPorCategoria("gasto")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("gasto"),
+				"categoria"
+			)
+		]
 			? "text-green-500"
 			: "text-red-500";
 
-	containerCategoriaMayorGanancia.innerText = categoriaMayorGanancia;
-	containerMayorGanaciaCategoria.innerText = `+$${gananciasPorCategoria[categoriaMayorGanancia]}`;
+	containerCategoriaMayorGanancia.innerText = obtenerMayorPropiedad(
+		obtenerGananciasOGastosPorCategoria("ganancia"),
+		"categoria"
+	);
+	containerMayorGanaciaCategoria.innerText = `+$${
+		obtenerGananciasOGastosPorCategoria("ganancia")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("ganancia"),
+				"categoria"
+			)
+		]
+	}`;
 	containerMayorGanaciaCategoria.classList.add("text-green-500");
-	containerCategoriaMayorGasto.innerText = categoriaMayorGasto;
-	containerMayorGastoCategoria.innerText = `-$${gastosPorCategoria[categoriaMayorGasto]}`;
-	gastosPorCategoria[categoriaMayorGasto];
+	containerCategoriaMayorGasto.innerText = obtenerMayorPropiedad(
+		obtenerGananciasOGastosPorCategoria("gasto"),
+		"categoria"
+	);
+	containerMayorGastoCategoria.innerText = `-$${
+		obtenerGananciasOGastosPorCategoria("gasto")[
+			obtenerMayorPropiedad(
+				obtenerGananciasOGastosPorCategoria("gasto"),
+				"categoria"
+			)
+		]
+	}`;
+	obtenerGananciasOGastosPorCategoria("gasto")[
+		obtenerMayorPropiedad(
+			obtenerGananciasOGastosPorCategoria("gasto"),
+			"categoria"
+		)
+	];
 	containerMayorGastoCategoria.classList.add("text-red-500");
 	containerCategoriaMayorBalance.innerText = categoriaMayorBalance;
 	containerMayorBalanceCategoria.innerText = textoBalance;
 	containerMayorBalanceCategoria.classList.add(colorBalance);
-	containerMesMayorGanacia.innerText = mesMayorGanancia;
-	containerMayorGananciaMes.innerText = `+$${gananciasPorMes[mesMayorGanancia]}`;
+	containerMesMayorGanacia.innerText = obtenerMayorPropiedad(
+		obtenerGananciasOGastosPorMes("ganancia"),
+		"fecha"
+	);
+	containerMayorGananciaMes.innerText = `+$${
+		obtenerGananciasOGastosPorMes("ganancia")[
+			obtenerMayorPropiedad(obtenerGananciasOGastosPorMes("ganancia"), "fecha")
+		]
+	}`;
 	containerMayorGananciaMes.classList.add("text-green-500");
-	containerfechaMayorGasto.innerText = mesMayorGasto;
-	containerMayorGastoMes.innerText = `-$${gastosPorMes[mesMayorGasto]}`;
+	containerfechaMayorGasto.innerText = obtenerMayorPropiedad(
+		obtenerGananciasOGastosPorMes("gasto"),
+		"fecha"
+	);
+	containerMayorGastoMes.innerText = `-$${
+		obtenerGananciasOGastosPorMes("gasto")[
+			obtenerMayorPropiedad(obtenerGananciasOGastosPorMes("gasto"), "fecha")
+		]
+	}`;
 	containerMayorGastoMes.classList.add("text-red-500");
 };
 actualizarResumen();
@@ -1167,16 +1214,24 @@ const actualizarTotalesPorPropiedad = (
 actualizarTotalesPorPropiedad(
 	cuerpoTablaTotalesCategorias,
 	"categoria",
-	gananciasPorCategoria,
-	gastosPorCategoria,
-	balancePorCategoria
+	obtenerGananciasOGastosPorCategoria("ganancia"),
+	obtenerGananciasOGastosPorCategoria("gasto"),
+	obtenerBalancePorPropiedad(
+		"categoria",
+		obtenerGananciasOGastosPorCategoria("ganancia"),
+		obtenerGananciasOGastosPorCategoria("gasto")
+	)
 );
 actualizarTotalesPorPropiedad(
 	cuerpoTablaTotalesMes,
 	"fecha",
-	gananciasPorMes,
-	gastosPorMes,
-	balancePorMes
+	obtenerGananciasOGastosPorMes("ganancia"),
+	obtenerGananciasOGastosPorMes("gasto"),
+	obtenerBalancePorPropiedad(
+		"fecha",
+		obtenerGananciasOGastosPorMes("ganancia"),
+		obtenerGananciasOGastosPorMes("gasto")
+	)
 );
 
 //acordarse de ver que no actualiza en cargar una nueva operacion
