@@ -994,6 +994,8 @@ const obtenerGananciasOGastosPorCategoria = (tipo) => {
 			if (operacion.tipo === tipo) {
 				total[operacion.categoria] = total[operacion.categoria] || 0;
 				total[operacion.categoria] += parseInt(operacion.monto);
+			} else {
+				total[operacion.categoria] = total[operacion.categoria] || 0;
 			}
 
 			return total;
@@ -1017,6 +1019,13 @@ const obtenerGananciasOGastosPorMes = (tipo) => {
 				const periodo = `${mes}/${año}`;
 				total[periodo] = total[periodo] || 0;
 				total[periodo] += parseInt(operacion.monto);
+			} else {
+				const fechaDividida = operacion.fecha.split("/");
+				const mes = fechaDividida[1];
+				const año = fechaDividida[2];
+
+				const periodo = `${mes}/${año}`;
+				total[periodo] = total[periodo] || 0;
 			}
 			return total;
 		},
@@ -1113,6 +1122,7 @@ const actualizarResumen = () => {
 		obtenerGananciasOGastosPorCategoria("ganancia"),
 		"categoria"
 	);
+
 	containerMayorGanaciaCategoria.innerText = `+$${
 		obtenerGananciasOGastosPorCategoria("ganancia")[
 			obtenerMayorPropiedad(
@@ -1121,6 +1131,7 @@ const actualizarResumen = () => {
 			)
 		]
 	}`;
+
 	containerMayorGanaciaCategoria.classList.add("text-green-500");
 	containerCategoriaMayorGasto.innerText = obtenerMayorPropiedad(
 		obtenerGananciasOGastosPorCategoria("gasto"),
