@@ -744,6 +744,26 @@ generarTablaCategorias(
 	evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 );
 
+// funcion para cargar el select de categorias
+const cargarSelect = (categorias) => {
+	const selectCategoria = document.getElementById("select-categoria");
+	console.log(selectCategoria);
+	selectCategoria.innerHTML = "";
+
+	if (categorias && categorias.length >= 0) {
+		for (option of categorias) {
+			const { nombreCategoria } = option;
+			selectCategoria.innerHTML = `<option value="todas">Todas</option>`;
+			selectCategoria.innerHTML += `
+       <option value="${nombreCategoria}">${nombreCategoria}.charAt(0).toUpperCase() +
+			${nombreCategoria}.slice(1)</option>
+       `;
+		}
+	}
+};
+
+cargarSelect(evaluarLocalStorage("categoria", categoriasGuardadas, categorias));
+
 // función para identificar categoria en función del id.
 const obtenerId = (array, categoriaId) =>
 	array.find((elemento) => categoriaId === elemento.id);
