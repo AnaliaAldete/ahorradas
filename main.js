@@ -62,6 +62,12 @@ const btnAceptarEliminar = document.querySelector(
 const btnAdvertenciaCancelarEliminar = document.getElementById(
 	"btn-advertencia-eliminar--cancelar"
 );
+const btnAdvertenciaEliminarOp = document.querySelector(
+	".btn-advertencia-eliminar--aceptar-op"
+);
+const btnAdvertenciaCancelarEliminarOp = document.getElementById(
+	"btn-advertencia-eliminar--cancelar-op"
+);
 
 //menues
 const menuNav = document.getElementById("menu-nav");
@@ -162,10 +168,8 @@ btnMenuHamburguesa.addEventListener("click", () => {
 // funcion para aparecer y desaparecer secciones
 const mostrarSeccion = (seccion, ...contenedores) => {
 	contenedores.forEach((contenedor) => {
-		// contenedor.style.display = "none";
 		contenedor.classList.add("hidden");
 	});
-	// seccion.style.display = "flex";
 	seccion.classList.remove("hidden");
 };
 
@@ -183,7 +187,6 @@ enlaceBalance.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 enlaceCategoria.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionCategoria,
@@ -198,7 +201,6 @@ enlaceCategoria.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 enlaceReportes.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionReportes,
@@ -213,7 +215,6 @@ enlaceReportes.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 btnOperacion.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionNuevaOperacion,
@@ -228,7 +229,6 @@ btnOperacion.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-
 btnEditar.addEventListener("click", () =>
 	mostrarSeccion(
 		ventanaModalEditar,
@@ -323,7 +323,6 @@ const actualizarBalance = () => {
 };
 
 // Función para añadir eventos a los btns de editar operaciones
-
 const eventosBtnsEditarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
@@ -361,22 +360,16 @@ const eventosBtnsEditarOp = (btns) => {
 // };
 
 // aparece ventana advertencia
-
 btnGuardarCambios.addEventListener("click", () => {
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
 });
 
-// btn cancelar
+// btn cancelar modal de editar operacion
 btnAdvertenciaCancelarEditarOP.addEventListener("click", () =>
 	cancelar(ventanaModalEditarOp, contenedorPrincipal)
 );
 
 // funcion para añadir eventos a los botones de eliminar
-const btnAdvertenciaEliminarOp = document.querySelector(
-	".btn-advertencia-eliminar--aceptar-op"
-);
-console.log(btnAdvertenciaEliminarOp);
-
 const eventosBtnsEliminarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
@@ -395,6 +388,11 @@ const eventosBtnsEliminarOp = (btns) => {
 		});
 	});
 };
+
+//btn cancelar modal de eliminar operacion
+btnAdvertenciaCancelarEliminarOp.addEventListener("click", () =>
+	cancelar(ventanaModalEliminarOp, contenedorPrincipal)
+);
 
 // Ajustar visibilidad de la cabecera de la tabla dependiendo del tamaño de la pantalla
 const ajustarVisibilidadCabecera = () => {
@@ -480,9 +478,6 @@ const editarSeccionOperaciones = (array, operacionId) => {
 				fecha: editarFecha.value,
 				monto: editarMonto.value,
 				tipo: editarTipo.value,
-				// console.log(operacionAEditar.categoria);
-				// console.log(editarSelectCategoria.value);
-				// console.log(editarFecha.value, operacionAEditar.fecha);
 			};
 		} else {
 			return {
@@ -540,9 +535,11 @@ btnAgregarOperacion.addEventListener("click", () => {
 	}
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+
 	vaciarInput();
 	aparecerReportes();
 	actualizarResumen();
+
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesCategorias,
 		"categoria",
@@ -554,6 +551,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 			obtenerGananciasOGastosPorCategoria("gasto")
 		)
 	);
+
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesMes,
 		"fecha",
@@ -664,6 +662,7 @@ const eventosBtnsEliminar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
+
 			confirmarEliminarCategoria(
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				obtenerId(
@@ -704,6 +703,22 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
 });
 
+// funcion para cargar el select de categorias
+const cargarSelect = (categorias) => {
+	filtroCategoria.innerHTML = "";
+	filtroCategoria.innerHTML = `<option value="todas">Todas</option>`;
+
+	if (categorias && categorias.length >= 0) {
+		for (option of categorias) {
+			const { nombreCategoria } = option;
+			filtroCategoria.innerHTML += `
+       <option value="${nombreCategoria}">${nombreCategoria}</option>
+       `;
+		}
+	}
+};
+
+// console.log(cargarSelect());
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -713,20 +728,23 @@ const generarTablaCategorias = (categorias) => {
 		for (let categoria of categorias) {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
-                <div class="flex justify-between" id="${id}">
-				<p>${nombreCategoria}</p>
-				<div class="flex gap-x-4 text-[darkturquoise]">
-                <button class="btn-on" id="on-${id}">On</button>			
-                <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
-                <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
-				</div>			
-                </div>
-                `;
+            <div class="flex justify-between" id="${id}">
+            <p>${nombreCategoria}</p>
+            <div class="flex gap-x-4 text-[darkturquoise]">
+            <button class="btn-on" id="on-${id}">On</button>			
+            <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
+            <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
+            </div>			
+            </div>
+            `;
 		}
 		// llamando a mi nodeList de btns,
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
+		cargarSelect(
+			evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
+		);
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		// const btnOn = document.querySelectorAll(".on");
