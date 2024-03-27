@@ -541,6 +541,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 	vaciarInput();
+	aparecerReportes();
 	actualizarResumen();
 	actualizarTotalesPorPropiedad(
 		cuerpoTablaTotalesCategorias,
@@ -1064,17 +1065,15 @@ const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
 	return balance;
 };
 
-const categoriaMayorBalance = obtenerMayorPropiedad(
-	obtenerBalancePorPropiedad(
-		"categoria",
-		obtenerGananciasOGastosPorCategoria("ganancia"),
-		obtenerGananciasOGastosPorCategoria("gasto")
-	),
-	"categoria"
-);
-
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
+	console.log(
+		obtenerBalancePorPropiedad(
+			"categoria",
+			obtenerGananciasOGastosPorCategoria("ganancia"),
+			obtenerGananciasOGastosPorCategoria("gasto")
+		)
+	);
 	const textoBalance =
 		obtenerGananciasOGastosPorCategoria("ganancia")[
 			obtenerMayorPropiedad(
@@ -1093,14 +1092,32 @@ const actualizarResumen = () => {
 						"categoria",
 						obtenerGananciasOGastosPorCategoria("ganancia"),
 						obtenerGananciasOGastosPorCategoria("gasto")
-					)[categoriaMayorBalance]
+					)[
+						obtenerMayorPropiedad(
+							obtenerBalancePorPropiedad(
+								"categoria",
+								obtenerGananciasOGastosPorCategoria("ganancia"),
+								obtenerGananciasOGastosPorCategoria("gasto")
+							),
+							"categoria"
+						)
+					]
 			  }`
 			: `-$${
 					obtenerBalancePorPropiedad(
 						"categoria",
 						obtenerGananciasOGastosPorCategoria("ganancia"),
 						obtenerGananciasOGastosPorCategoria("gasto")
-					)[categoriaMayorBalance]
+					)[
+						obtenerMayorPropiedad(
+							obtenerBalancePorPropiedad(
+								"categoria",
+								obtenerGananciasOGastosPorCategoria("ganancia"),
+								obtenerGananciasOGastosPorCategoria("gasto")
+							),
+							"categoria"
+						)
+					]
 			  }`;
 	const colorBalance =
 		obtenerGananciasOGastosPorCategoria("ganancia")[
@@ -1152,7 +1169,14 @@ const actualizarResumen = () => {
 		)
 	];
 	containerMayorGastoCategoria.classList.add("text-red-500");
-	containerCategoriaMayorBalance.innerText = categoriaMayorBalance;
+	containerCategoriaMayorBalance.innerText = obtenerMayorPropiedad(
+		obtenerBalancePorPropiedad(
+			"categoria",
+			obtenerGananciasOGastosPorCategoria("ganancia"),
+			obtenerGananciasOGastosPorCategoria("gasto")
+		),
+		"categoria"
+	);
 	containerMayorBalanceCategoria.innerText = textoBalance;
 	containerMayorBalanceCategoria.classList.add(colorBalance);
 	containerMesMayorGanacia.innerText = obtenerMayorPropiedad(
