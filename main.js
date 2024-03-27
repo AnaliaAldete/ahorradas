@@ -337,7 +337,7 @@ const eventosBtnsEditarOp = (btns) => {
 				editarDescripcion.value = operacionAEditar.descripcion;
 				editarMonto.value = operacionAEditar.monto;
 				editarTipo.value = operacionAEditar.tipo;
-				editarSelectCategoria.value = operacionAEditar.categoria;
+				editarSelectCategoria.value = operacionAEditar.categoria.toLowerCase();
 				console.log(operacionAEditar.categoria);
 				console.log(editarSelectCategoria.value);
 				editarFecha.value = operacionAEditar.fecha
