@@ -404,17 +404,19 @@ const ajustarVisibilidadCabecera = () => {
 };
 
 // Función para generar tabla de operaciones si hay datos en local storage
-const generarTabla = (operaciones) => {
+const generarTabla = (operacionesFiltradas) => {
+	console.log("Operaciones filtradas recibidas:", operacionesFiltradas);
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
+	console.log("Operaciones filtradas:", operacionesFiltradas);
 
-	if (operaciones && operaciones.length > 0) {
+	if (operacionesFiltradas && operacionesFiltradas.length > 0) {
 		resultadoGanacia = 0;
 		resultadoGasto = 0;
 
-		for (let operacion of operaciones) {
+		for (let operacion of operacionesFiltradas) {
 			const obtenerSigno = operacion.tipo === "ganancia" ? "+$" : "-$";
 			const obtenerColor =
 				operacion.tipo === "ganancia" ? "text-green-500" : "text-red-500";
@@ -449,7 +451,6 @@ const generarTabla = (operaciones) => {
 		// llamando a mi nodeList de btns,
 		eventosBtnsEditarOp(document.querySelectorAll(".btn-editar-op"));
 		eventosBtnsEliminarOp(document.querySelectorAll(".btn-eliminar-op"));
-
 		calcularTotal();
 
 		actualizarBalance();
@@ -861,39 +862,32 @@ btnOcultarFiltros.addEventListener("click", () => {
 		btnOcultarFiltros.innerHTML = "Ocultar filtros";
 	}
 });
-
 // Filtrar las operaciones según TIPO y CATEGORIA  y generar la tabla
-const filtrarYGenerarTabla = (filtroSeleccionado, propiedad) => {
-	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+const filtrarPorTipoOCategoria = (
+	filtroSeleccionado,
+	propiedad,
+	operaciones
+) => {
 	let operacionesFiltradas;
 
 	if (filtroSeleccionado !== "todos" && filtroSeleccionado !== "todas") {
-		operacionesFiltradas = operacionesGuardadas.filter((operacion) => {
+		operacionesFiltradas = operaciones.filter((operacion) => {
 			return (
 				operacion[propiedad].toLowerCase() === filtroSeleccionado.toLowerCase()
 			);
 		});
 	} else {
-		operacionesFiltradas = operacionesGuardadas;
+		operacionesFiltradas = operaciones;
 	}
-	generarTabla(operacionesFiltradas);
+
+	return operacionesFiltradas;
 };
-
-filtroTipo.addEventListener("change", () => {
-	filtrarYGenerarTabla(filtroTipo.value, "tipo");
-});
-
-filtroCategoria.addEventListener("change", () => {
-	filtrarYGenerarTabla(filtroCategoria.value, "categoria");
-});
-
 // filtro ordenar por mayor/ menor monto y de a/z , z/a y mas/menos reciente
-
-const generarYOrdenarTabla = (operaciones) => {
+const ordenarTabla = (operaciones) => {
 	if (filtroOrdenar.value === "menor") {
-		generarTabla(operaciones.sort((a, b) => a.monto - b.monto));
+		return operaciones.sort((a, b) => a.monto - b.monto);
 	} else if (filtroOrdenar.value === "mayor") {
-		generarTabla(operaciones.sort((a, b) => b.monto - a.monto));
+		return operaciones.sort((a, b) => b.monto - a.monto);
 	} else if (filtroOrdenar.value === "Z/A") {
 		generarTabla(
 			operaciones.sort((a, b) => {
@@ -911,29 +905,46 @@ const generarYOrdenarTabla = (operaciones) => {
 			})
 		);
 	} else if (filtroOrdenar.value === "mas") {
-		generarTabla(
-			operaciones.sort(
-				(a, b) =>
-					new Date(b.fecha.split("/").reverse().join("/")) -
-					new Date(a.fecha.split("/").reverse().join("/"))
-			)
+		operaciones.sort(
+			(a, b) =>
+				new Date(b.fecha.split("/").reverse().join("/")) -
+				new Date(a.fecha.split("/").reverse().join("/"))
 		);
 	} else if (filtroOrdenar.value === "menos") {
-		generarTabla(
-			operaciones.sort(
-				(a, b) =>
-					new Date(a.fecha.split("/").reverse().join("/")) -
-					new Date(b.fecha.split("/").reverse().join("/"))
-			)
+		operaciones.sort(
+			(a, b) =>
+				new Date(a.fecha.split("/").reverse().join("/")) -
+				new Date(b.fecha.split("/").reverse().join("/"))
 		);
-	} else {
-		generarTabla(operaciones);
 	}
+	return operaciones;
 };
 
-filtroOrdenar.addEventListener("change", () =>
-	generarYOrdenarTabla(JSON.parse(localStorage.getItem("operaciones")))
-);
+//filtros acumulativos para tipo, categoria y orden...no para fecha porque no funciona
+const aplicarFiltrosAcumulativamente = () => {
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+	let operacionesFiltradas = [...operacionesGuardadas];
+
+	operacionesFiltradas = filtrarPorTipoOCategoria(
+		filtroTipo.value,
+		"tipo",
+		operacionesFiltradas
+	);
+
+	operacionesFiltradas = filtrarPorTipoOCategoria(
+		filtroCategoria.value,
+		"categoria",
+		operacionesFiltradas
+	);
+
+	operacionesFiltradas = ordenarTabla(operacionesFiltradas);
+
+	generarTabla(operacionesFiltradas);
+};
+
+filtroTipo.addEventListener("change", aplicarFiltrosAcumulativamente);
+filtroCategoria.addEventListener("change", aplicarFiltrosAcumulativamente);
+filtroOrdenar.addEventListener("change", aplicarFiltrosAcumulativamente);
 
 //Establacer por defecto la fecha actual al input del filtro fecha y arregla el desfazaje de un dia
 let fechaDesde = new Date();
