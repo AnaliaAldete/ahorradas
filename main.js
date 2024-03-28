@@ -583,6 +583,11 @@ btnAgregarOperacion.addEventListener("click", () => {
 		gastosPorMes,
 		balancePorMes
 	); //ver porque no se actualiza
+
+	cargarSelect(
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+		selectCategoria
+	);
 });
 
 // función para que aparezca los input vacios después de generar una nueva operación.
@@ -705,19 +710,36 @@ const eventosBtnsEliminar = (btns) => {
 };
 
 // funcion para cargar el select de categorias
-const cargarSelect = (categorias) => {
-	filtroCategoria.innerHTML = "";
-	filtroCategoria.innerHTML = `<option value="todas">Todas</option>`;
+const cargarSelect = (array, select) => {
+	const selects = document.querySelectorAll(".select-categoria");
+	console.log(selects);
 
-	if (categorias && categorias.length >= 0) {
-		for (option of categorias) {
-			const { nombreCategoria } = option;
-			filtroCategoria.innerHTML += `
-       <option value="${nombreCategoria}">${nombreCategoria}</option>
-       `;
+	// if (categoria.classList.contains("filtro")) {
+	// 	categoria.innerHTML = "";
+	// 	categoria.innerHTML = `<option value="todas">Todas</option>`;
+	// }
+
+	if (array && array.length >= 0) {
+		for (select of selects) {
+			select.innerHTML = "";
+			if (select.classList.contains("filtro")) {
+				select.innerHTML = `<option value="todas">Todas</option>`;
+			}
+
+			for (option of array) {
+				const { nombreCategoria } = option;
+				select.innerHTML += `
+             <option value="${nombreCategoria}">${nombreCategoria}</option>
+             `;
+			}
 		}
 	}
 };
+
+cargarSelect(
+	evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+	filtroCategoria
+);
 
 // console.log(cargarSelect());
 // función para generar tabla de categorias si hay datos en local storage
@@ -744,7 +766,8 @@ const generarTablaCategorias = (categorias) => {
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
 		cargarSelect(
-			evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
+			evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+			filtroCategoria
 		);
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
