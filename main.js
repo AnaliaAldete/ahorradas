@@ -389,6 +389,32 @@ const eventosBtnsEliminarOp = (btns) => {
 	});
 };
 
+//funcion confirmar elimar operacion
+const confirmarEliminarOperacion = (array, operacionId) => {
+	const operacionesFiltradas = array.filter(
+		(operacionAEliminar) => operacionAEliminar.id !== operacionId
+	);
+	if (operacionesFiltradas.length > 0) {
+		console.log(operacionesFiltradas);
+		localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+		generarTabla(operacionesFiltradas);
+	} else {
+		console.log(operacionesFiltradas);
+		localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+		generarTabla(operacionesFiltradas);
+		mostrarSeccion(contenedorImgOperaciones, contenedorTablaOperaciones);
+	}
+};
+const hacerVisible = (ver) => ver.classList.remove("hidden");
+// evento confirmar eliminar operacion
+btnAdvertenciaEliminarOp.addEventListener("click", () => {
+	confirmarEliminarOperacion(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		btnAdvertenciaEliminarOp.id.slice(10)
+	);
+	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+});
+
 //btn cancelar modal de eliminar operacion
 btnAdvertenciaCancelarEliminarOp.addEventListener("click", () =>
 	cancelar(ventanaModalEliminarOp, contenedorPrincipal)
@@ -507,6 +533,7 @@ document
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
+	contenedorTablaOperaciones.classList.remove("hidden");
 	const nuevaOperacion = {
 		id: uuidv4(),
 		descripcion:
@@ -675,25 +702,6 @@ const eventosBtnsEliminar = (btns) => {
 		});
 	});
 };
-
-// //funcion confirmar elimar operacion
-const confirmarEliminarOperacion = (array, operacionId) => {
-	const operacionesFiltradas = array.filter(
-		(operacionAEliminar) => operacionAEliminar.id !== operacionId
-	);
-	console.log(operacionesFiltradas);
-	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
-	generarTabla(operacionesFiltradas);
-};
-
-// evento confirmar eliminar operacion
-btnAdvertenciaEliminarOp.addEventListener("click", () => {
-	confirmarEliminarOperacion(
-		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
-		btnAdvertenciaEliminarOp.id.slice(10)
-	);
-	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
-});
 
 // funcion para cargar el select de categorias
 const cargarSelect = (categorias) => {
