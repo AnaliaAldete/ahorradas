@@ -404,19 +404,17 @@ const ajustarVisibilidadCabecera = () => {
 };
 
 // Función para generar tabla de operaciones si hay datos en local storage
-const generarTabla = (operacionesFiltradas) => {
-	console.log("Operaciones filtradas recibidas:", operacionesFiltradas);
+const generarTabla = (operaciones) => {
 	const cuerpoTablaOperaciones = document.getElementById(
 		"cuerpo-tabla-operaciones"
 	);
 	cuerpoTablaOperaciones.innerHTML = "";
-	console.log("Operaciones filtradas:", operacionesFiltradas);
 
-	if (operacionesFiltradas && operacionesFiltradas.length > 0) {
+	if (operaciones && operaciones.length > 0) {
 		resultadoGanacia = 0;
 		resultadoGasto = 0;
 
-		for (let operacion of operacionesFiltradas) {
+		for (let operacion of operaciones) {
 			const obtenerSigno = operacion.tipo === "ganancia" ? "+$" : "-$";
 			const obtenerColor =
 				operacion.tipo === "ganancia" ? "text-green-500" : "text-red-500";
