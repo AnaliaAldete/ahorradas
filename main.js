@@ -394,18 +394,19 @@ const confirmarEliminarOperacion = (array, operacionId) => {
 	const operacionesFiltradas = array.filter(
 		(operacionAEliminar) => operacionAEliminar.id !== operacionId
 	);
-	if (operacionesFiltradas.length > 0) {
-		console.log(operacionesFiltradas);
-		localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
-		generarTabla(operacionesFiltradas);
-	} else {
-		console.log(operacionesFiltradas);
-		localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
-		generarTabla(operacionesFiltradas);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+	generarTabla(operacionesFiltradas);
+
+	mostrarImg(operacionesFiltradas);
+};
+
+// funcion para que vuelva a verse la imagen cuando esten vacias las operaciones
+const mostrarImg = (array) => {
+	if (array.length <= 0) {
 		mostrarSeccion(contenedorImgOperaciones, contenedorTablaOperaciones);
 	}
 };
-const hacerVisible = (ver) => ver.classList.remove("hidden");
+
 // evento confirmar eliminar operacion
 btnAdvertenciaEliminarOp.addEventListener("click", () => {
 	confirmarEliminarOperacion(
