@@ -860,6 +860,7 @@ btnOcultarFiltros.addEventListener("click", () => {
 		btnOcultarFiltros.innerHTML = "Ocultar filtros";
 	}
 });
+
 // Filtrar las operaciones según TIPO y CATEGORIA  y generar la tabla
 const filtrarPorTipoOCategoria = (
 	filtroSeleccionado,
@@ -880,6 +881,19 @@ const filtrarPorTipoOCategoria = (
 
 	return operacionesFiltradas;
 };
+const filtrarPorFecha = (fecha, operaciones) => {
+	let operacionesFiltradas;
+	operacionesFiltradas = operaciones.filter((operacion) => {
+		console.log(operacion.fecha);
+		const operacionDate = new Date(
+			operacion.fecha.split("/").reverse().join("-")
+		);
+		return operacionDate >= fecha;
+	});
+	console.log(operacionesFiltradas);
+	return operacionesFiltradas;
+};
+
 // filtro ordenar por mayor/ menor monto y de a/z , z/a y mas/menos reciente
 const ordenarTabla = (operaciones) => {
 	if (filtroOrdenar.value === "menor") {
@@ -887,29 +901,25 @@ const ordenarTabla = (operaciones) => {
 	} else if (filtroOrdenar.value === "mayor") {
 		return operaciones.sort((a, b) => b.monto - a.monto);
 	} else if (filtroOrdenar.value === "Z/A") {
-		generarTabla(
-			operaciones.sort((a, b) => {
-				if (a.descripcion < b.descripcion) return 1;
-				if (a.descripcion > b.descripcion) return -1;
-				return 0;
-			})
-		);
+		return operaciones.sort((a, b) => {
+			if (a.descripcion < b.descripcion) return 1;
+			if (a.descripcion > b.descripcion) return -1;
+			return 0;
+		});
 	} else if (filtroOrdenar.value === "A/Z") {
-		generarTabla(
-			operaciones.sort((a, b) => {
-				if (a.descripcion > b.descripcion) return 1;
-				if (a.descripcion < b.descripcion) return -1;
-				return 0;
-			})
-		);
+		return operaciones.sort((a, b) => {
+			if (a.descripcion > b.descripcion) return 1;
+			if (a.descripcion < b.descripcion) return -1;
+			return 0;
+		});
 	} else if (filtroOrdenar.value === "mas") {
-		operaciones.sort(
+		return operaciones.sort(
 			(a, b) =>
 				new Date(b.fecha.split("/").reverse().join("/")) -
 				new Date(a.fecha.split("/").reverse().join("/"))
 		);
 	} else if (filtroOrdenar.value === "menos") {
-		operaciones.sort(
+		return operaciones.sort(
 			(a, b) =>
 				new Date(a.fecha.split("/").reverse().join("/")) -
 				new Date(b.fecha.split("/").reverse().join("/"))
@@ -928,47 +938,28 @@ const aplicarFiltrosAcumulativamente = () => {
 		"tipo",
 		operacionesFiltradas
 	);
-
+	console.log(operacionesFiltradas);
 	operacionesFiltradas = filtrarPorTipoOCategoria(
 		filtroCategoria.value,
 		"categoria",
 		operacionesFiltradas
 	);
 
-	operacionesFiltradas = ordenarTabla(operacionesFiltradas);
+	let fechaFiltro = "";
+	if (inputFiltroFecha.value) {
+		fechaFiltro = new Date(inputFiltroFecha.value);
+	}
 
+	operacionesFiltradas = filtrarPorFecha(fechaFiltro, operacionesFiltradas);
+
+	operacionesFiltradas = ordenarTabla(operacionesFiltradas);
 	generarTabla(operacionesFiltradas);
 };
 
 filtroTipo.addEventListener("change", aplicarFiltrosAcumulativamente);
 filtroCategoria.addEventListener("change", aplicarFiltrosAcumulativamente);
 filtroOrdenar.addEventListener("change", aplicarFiltrosAcumulativamente);
-
-//Establacer por defecto la fecha actual al input del filtro fecha y arregla el desfazaje de un dia
-let fechaDesde = new Date();
-let fechaDesdeFormateada = new Date(
-	fechaDesde.getTime() - fechaDesde.getTimezoneOffset() * 60000
-)
-	.toISOString()
-	.split("T")[0];
-inputFiltroFecha.value = fechaDesdeFormateada;
-
-//filtro de fechas de desde
-const filtrarPorFecha = () => {
-	const fechaDesde = new Date(inputFiltroFecha.value);
-	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-	let operacionesFiltradasPorFecha = operacionesGuardadas.filter(
-		(operacion) => {
-			const fechaOperacion = new Date(
-				operacion.fecha.split("/").reverse().join("/")
-			);
-			return fechaOperacion >= fechaDesde;
-		}
-	);
-	generarTabla(operacionesFiltradasPorFecha);
-};
-
-inputFiltroFecha.addEventListener("change", filtrarPorFecha);
+inputFiltroFecha.addEventListener("change", aplicarFiltrosAcumulativamente);
 
 // ------------------------------FIN SECCION FILTROS---------------------------------------------------------------------------------------
 
