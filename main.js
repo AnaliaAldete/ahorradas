@@ -847,6 +847,9 @@ btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
 	cancelar(ventanaModalEliminar, seccionCategoria)
 );
 
+// funcion para vaciar el input despues de agregar nombre
+const vaciarInputNombre = () => (inputNombre.value = "");
+
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
 	const nuevaCategoria = {
@@ -863,6 +866,7 @@ btnAgregarCategoria.addEventListener("click", () => {
 	generarTablaCategorias(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 	);
+	vaciarInputNombre();
 });
 //---------------------------FIN SECCION CATEGORIAS-----------------------------------------------------------------------------
 
