@@ -872,10 +872,27 @@ const confirmarEliminarCategoria = (array, categoriaId) => {
 	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
 		generarTablaCategorias(arrayFiltrado);
 };
+const actualizarOperacionesConCategoriaEliminada = (
+	operaciones,
+	categoriaEliminada
+) => {
+	let operacionesConCategoriaEliminada = operaciones.filter((operacion) => {
+		operacion.categoria !== categoriaEliminada.nombreCategoria;
+	});
+	localStorage.setItem(
+		"categoria",
+		JSON.stringify(operacionesConCategoriaEliminada)
+	);
+	generarTabla(operacionesConCategoriaEliminada);
+};
 
 //evento confirmar elimar categoria
 btnAceptarEliminar.addEventListener("click", () => {
 	confirmarEliminarCategoria(
+		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
+		btnAceptarEliminar.id.slice(8)
+	);
+	actualizarOperacionesConCategoriaEliminada(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 		btnAceptarEliminar.id.slice(8)
 	);
