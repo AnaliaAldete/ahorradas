@@ -2,7 +2,7 @@
 const body = document.body;
 
 // contenedores
-const contenedorPrincipal = document.getElementById("contenedor-principal");
+const seccionPrincipal = document.getElementById("seccion-principal");
 const contenedorImgOperaciones = document.getElementById(
 	"contenedor-img-operaciones"
 );
@@ -175,7 +175,7 @@ const mostrarSeccion = (seccion, ...contenedores) => {
 
 enlaceBalance.addEventListener("click", () =>
 	mostrarSeccion(
-		contenedorPrincipal,
+		seccionPrincipal,
 		seccionCategoria,
 		seccionReportes,
 		seccionNuevaOperacion,
@@ -190,7 +190,7 @@ enlaceBalance.addEventListener("click", () =>
 enlaceCategoria.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionCategoria,
-		contenedorPrincipal,
+		seccionPrincipal,
 		seccionReportes,
 		seccionNuevaOperacion,
 		seccionEditar,
@@ -204,7 +204,7 @@ enlaceCategoria.addEventListener("click", () =>
 enlaceReportes.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionReportes,
-		contenedorPrincipal,
+		seccionPrincipal,
 		seccionCategoria,
 		seccionNuevaOperacion,
 		seccionEditar,
@@ -218,7 +218,7 @@ enlaceReportes.addEventListener("click", () =>
 btnOperacion.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionNuevaOperacion,
-		contenedorPrincipal,
+		seccionPrincipal,
 		seccionCategoria,
 		seccionReportes,
 		seccionEditar,
@@ -232,7 +232,7 @@ btnOperacion.addEventListener("click", () =>
 btnEditar.addEventListener("click", () =>
 	mostrarSeccion(
 		ventanaModalEditar,
-		contenedorPrincipal,
+		seccionPrincipal,
 		seccionCategoria,
 		seccionReportes,
 		seccionNuevaOperacion,
@@ -259,7 +259,7 @@ const cancelar = (contenedor, seccion) => {
 };
 
 btnCancelarNueva.addEventListener("click", () =>
-	cancelar(seccionNuevaOperacion, contenedorPrincipal)
+	cancelar(seccionNuevaOperacion, seccionPrincipal)
 );
 btnCancelarEditar.addEventListener("click", () =>
 	cancelar(seccionEditar, seccionCategoria)
@@ -326,7 +326,7 @@ const actualizarBalance = () => {
 const eventosBtnsEditarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
-			mostrarSeccion(seccionEditarOp, contenedorPrincipal);
+			mostrarSeccion(seccionEditarOp, seccionPrincipal);
 			const operacionAEditar = obtenerId(
 				evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 				btnSeleccionado.id.slice(9)
@@ -366,7 +366,7 @@ btnGuardarCambios.addEventListener("click", () => {
 
 // btn cancelar modal de editar operacion
 btnAdvertenciaCancelarEditarOP.addEventListener("click", () =>
-	cancelar(ventanaModalEditarOp, contenedorPrincipal)
+	cancelar(ventanaModalEditarOp, seccionPrincipal)
 );
 
 // funcion para añadir eventos a los botones de eliminar
@@ -380,7 +380,7 @@ const eventosBtnsEliminarOp = (btns) => {
 					btnSeleccionado.id.slice(11)
 				)
 			);
-			mostrarSeccion(ventanaModalEliminarOp, contenedorPrincipal);
+			mostrarSeccion(ventanaModalEliminarOp, seccionPrincipal);
 			btnAdvertenciaEliminarOp.setAttribute(
 				"id",
 				`confirmar-${btnSeleccionado.id.slice(11)}`
@@ -391,7 +391,7 @@ const eventosBtnsEliminarOp = (btns) => {
 
 //btn cancelar modal de eliminar operacion
 btnAdvertenciaCancelarEliminarOp.addEventListener("click", () =>
-	cancelar(ventanaModalEliminarOp, contenedorPrincipal)
+	cancelar(ventanaModalEliminarOp, seccionPrincipal)
 );
 
 // Ajustar visibilidad de la cabecera de la tabla dependiendo del tamaño de la pantalla
@@ -422,28 +422,29 @@ const generarTabla = (operaciones) => {
 			sumarGananciaOGasto(operacion.tipo, operacion.monto);
 
 			cuerpoTablaOperaciones.innerHTML += `
-				<div class="flex text-center flex-col md:flex-row" id="${operacion.id}">
-					<div class="flex md:flex-row md:w-[40%]">
-						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-							<span>${operacion.descripcion}</span>
-						</div>
-						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-							<span>${operacion.categoria}</span>
-						</div>
-					</div>
-					<div class="flex md:w-[60%]">
-						<div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center">
-							<span>${operacion.fecha}</span>
-						</div>
-						<div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%]">
-							<span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
-						</div>
-						<div class="flex-1 py-2 border-b border-gray-300 w-[50%]">
-							 <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
-                            <button class="btn-eliminar-op" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
-						</div>
-					</div>
-				</div>
+				<div class="flex text-center flex-col md:flex-row bg-[#FAEBD7]" id="${operacion.id}">
+    <div class="flex md:flex-row md:w-[40%]">
+        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+            <span>${operacion.descripcion}</span>
+        </div>
+        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+            <span>${operacion.categoria}</span>
+        </div>
+    </div>
+    <div class="flex md:w-[60%]">
+        <div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center items-center"> <!-- Agrega justify-center y items-center aquí -->
+            <span>${operacion.fecha}</span>
+        </div>
+        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+            <span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
+        </div>
+        <div class="flex-1 py-2 border-b border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+            <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
+            <button class="btn-eliminar-op" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
+        </div>
+    </div>
+</div>
+
 			`;
 		}
 		// llamando a mi nodeList de btns,
@@ -453,7 +454,7 @@ const generarTabla = (operaciones) => {
 
 		actualizarBalance();
 
-		mostrarSeccion(contenedorPrincipal, contenedorImgOperaciones);
+		mostrarSeccion(seccionPrincipal, contenedorImgOperaciones);
 
 		ajustarVisibilidadCabecera();
 		window.addEventListener("DOMContentLoaded", ajustarVisibilidadCabecera);
@@ -474,7 +475,7 @@ const editarSeccionOperaciones = (array, operacionId) => {
 				...operacionAEditar,
 				descripcion: editarDescripcion.value,
 				categoria: editarSelectCategoria.value,
-				fecha: editarFecha.value,
+				fecha: editarFecha.value.split("-").reverse().join("/"),
 				monto: editarMonto.value,
 				tipo: editarTipo.value,
 			};
@@ -494,15 +495,13 @@ btnAdvertenciaAceptarEditarOp.addEventListener("click", () => {
 		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 		btnAdvertenciaAceptarEditarOp.id.slice(10)
 	);
-	mostrarSeccion(contenedorPrincipal, ventanaModalEditarOp);
+	mostrarSeccion(seccionPrincipal, ventanaModalEditarOp);
 });
 
 //cancelar seccion editar operacion
 document
 	.getElementById("editar-btn-cancelar--nueva")
-	.addEventListener("click", () =>
-		cancelar(seccionEditarOp, contenedorPrincipal)
-	);
+	.addEventListener("click", () => cancelar(seccionEditarOp, seccionPrincipal));
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
@@ -526,7 +525,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 		seccionNuevaOperacion.classList.add("hidden");
 	} else {
 		mostrarSeccion(
-			contenedorPrincipal,
+			seccionPrincipal,
 			seccionCategoria,
 			seccionReportes,
 			seccionNuevaOperacion
@@ -699,7 +698,7 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 		btnAdvertenciaEliminarOp.id.slice(10)
 	);
-	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
 });
 
 // funcion para cargar el select de categorias
@@ -774,7 +773,7 @@ generarTablaCategorias(
 const obtenerId = (array, categoriaId) =>
 	array.find((elemento) => categoriaId === elemento.id);
 
-// función para editar el nombre
+// función para editar el nombre de la categoria
 const editarInput = (array, categoriaId) => {
 	console.log(categoriaId);
 	const categoriasEditadas = array.map((categoriaAEditar) => {
@@ -792,20 +791,54 @@ const editarInput = (array, categoriaId) => {
 	localStorage.setItem("categoria", JSON.stringify(categoriasEditadas));
 	generarTablaCategorias(categoriasEditadas);
 };
+// Función para actualizar las operaciones con la categoría editada
+const actualizarOperacionesConCategoriaEditada = (
+	operaciones,
+	categoriaEditada
+) => {
+	return operaciones.map((operacion) => {
+		if (operacion.categoria === categoriaEditada.nombreCategoria) {
+			operacion.categoria = inputEditarCategoria.value;
+		}
+		return operacion;
+	});
+};
 
+// evento para aceptar la edición de la categoría
 btnAdvertenciaAceptarEditar.addEventListener("click", () => {
-	editarInput(
+	const categoriaEditada = obtenerId(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 		btnAdvertenciaAceptarEditar.id.slice(10)
 	);
-	mostrarSeccion(seccionCategoria, ventanaModalEditar);
+	const operacionesActualizadas = actualizarOperacionesConCategoriaEditada(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		categoriaEditada
+	);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesActualizadas));
+	generarTabla(operacionesActualizadas);
+	const categoriasActualizadas = evaluarLocalStorage(
+		"categoria",
+		categoriasGuardadas,
+		categorias
+	).map((categoria) => {
+		if (categoria.id === categoriaEditada.id) {
+			return {
+				...categoria,
+				nombreCategoria: inputEditarCategoria.value,
+			};
+		}
+		return categoria;
+	});
+
+	localStorage.setItem("categoria", JSON.stringify(categoriasActualizadas));
+	generarTablaCategorias(categoriasActualizadas);
+	cancelar(ventanaModalEditar, seccionPrincipal);
 });
 
 // evento para cancelar modal editar
 btnAdvertenciaCancelarEditar.addEventListener("click", () =>
 	cancelar(ventanaModalEditar, seccionCategoria)
 );
-
 //funcion confirmar elimar categoria
 const confirmarEliminarCategoria = (array, categoriaId) => {
 	const arrayFiltrado = array.filter(

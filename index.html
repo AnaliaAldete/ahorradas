@@ -19,7 +19,7 @@
 	<body class="flex flex-col min-h-screen dark:bg-gray-800">
 		<!-- INICIO HEADER -->
 
-		<header class="p-4 bg-emerald-400 text-white dark:bg-gray-900">
+		<header class="p-4 bg-[#202C40] text-white dark:bg-gray-900">
 			<nav class="flex flex-col md:flex-row gap-5" id="navegador">
 				<div class="flex justify-between w-full">
 					<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
@@ -82,20 +82,20 @@
 		<!-- INICIO MAIN -->
 		<main
 			id="main"
-			class="md:flex gap-5 p-3 md:p-5 justify-center lg:flex-row lg:p-10 items-center flex-1 dark:bg-gray-800"
+			class="flex gap-5 py-5 lg:flex-row lg:py-10 flex-1 bg-[#E66B75] dark:bg-gray-800 justify-center items-center"
 		>
-			<div
-				class="flex flex-col lg:flex-row max-w-[970px] gap-[15px] lg:max-h-[646px] md:w-[92%]"
-				id="contenedor-principal"
+			<section
+				class="flex flex-col lg:flex-row gap-[15px] lg:max-h-[646px] justify-center w-full items-center md:items-stretch"
+				id="seccion-principal"
 			>
 				<div
-					class="lg:w-1/3 flex flex-col items-center gap-5"
+					class="lg:w-1/3 flex flex-col items-center gap-5 md:max-w-[320px] w-[90%]"
 					id="container-balance-filtros"
 				>
-					<!-- INICIO SECCION BALANCE -->
-					<section
-						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5"
-						id="seccion-balance"
+					<!-- INICIO CONTENEDOR BALANCE -->
+					<div
+						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5 bg-[#EEE9D7]"
+						id="container-balance"
 					>
 						<h2 class="text-4xl">Balance</h2>
 
@@ -113,13 +113,13 @@
 							<div>Total</div>
 							<div id="balance-total">$0</div>
 						</div>
-					</section>
-					<!-- FIN SECCION BALANCE -->
+					</div>
+					<!-- FIN CONTENEDOR BALANCE -->
 
-					<!-- INICIO SECCION FILTROS -->
-					<section
-						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5"
-						id="seccion-filtros"
+					<!-- INICIO CONTENEDOR FILTROS -->
+					<div
+						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5 bg-[#EEE9D7]"
+						id="container-filtros"
 					>
 						<div class="flex justify-between">
 							<h3 class="text-2xl">Filtros</h3>
@@ -177,14 +177,14 @@
 								</div>
 							</div>
 						</div>
-					</section>
-					<!-- FIN SECCION FILTROS -->
+					</div>
+					<!-- FIN CONTENEDOR FILTROS -->
 				</div>
 
-				<!-- INICIO SECCION OPERACIONES -->
-				<section
-					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3"
-					id="seccion-operaciones"
+				<!-- INICIO CONTENEDOR OPERACIONES -->
+				<div
+					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3 bg-[#EEE9D7] max-w-[630px] w-[90%]"
+					id="container-operaciones"
 				>
 					<div
 						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
@@ -192,7 +192,7 @@
 						<h3 class="text-2xl">Operaciones</h3>
 						<button
 							id="btn-operacion"
-							class="bg-emerald-400 p-2 rounded text-white"
+							class="bg-[#0C316F] p-2 rounded text-white bg-[#0C316F]"
 						>
 							+ Nueva operación
 						</button>
@@ -202,7 +202,10 @@
 						class="flex flex-col gap-3 items-center h-5/6 justify-center"
 						id="contenedor-img-operaciones"
 					>
-						<img src="imagenes/undraw_Vault_re_s4my.png" />
+						<img
+							src="imagenes/undraw_Vault_re_s4my.png"
+							alt="Sin operaciones"
+						/>
 						<p class="text-3xl">Sin resultados</p>
 						<p class="text-center">Cambia los filtros o agrega operaciones</p>
 					</div>
@@ -214,7 +217,7 @@
 					>
 						<div
 							id="cabecera-tabla-operaciones"
-							class="hidden bg-gray-200 flex text-center font-bold"
+							class="hidden bg-[#0C316F] text-white flex text-center font-bold"
 						>
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								<span>Descripción</span>
@@ -240,194 +243,195 @@
 						<div id="cuerpo-tabla-operaciones"></div>
 					</div>
 					<!-- Fin tabla operaciones -->
-				</section>
-				<!-- FIN SECCION OPERACIONES -->
-			</div>
+				</div>
+				<!-- FIN CONTENEDOR OPERACIONES -->
+			</section>
 
 			<!-- INICIO SECCION NUEVA OPERACION -->
-			<section
-				class="hidden flex flex-col p-5 gap-3 border-2 rounded-md max-w-[850px] w-full"
-				id="seccion-nueva-operacion"
-			>
-				<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
+			<section class="hidden w-full" id="seccion-nueva-operacion">
+				<div
+					class="max-w-[850px] bg-[#EEE9D7] border-2 rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
+				>
+					<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
+					<div class="flex flex-col gap-2 font-bold">
+						<label for="input-descripcion" class="font-bold">Descripción</label>
+						<input
+							type="text"
+							id="input-descripcion"
+							placeholder="Ingresar descripción"
+							class="border-solid border-2 p-2 rounded"
+						/>
+					</div>
 
-				<div class="flex flex-col gap-2 font-bold">
-					<label for="input-descripcion" class="font-bold">Descripción</label>
-					<input
-						type="text"
-						id="input-descripcion"
-						placeholder="Ingresar descripción"
-						class="border-solid border-2 p-2 rounded"
-					/>
-				</div>
+					<div class="flex flex-col gap-2">
+						<label for="input-monto" class="font-bold">Monto</label>
+						<input
+							type="number"
+							id="input-monto"
+							placeholder="Ingresar monto"
+							class="border-solid border-2 p-2 rounded focus:outline-none"
+							required
+							min="0"
+						/>
+						<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
+							El número no puede tener más de 10 dígitos.
+						</p>
+						<p
+							id="mensaje-input-vacio"
+							class="text-red-500 text-xs italic hidden"
+						>
+							Ingrese un monto por favor
+						</p>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="input-monto" class="font-bold">Monto</label>
-					<input
-						type="number"
-						id="input-monto"
-						placeholder="Ingresar monto"
-						class="border-solid border-2 p-2 rounded focus:outline-none"
-						required
-						min="0"
-					/>
-					<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
-						El número no puede tener más de 10 dígitos.
-					</p>
-					<p
-						id="mensaje-input-vacio"
-						class="text-red-500 text-xs italic hidden"
-					>
-						Ingrese un monto por favor
-					</p>
-				</div>
+					<div class="flex flex-col gap-2">
+						<label for="select-tipo" class="font-bold">Tipo</label>
+						<select
+							name="select-tipo"
+							id="select-tipo"
+							class="border-solid border-2 p-2 rounded"
+						>
+							<option value="gasto">Gasto</option>
+							<option value="ganancia">Ganancia</option>
+						</select>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="select-tipo" class="font-bold">Tipo</label>
-					<select
-						name="select-tipo"
-						id="select-tipo"
-						class="border-solid border-2 p-2 rounded"
-					>
-						<option value="gasto">Gasto</option>
-						<option value="ganancia">Ganancia</option>
-					</select>
-				</div>
+					<div class="flex flex-col gap-2">
+						<label for="select-categoria" class="font-bold">Categoria</label>
+						<select
+							name="select-categoria"
+							id="select-categoria"
+							class="border-2 p-2 rounded"
+						>
+							<option value="comida">Comida</option>
+							<option value="servicios">Servicios</option>
+							<option value="salidas">Salidas</option>
+							<option value="educacion">Educación</option>
+							<option value="transporte">Transporte</option>
+							<option value="trabajo">Trabajo</option>
+						</select>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="select-categoria" class="font-bold">Categoria</label>
-					<select
-						name="select-categoria"
-						id="select-categoria"
-						class="border-2 p-2 rounded"
-					>
-						<option value="comida">Comida</option>
-						<option value="servicios">Servicios</option>
-						<option value="salidas">Salidas</option>
-						<option value="educacion">Educación</option>
-						<option value="transporte">Transporte</option>
-						<option value="trabajo">Trabajo</option>
-					</select>
-				</div>
+					<div class="flex flex-col gap-2 pb-7">
+						<label for="input-fecha" class="font-bold">Fecha</label>
+						<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
+					</div>
 
-				<div class="flex flex-col gap-2 pb-7">
-					<label for="input-fecha" class="font-bold">Fecha</label>
-					<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
-				</div>
-
-				<div class="flex justify-end gap-2">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-2 px-[17px] text-[grey]"
-						id="btn-cancelar--nueva"
-					>
-						Cancelar
-					</button>
-					<button
-						class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
-						id="btn-agregar-operacion"
-					>
-						Agregar
-					</button>
+					<div class="flex justify-end gap-2">
+						<button
+							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+							id="btn-cancelar--nueva"
+						>
+							Cancelar
+						</button>
+						<button
+							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+							id="btn-agregar-operacion"
+						>
+							Agregar
+						</button>
+					</div>
 				</div>
 			</section>
 			<!-- FIN SECCION NUEVA OPERACION -->
 
 			<!-- INICIO SECCION EDITAR OPERACION -->
-			<section
-				class="hidden flex flex-col p-5 gap-3 border-2 rounded-md max-w-[850px] w-full"
-				id="editar-nueva-operacion"
-			>
-				<h2 class="text-4xl pb-7">Editar Operación</h2>
+			<section class="hidden w-full" id="editar-nueva-operacion">
+				<div
+					class="bg-[#EEE9D7] flex flex-col p-5 gap-3 border-2 rounded-md max-w-[850px] w-[90%] m-auto"
+				>
+					<h2 class="text-4xl pb-7">Editar Operación</h2>
 
-				<div class="flex flex-col gap-2 font-bold">
-					<label for="editar-input-descripcion" class="font-bold"
-						>Descripción</label
-					>
-					<input
-						type="text"
-						id="editar-input-descripcion"
-						class="border-solid border-2 p-2 rounded"
-					/>
-				</div>
+					<div class="flex flex-col gap-2 font-bold">
+						<label for="editar-input-descripcion" class="font-bold"
+							>Descripción</label
+						>
+						<input
+							type="text"
+							id="editar-input-descripcion"
+							class="border-solid border-2 p-2 rounded"
+						/>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="editar-input-monto" class="font-bold">Monto</label>
-					<input
-						type="number"
-						id="editar-input-monto"
-						class="border-solid border-2 p-2 rounded focus:outline-none"
-						required
-						min="0"
-					/>
+					<div class="flex flex-col gap-2">
+						<label for="editar-input-monto" class="font-bold">Monto</label>
+						<input
+							type="number"
+							id="editar-input-monto"
+							class="border-solid border-2 p-2 rounded focus:outline-none"
+							required
+							min="0"
+						/>
 
-					<p
-						id="editar-mensaje-error"
-						class="text-red-500 text-xs italic hidden"
-					>
-						El número no puede tener más de 10 dígitos.
-					</p>
+						<p
+							id="editar-mensaje-error"
+							class="text-red-500 text-xs italic hidden"
+						>
+							El número no puede tener más de 10 dígitos.
+						</p>
 
-					<p
-						id="editar-mensaje-input-vacio"
-						class="text-red-500 text-xs italic hidden"
-					>
-						Ingrese un monto por favor
-					</p>
-				</div>
+						<p
+							id="editar-mensaje-input-vacio"
+							class="text-red-500 text-xs italic hidden"
+						>
+							Ingrese un monto por favor
+						</p>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="editar-select-tipo" class="font-bold">Tipo</label>
-					<select
-						name="editar-select-tipo"
-						id="editar-select-tipo"
-						class="border-solid border-2 p-2 rounded"
-					>
-						<option value="gasto">Gasto</option>
-						<option value="ganancia">Ganancia</option>
-					</select>
-				</div>
+					<div class="flex flex-col gap-2">
+						<label for="editar-select-tipo" class="font-bold">Tipo</label>
+						<select
+							name="editar-select-tipo"
+							id="editar-select-tipo"
+							class="border-solid border-2 p-2 rounded"
+						>
+							<option value="gasto">Gasto</option>
+							<option value="ganancia">Ganancia</option>
+						</select>
+					</div>
 
-				<div class="flex flex-col gap-2">
-					<label for="editar-select-categoria" class="font-bold"
-						>Categoria</label
-					>
-					<select
-						name="editar-select-categoria"
-						id="editar-select-categoria"
-						class="border-2 p-2 rounded"
-					>
-						<option value="comida">Comida</option>
-						<option value="servicios">Servicios</option>
-						<option value="salidas">Salidas</option>
-						<option value="educacion">Educación</option>
-						<option value="transporte">Transporte</option>
-						<option value="trabajo">Trabajo</option>
-					</select>
-				</div>
+					<div class="flex flex-col gap-2">
+						<label for="editar-select-categoria" class="font-bold"
+							>Categoria</label
+						>
+						<select
+							name="editar-select-categoria"
+							id="editar-select-categoria"
+							class="border-2 p-2 rounded"
+						>
+							<option value="comida">Comida</option>
+							<option value="servicios">Servicios</option>
+							<option value="salidas">Salidas</option>
+							<option value="educacion">Educación</option>
+							<option value="transporte">Transporte</option>
+							<option value="trabajo">Trabajo</option>
+						</select>
+					</div>
 
-				<div class="flex flex-col gap-2 pb-7">
-					<label for="editar-input-fecha" class="font-bold">Fecha</label>
-					<input
-						type="date"
-						id="editar-input-fecha"
-						class="border-2 p-2 rounded"
-					/>
-				</div>
+					<div class="flex flex-col gap-2 pb-7">
+						<label for="editar-input-fecha" class="font-bold">Fecha</label>
+						<input
+							type="date"
+							id="editar-input-fecha"
+							class="border-2 p-2 rounded"
+						/>
+					</div>
 
-				<div class="flex justify-end gap-2">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-2 px-[17px] text-[grey]"
-						id="editar-btn-cancelar--nueva"
-					>
-						Cancelar
-					</button>
+					<div class="flex justify-end gap-2">
+						<button
+							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+							id="editar-btn-cancelar--nueva"
+						>
+							Cancelar
+						</button>
 
-					<button
-						class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
-						id="editar-btn-agregar"
-					>
-						Guardar Cambios
-					</button>
+						<button
+							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+							id="editar-btn-agregar"
+						>
+							Guardar Cambios
+						</button>
+					</div>
 				</div>
 			</section>
 			<!-- FIN SECCION EDITAR OPERACION -->
@@ -438,7 +442,7 @@
 				id="seccion-categoria"
 			>
 				<div
-					class="border-solid border-2 rounded-md max-w-[850px] p-5 w-full lg:w-4/6"
+					class="border-solid border-2 rounded-md max-w-[850px] p-5 lg:w-4/6 bg-[#EEE9D7]"
 				>
 					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
 
@@ -452,7 +456,7 @@
 								class="border-2 border-solid rounded-md w-[87%]"
 							/>
 							<button
-								class="rounded-md bg-emerald-400 py-2 px-[17px] text-white"
+								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
 								id="btn-agregar-categoria"
 							>
 								Agregar
@@ -472,13 +476,11 @@
 			<!-- FIN SECCION CATEGORÍAS -->
 
 			<!-- INICIO SECCION EDITAR-->
-			<section
-				class="hidden w-full flex justify-center items-center"
-				id="seccion-editar"
-			>
-				<div class="border-solid border-2 rounded-md w-2/3 max-w-[850px] p-5">
-					<h2 class="text-4xl pb-12">Editar Categoría</h2>
-
+			<section class="hidden w-full flex-grow" id="seccion-editar">
+				<div
+					class="rounded-md w-[90%] max-w-[500px] p-5 bg-[#EEE9D7] m-auto flex flex-col justify-center gap-10"
+				>
+					<h2 class="text-3xl md:text-4xl text-center">Editar Categoría</h2>
 					<div class="flex flex-col gap-y-2">
 						<label for="label-editar">Nombre</label>
 						<input
@@ -488,15 +490,15 @@
 						/>
 					</div>
 
-					<div class="flex justify-end pt-11 gap-x-4">
+					<div class="flex justify-center gap-x-4">
 						<button
-							class="rounded-md bg-[#f5f5f5] py-1.5 px-[15px] text-[grey]"
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
 							id="btn-cancelar--editar"
 						>
 							Cancelar
 						</button>
 						<button
-							class="aceptar-editar rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
+							class="aceptar-editar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
 							id="btn-aceptar-editar"
 						>
 							Editar
@@ -506,151 +508,162 @@
 			</section>
 			<!-- FIN SECCION EDITAR-->
 
-			<!-- VENTANA MODAL EDITAR-->
-			<!--INICIO VENTANA MODAL EDITAR-->
-			<section
-				class="hidden flex flex-col gap-3 border-solid border-2 rounded-md max-w-[850px] p-5 w-full"
-				id="advertencia-editar--operaciones"
-			>
-				<div class="flex items-center gap-[14px]">
-					<img
-						src="imagenes/alerta.gif"
-						alt="gif-mensaje-de-alerta"
-						class="w-[60px]"
-					/>
-					<h2 class="text-4xl text-[red]">Advertencia</h2>
-				</div>
+			<!--INICIO VENTANAS MODALES EDITAR-->
+			<!-- inicio ventana modal editar operación -->
+			<section class="hidden w-full" id="advertencia-editar--operaciones">
+				<div
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+				>
+					<div class="flex items-center gap-[14px]">
+						<img
+							src="imagenes/alerta.gif"
+							alt="gif-mensaje-de-alerta"
+							class="w-[60px]"
+						/>
+						<h2 class="text-4xl text-[red]">Advertencia</h2>
+					</div>
 
-				<div>
-					<p class="ps-8" id="advertencia-editar--operacion">
-						Está seguro que quiere editar esta
-						<span class="font-black">operación</span>?
-					</p>
-				</div>
+					<div>
+						<p class="ps-8" id="advertencia-editar--operacion">
+							Está seguro que quiere editar esta
+							<span class="font-black">operación</span>?
+						</p>
+					</div>
 
-				<div class="flex justify-end gap-x-4">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-1.5 px-[15px] text-[grey]"
-						id="btn-advertencia-editar--cancelar-op"
-					>
-						Cancelar
-					</button>
+					<div class="flex justify-center md:justify-end gap-x-4">
+						<button
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							id="btn-advertencia-editar--cancelar-op"
+						>
+							Cancelar
+						</button>
 
-					<button
-						class="btn-advertencia-editar--aceptar-op rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
-					>
-						Aceptar
-					</button>
-				</div>
-			</section>
-			<section
-				class="hidden flex flex-col gap-3 border-solid border-2 rounded-md max-w-[850px] p-5 w-full"
-				id="advertencia-editar"
-			>
-				<div class="flex items-center gap-[14px]">
-					<img
-						src="imagenes/alerta.gif"
-						alt="gif-mensaje-de-alerta"
-						class="w-[60px]"
-					/>
-					<h2 class="text-4xl text-[red]">Advertencia</h2>
-				</div>
-
-				<div>
-					<p class="ps-8" id="advertencia-editar--categoria">
-						Está seguro que quiere editar la categoría
-						<span id="advertencia-categoria" class="font-black"></span>?
-					</p>
-				</div>
-
-				<div class="flex justify-end gap-x-4">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-1.5 px-[15px] text-[grey]"
-						id="btn-advertencia-editar--cancelar"
-					>
-						Cancelar
-					</button>
-					<button
-						class="btn-advertencia-editar--aceptar rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
-					>
-						Aceptar
-					</button>
+						<button
+							class="btn-advertencia-editar--aceptar-op rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+						>
+							Aceptar
+						</button>
+					</div>
 				</div>
 			</section>
-			<!--FIN VENTANA MODAL EDITAR-->
+			<!-- Fin ventana modal editar operación -->
+			<!-- inicio ventana modal editar categoría -->
+			<section class="hidden w-full" id="advertencia-editar">
+				<div
+					class="flex flex-col gap-8 rounded-md max-w-[500px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+				>
+					<div class="flex items-center gap-[14px]">
+						<img
+							src="imagenes/alerta.gif"
+							alt="gif-mensaje-de-alerta"
+							class="w-[60px]"
+						/>
+						<h2 class="text-4xl text-[red]">Advertencia</h2>
+					</div>
 
-			<!--INICIO VENTANA MODAL ELIMINAR-->
-			<section
-				class="hidden flex flex-col gap-3 border-solid border-2 rounded-md max-w-[850px] p-5 w-full"
-				id="advertencia-eliminar--operaciones"
-			>
-				<div class="flex items-center gap-[14px]">
-					<img
-						src="imagenes/alerta.gif"
-						alt="gif-mensaje-de-alerta"
-						class="w-[60px]"
-					/>
-					<h2 class="text-4xl text-[red]">Advertencia</h2>
+					<div>
+						<p class="ps-8" id="advertencia-editar--categoria">
+							Está seguro que quiere editar la categoría
+							<span id="advertencia-categoria" class="font-black"></span>?
+						</p>
+					</div>
+
+					<div class="flex justify-center md:justify-end gap-x-4">
+						<button
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							id="btn-advertencia-editar--cancelar"
+						>
+							Cancelar
+						</button>
+						<button
+							class="btn-advertencia-editar--aceptar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+						>
+							Aceptar
+						</button>
+					</div>
 				</div>
+			</section>
+			<!-- Fin ventana modal editar categoría -->
+			<!--FIN VENTANAS MODALES EDITAR-->
 
-				<div>
-					<p class="ps-8" id="advertencia-eliminar--operacion">
-						Está seguro que quiere eliminar esta
-						<span class="font-black">operación</span>? Todos los datos de esta
-						operación se eliminaran de forma permanente.
-					</p>
-				</div>
+			<!--INICIO VENTANAS MODALES ELIMINAR-->
+			<!-- inicio ventana modal elimiar operación -->
+			<section class="hidden w-full" id="advertencia-eliminar--operaciones">
+				<div
+					class="flex flex-col gap-3 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+				>
+					<div class="flex items-center gap-[14px]">
+						<img
+							src="imagenes/alerta.gif"
+							alt="gif-mensaje-de-alerta"
+							class="w-[60px]"
+						/>
+						<h2 class="text-4xl text-[red]">Advertencia</h2>
+					</div>
 
-				<div class="flex justify-end gap-x-4">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-1.5 px-[15px] text-[grey]"
-						id="btn-advertencia-eliminar--cancelar-op"
-					>
-						Cancelar
-					</button>
+					<div>
+						<p class="ps-8" id="advertencia-eliminar--operacion">
+							Está seguro que quiere eliminar esta
+							<span class="font-black">operación</span>? Todos los datos de esta
+							operación se eliminaran de forma permanente.
+						</p>
+					</div>
 
-					<button
-						class="btn-advertencia-eliminar--aceptar-op rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
-					>
-						Aceptar
-					</button>
+					<div class="flex justify-end gap-x-4">
+						<button
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-[grey]"
+							id="btn-advertencia-eliminar--cancelar-op"
+						>
+							Cancelar
+						</button>
+
+						<button
+							class="btn-advertencia-eliminar--aceptar-op rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+						>
+							Aceptar
+						</button>
+					</div>
 				</div>
 			</section>
 
-			<section
-				class="hidden flex flex-col gap-3 border-solid border-2 rounded-md max-w-[850px] p-5 w-full"
-				id="advertencia-eliminar"
-			>
-				<div class="flex items-center gap-[14px]">
-					<img
-						src="imagenes/alerta.gif"
-						alt="gif-mensaje-de-alerta"
-						class="w-[60px]"
-					/>
-					<h2 class="text-4xl text-[red]">Advertencia</h2>
-				</div>
+			<section class="hidden w-full" id="advertencia-eliminar">
+				<div
+					class="flex flex-col gap-3 rounded-md max-w-[850px] p-5 bg-[#EEE9D7] m-auto"
+				>
+					<div class="flex items-center gap-[14px]">
+						<img
+							src="imagenes/alerta.gif"
+							alt="gif-mensaje-de-alerta"
+							class="w-[60px]"
+						/>
+						<h2 class="text-4xl text-[red]">Advertencia</h2>
+					</div>
 
-				<div>
-					<p class="ps-8" id="advertencia-eliminar--categoria">
-						Está seguro que quiere eliminar la categoría
-						<span id="eliminar-advertencia-categoria" class="font-black"></span
-						>?
-					</p>
-				</div>
+					<div>
+						<p class="ps-8" id="advertencia-eliminar--categoria">
+							Está seguro que quiere eliminar la categoría
+							<span
+								id="eliminar-advertencia-categoria"
+								class="font-black"
+							></span
+							>?
+						</p>
+					</div>
 
-				<div class="flex justify-end gap-x-4">
-					<button
-						class="rounded-md bg-[#f5f5f5] py-1.5 px-[15px] text-[grey]"
-						id="btn-advertencia-eliminar--cancelar"
-					>
-						Cancelar
-					</button>
+					<div class="flex justify-center md:justify-end gap-x-4">
+						<button
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							id="btn-advertencia-eliminar--cancelar"
+						>
+							Cancelar
+						</button>
 
-					<button
-						class="btn-advertencia-eliminar--aceptar rounded-md bg-emerald-400 py-1.5 px-[15px] text-white"
-					>
-						Eliminar
-					</button>
+						<button
+							class="btn-advertencia-eliminar--aceptar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+						>
+							Eliminar
+						</button>
+					</div>
 				</div>
 			</section>
 			<!--FIN VENTANA MODAL ELIMINAR-->
@@ -658,7 +671,7 @@
 			<!-- INICIO SECCION REPORTES-->
 			<section id="seccion-reportes" class="hidden w-full">
 				<div
-					class="lg:w-4/6 border-2 rounded-md flex flex-col items-center gap-5 p-2 md:p-5 max-w-[800px] m-auto"
+					class="lg:w-4/6 rounded-md flex flex-col items-center gap-5 p-2 md:p-5 max-w-[800px] m-auto bg-[#EEE9D7] w-[90%]"
 				>
 					<h2 class="text-4xl">Reportes</h2>
 					<div id="container-img-reportes">
@@ -666,6 +679,7 @@
 							<img
 								src="imagenes/undraw_Charts_re_5qe9.png"
 								class="md:max-w-[500px]"
+								alt="Imagen reportes"
 							/>
 						</figure>
 						<p class="text-3xl text-center">Operaciones insuficientes</p>
@@ -804,7 +818,7 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-5 bg-emerald-400 text-white p-5 dark:bg-gray-900"
+			class="flex justify-center items-center gap-5 text-white p-5 bg-[#202C40] dark:bg-gray-900"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>
