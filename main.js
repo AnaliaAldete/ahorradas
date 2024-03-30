@@ -570,7 +570,7 @@ const vaciarInput = () => {
 	inputFecha.value = fechaActualFormateada;
 };
 
-// validación input monto para que no este vacia y no escriban de más
+// validación input monto para que no este vacia y no escriban de 10 números
 const mensajeError = document.getElementById("mensaje-error");
 const mensajeError2 = document.getElementById("mensaje-input-vacio");
 
