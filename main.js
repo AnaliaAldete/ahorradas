@@ -349,6 +349,7 @@ const eventosBtnsEditarOp = (btns) => {
 				"id",
 				`confirmar-${btnSeleccionado.id.slice(9)}`
 			);
+			cargarSelect(editarSelectCategoria);
 		});
 	});
 };
@@ -583,11 +584,6 @@ btnAgregarOperacion.addEventListener("click", () => {
 		gastosPorMes,
 		balancePorMes
 	); //ver porque no se actualiza
-
-	cargarSelect(
-		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-		selectCategoria
-	);
 });
 
 // función para que aparezca los input vacios después de generar una nueva operación.
@@ -709,39 +705,37 @@ const eventosBtnsEliminar = (btns) => {
 	});
 };
 
-// funcion para cargar el select de categorias
-const cargarSelect = (array, select) => {
+// funcion para cargar los select de categorias
+const cargarSelect = (select) => {
+	const array = evaluarLocalStorage(
+		"categoria",
+		categoriasGuardadas,
+		categorias
+	);
 	const selects = document.querySelectorAll(".select-categoria");
-	console.log(selects);
-
-	// if (categoria.classList.contains("filtro")) {
-	// 	categoria.innerHTML = "";
-	// 	categoria.innerHTML = `<option value="todas">Todas</option>`;
-	// }
 
 	if (array && array.length >= 0) {
 		for (select of selects) {
-			select.innerHTML = "";
 			if (select.classList.contains("filtro")) {
+				select.innerHTML = "";
 				select.innerHTML = `<option value="todas">Todas</option>`;
+			} else {
+				select.innerHTML = "";
 			}
 
 			for (option of array) {
 				const { nombreCategoria } = option;
+				const nombreMinuscula = nombreCategoria.toLowerCase();
 				select.innerHTML += `
-             <option value="${nombreCategoria}">${nombreCategoria}</option>
+             <option value="${nombreMinuscula}">${nombreCategoria}</option>
              `;
 			}
 		}
 	}
 };
 
-cargarSelect(
-	evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-	filtroCategoria
-);
+cargarSelect(filtroCategoria);
 
-// console.log(cargarSelect());
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -765,10 +759,8 @@ const generarTablaCategorias = (categorias) => {
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
-		cargarSelect(
-			evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-			filtroCategoria
-		);
+		cargarSelect(filtroCategoria);
+
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		// const btnOn = document.querySelectorAll(".on");
