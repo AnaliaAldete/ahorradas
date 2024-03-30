@@ -349,6 +349,7 @@ const eventosBtnsEditarOp = (btns) => {
 				"id",
 				`confirmar-${btnSeleccionado.id.slice(9)}`
 			);
+			cargarSelect(editarSelectCategoria);
 		});
 	});
 };
@@ -388,6 +389,33 @@ const eventosBtnsEliminarOp = (btns) => {
 		});
 	});
 };
+
+//funcion confirmar elimar operacion
+const confirmarEliminarOperacion = (array, operacionId) => {
+	const operacionesFiltradas = array.filter(
+		(operacionAEliminar) => operacionAEliminar.id !== operacionId
+	);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+	generarTabla(operacionesFiltradas);
+
+	mostrarImg(operacionesFiltradas);
+};
+
+// funcion para que vuelva a verse la imagen cuando esten vacias las operaciones
+const mostrarImg = (array) => {
+	if (array.length <= 0) {
+		mostrarSeccion(contenedorImgOperaciones, contenedorTablaOperaciones);
+	}
+};
+
+// evento confirmar eliminar operacion
+btnAdvertenciaEliminarOp.addEventListener("click", () => {
+	confirmarEliminarOperacion(
+		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
+		btnAdvertenciaEliminarOp.id.slice(10)
+	);
+	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+});
 
 //btn cancelar modal de eliminar operacion
 btnAdvertenciaCancelarEliminarOp.addEventListener("click", () =>
@@ -505,6 +533,7 @@ document
 
 // evento para agregar y actualizar operacion
 btnAgregarOperacion.addEventListener("click", () => {
+	contenedorTablaOperaciones.classList.remove("hidden");
 	const nuevaOperacion = {
 		id: uuidv4(),
 		descripcion:
@@ -682,41 +711,37 @@ const eventosBtnsEliminar = (btns) => {
 	});
 };
 
-// //funcion confirmar elimar operacion
-const confirmarEliminarOperacion = (array, operacionId) => {
-	const operacionesFiltradas = array.filter(
-		(operacionAEliminar) => operacionAEliminar.id !== operacionId
+// funcion para cargar los select de categorias
+const cargarSelect = (select) => {
+	const array = evaluarLocalStorage(
+		"categoria",
+		categoriasGuardadas,
+		categorias
 	);
-	console.log(operacionesFiltradas);
-	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
-	generarTabla(operacionesFiltradas);
-};
+	const selects = document.querySelectorAll(".select-categoria");
 
-// evento confirmar eliminar operacion
-btnAdvertenciaEliminarOp.addEventListener("click", () => {
-	confirmarEliminarOperacion(
-		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
-		btnAdvertenciaEliminarOp.id.slice(10)
-	);
-	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
-});
+	if (array && array.length >= 0) {
+		for (select of selects) {
+			if (select.classList.contains("filtro")) {
+				select.innerHTML = "";
+				select.innerHTML = `<option value="todas">Todas</option>`;
+			} else {
+				select.innerHTML = "";
+			}
 
-// funcion para cargar el select de categorias
-const cargarSelect = (categorias) => {
-	filtroCategoria.innerHTML = "";
-	filtroCategoria.innerHTML = `<option value="todas">Todas</option>`;
-
-	if (categorias && categorias.length >= 0) {
-		for (option of categorias) {
-			const { nombreCategoria } = option;
-			filtroCategoria.innerHTML += `
-       <option value="${nombreCategoria}">${nombreCategoria}</option>
-       `;
+			for (option of array) {
+				const { nombreCategoria } = option;
+				const nombreMinuscula = nombreCategoria.toLowerCase();
+				select.innerHTML += `
+             <option value="${nombreMinuscula}">${nombreCategoria}</option>
+             `;
+			}
 		}
 	}
 };
 
-// console.log(cargarSelect());
+cargarSelect(filtroCategoria);
+
 // función para generar tabla de categorias si hay datos en local storage
 const generarTablaCategorias = (categorias) => {
 	const tablaCategorias = document.getElementById("tabla-categorias");
@@ -727,7 +752,7 @@ const generarTablaCategorias = (categorias) => {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
             <div class="flex justify-between" id="${id}">
-            <p>${nombreCategoria}</p>
+            <p class="p-categorias">${nombreCategoria}</p>
             <div class="flex gap-x-4 text-[darkturquoise]">
             <button class="btn-on" id="on-${id}">On</button>			
             <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
@@ -740,9 +765,8 @@ const generarTablaCategorias = (categorias) => {
 		eventosBtnsEditar(document.querySelectorAll(".btn-editar"));
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
-		cargarSelect(
-			evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
-		);
+		cargarSelect(filtroCategoria);
+
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		// const btnOn = document.querySelectorAll(".on");
@@ -863,8 +887,26 @@ btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
 	cancelar(ventanaModalEliminar, seccionCategoria)
 );
 
+// funcion para condicion de agrgar categoria repetida
+const noRepetir = () => {
+	const pCategorias = document.querySelectorAll(".p-categorias");
+	console.log(pCategorias);
+	for (p of pCategorias) {
+		if (
+			p.innerHTML ===
+			inputNombre.value.charAt(0).toUpperCase() + inputNombre.value.slice(1)
+		)
+			inputNombre.value = "";
+	}
+};
+
+// funcion para vaciar el input despues de agregar nombre
+const vaciarInputNombre = () => (inputNombre.value = "");
+
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
+	noRepetir();
+
 	const nuevaCategoria = {
 		id: uuidv4(),
 		nombreCategoria:
@@ -879,6 +921,8 @@ btnAgregarCategoria.addEventListener("click", () => {
 	generarTablaCategorias(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 	);
+
+	vaciarInputNombre();
 });
 //---------------------------FIN SECCION CATEGORIAS-----------------------------------------------------------------------------
 
