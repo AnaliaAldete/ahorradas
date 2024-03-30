@@ -746,7 +746,7 @@ const generarTablaCategorias = (categorias) => {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
             <div class="flex justify-between" id="${id}">
-            <p>${nombreCategoria}</p>
+            <p class="p-categorias">${nombreCategoria}</p>
             <div class="flex gap-x-4 text-[darkturquoise]">
             <button class="btn-on" id="on-${id}">On</button>			
             <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
@@ -847,11 +847,26 @@ btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
 	cancelar(ventanaModalEliminar, seccionCategoria)
 );
 
+// funcion para condicion de agrgar categoria repetida
+const noRepetir = () => {
+	const pCategorias = document.querySelectorAll(".p-categorias");
+	console.log(pCategorias);
+	for (p of pCategorias) {
+		if (
+			p.innerHTML ===
+			inputNombre.value.charAt(0).toUpperCase() + inputNombre.value.slice(1)
+		)
+			inputNombre.value = "";
+	}
+};
+
 // funcion para vaciar el input despues de agregar nombre
 const vaciarInputNombre = () => (inputNombre.value = "");
 
 // evento para agregar y actualizar categorias
 btnAgregarCategoria.addEventListener("click", () => {
+	noRepetir();
+
 	const nuevaCategoria = {
 		id: uuidv4(),
 		nombreCategoria:
@@ -866,6 +881,7 @@ btnAgregarCategoria.addEventListener("click", () => {
 	generarTablaCategorias(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 	);
+
 	vaciarInputNombre();
 });
 //---------------------------FIN SECCION CATEGORIAS-----------------------------------------------------------------------------
