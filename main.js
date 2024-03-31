@@ -331,19 +331,15 @@ const eventosBtnsEditarOp = (btns) => {
 				evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 				btnSeleccionado.id.slice(9)
 			);
-			console.log(operacionAEditar);
 			if (operacionAEditar) {
 				editarDescripcion.value = operacionAEditar.descripcion;
 				editarMonto.value = operacionAEditar.monto;
 				editarTipo.value = operacionAEditar.tipo;
 				editarSelectCategoria.value = operacionAEditar.categoria.toLowerCase();
-				console.log(operacionAEditar.categoria);
-				console.log(editarSelectCategoria.value);
 				editarFecha.value = operacionAEditar.fecha
 					.split("/")
 					.reverse()
 					.join("-");
-				console.log(editarFecha.value, operacionAEditar.fecha);
 			}
 			btnAdvertenciaAceptarEditarOp.setAttribute(
 				"id",
@@ -494,10 +490,7 @@ generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
 // funcion para editar las operaciones
 const editarSeccionOperaciones = (array, operacionId) => {
-	console.log(operacionId);
 	const operacionesEditadas = array.map((operacionAEditar) => {
-		console.log(operacionAEditar);
-		console.log(operacionAEditar.id);
 		if (operacionAEditar.id === operacionId) {
 			return {
 				...operacionAEditar,
@@ -589,7 +582,7 @@ btnAgregarOperacion.addEventListener("click", () => {
 			obtenerGananciasOGastosPorMes("ganancia"),
 			obtenerGananciasOGastosPorMes("gasto")
 		)
-	); //ver porque no se actualiza
+	);
 });
 
 // función para que aparezca los input vacios después de generar una nueva operación.
@@ -661,7 +654,6 @@ const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(seccionEditar, seccionCategoria);
-			console.log(inputEditarCategoria.value);
 			inputEditarCategoria.value = obtenerId(
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				btnSeleccionado.id.slice(7)
@@ -770,18 +762,14 @@ const generarTablaCategorias = (categorias) => {
 		// probando cambiar texto en el boton
 		// funcion para cambiar texto de btn deshabilitar
 		// const btnOn = document.querySelectorAll(".on");
-		// console.log(btnOn);
 
 		// for (btn of btnOn) {
 		// 	btn.addEventListener("click", () => {
-		// 		console.log("hola");
 		// 		// const deshabilitarCategoria = () => {
 		// 		if (btn.innerHTML === "On") {
 		// 			btn.innerText = "Off";
-		// 			console.log("si");
 		// 		} else {
 		// 			btn.innerText = "On";
-		// 			console.log("no");
 		// 		}
 		// 		// };
 		// 	});
@@ -799,16 +787,13 @@ const obtenerId = (array, categoriaId) =>
 
 // función para editar el nombre de la categoria
 const editarInput = (array, categoriaId) => {
-	console.log(categoriaId);
 	const categoriasEditadas = array.map((categoriaAEditar) => {
 		if (categoriaAEditar.id === categoriaId) {
-			console.log("valor modificado");
 			return {
 				...categoriaAEditar,
 				nombreCategoria: inputEditarCategoria.value,
 			};
 		} else {
-			console.log("valor igual");
 			return categoriaAEditar;
 		}
 	});
@@ -868,7 +853,6 @@ const confirmarEliminarCategoria = (array, categoriaId) => {
 	const arrayFiltrado = array.filter(
 		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
 	);
-	console.log(arrayFiltrado);
 	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
 		generarTablaCategorias(arrayFiltrado);
 };
@@ -890,7 +874,6 @@ btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
 // funcion para condicion de agrgar categoria repetida
 const noRepetir = () => {
 	const pCategorias = document.querySelectorAll(".p-categorias");
-	console.log(pCategorias);
 	for (p of pCategorias) {
 		if (
 			p.innerHTML ===
@@ -961,13 +944,11 @@ const filtrarPorTipoOCategoria = (
 const filtrarPorFecha = (fecha, operaciones) => {
 	let operacionesFiltradas;
 	operacionesFiltradas = operaciones.filter((operacion) => {
-		console.log(operacion.fecha);
 		const operacionDate = new Date(
 			operacion.fecha.split("/").reverse().join("-")
 		);
 		return operacionDate >= fecha;
 	});
-	console.log(operacionesFiltradas);
 	return operacionesFiltradas;
 };
 
@@ -1005,7 +986,7 @@ const ordenarTabla = (operaciones) => {
 	return operaciones;
 };
 
-//filtros acumulativos para tipo, categoria y orden...no para fecha porque no funciona
+//filtros acumulativos
 const aplicarFiltrosAcumulativamente = () => {
 	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 	let operacionesFiltradas = [...operacionesGuardadas];
@@ -1015,7 +996,6 @@ const aplicarFiltrosAcumulativamente = () => {
 		"tipo",
 		operacionesFiltradas
 	);
-	console.log(operacionesFiltradas);
 	operacionesFiltradas = filtrarPorTipoOCategoria(
 		filtroCategoria.value,
 		"categoria",
@@ -1162,13 +1142,6 @@ const obtenerBalancePorPropiedad = (propiedad, ganancias, gastos) => {
 
 //funcion para que aparezca el resumen en reportes
 const actualizarResumen = () => {
-	console.log(
-		obtenerBalancePorPropiedad(
-			"categoria",
-			obtenerGananciasOGastosPorCategoria("ganancia"),
-			obtenerGananciasOGastosPorCategoria("gasto")
-		)
-	);
 	const textoBalance =
 		obtenerGananciasOGastosPorCategoria("ganancia")[
 			obtenerMayorPropiedad(
@@ -1363,5 +1336,3 @@ actualizarTotalesPorPropiedad(
 		obtenerGananciasOGastosPorMes("gasto")
 	)
 );
-
-//acordarse de ver que no actualiza en cargar una nueva operacion
