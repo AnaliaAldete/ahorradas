@@ -830,6 +830,11 @@ btnAdvertenciaAceptarEditar.addEventListener("click", () => {
 	cancelar(ventanaModalEditar, seccionPrincipal);
 });
 
+// evento para cancelar modal editar
+btnAdvertenciaCancelarEditar.addEventListener("click", () =>
+	cancelar(ventanaModalEditar, seccionCategoria)
+);
+
 // función para eliminar una categoría y las operaciones asociadas a esa categoria
 const eliminarCategoriaYOperaciones = (categoriaId) => {
 	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
