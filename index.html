@@ -260,6 +260,7 @@
 							id="input-descripcion"
 							placeholder="Ingresar descripción"
 							class="border-solid border-2 p-2 rounded"
+							required
 						/>
 					</div>
 
@@ -290,6 +291,7 @@
 							name="select-tipo"
 							id="select-tipo"
 							class="border-solid border-2 p-2 rounded"
+							required
 						>
 							<option value="gasto">Gasto</option>
 							<option value="ganancia">Ganancia</option>
@@ -302,12 +304,18 @@
 							name="select-categoria"
 							id="select-categoria"
 							class="select-categoria border-2 p-2 rounded"
+							required
 						></select>
 					</div>
 
 					<div class="flex flex-col gap-2 pb-7">
 						<label for="input-fecha" class="font-bold">Fecha</label>
-						<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
+						<input
+							type="date"
+							id="input-fecha"
+							class="border-2 p-2 rounded"
+							required
+						/>
 					</div>
 
 					<div class="flex justify-end gap-2">
