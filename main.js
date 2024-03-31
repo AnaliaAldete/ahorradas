@@ -414,7 +414,7 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 		btnAdvertenciaEliminarOp.id.slice(10)
 	);
-	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
 });
 
 //btn cancelar modal de eliminar operacion
@@ -685,28 +685,14 @@ const CategoriaVentanaModal = (span) =>
 	(span.innerHTML = inputEditarCategoria.value);
 
 // funcion para añadir eventos a los botones de eliminar
+
 const eventosBtnsEliminar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
-
-			confirmarEliminarCategoria(
-				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-				obtenerId(
-					evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-					btnSeleccionado.id.slice(9)
-				)
-			);
-			btnAceptarEliminar.setAttribute(
-				"id",
-				`confirm-${btnSeleccionado.id.slice(9)}`
-			);
-			inputEditarCategoria.value = obtenerId(
-				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-				btnSeleccionado.id.slice(9)
-			).nombreCategoria;
-
-			CategoriaVentanaModal(modalEliminarCategoria);
+			const categoriaId = btnSeleccionado.id.slice(9);
+			CategoriaVentanaModal(modalEliminarCategoria, categoriaId);
+			btnAceptarEliminar.setAttribute("id", `confirm-${categoriaId}`);
 		});
 	});
 };
@@ -859,44 +845,38 @@ btnAdvertenciaAceptarEditar.addEventListener("click", () => {
 	cancelar(ventanaModalEditar, seccionPrincipal);
 });
 
-// evento para cancelar modal editar
-btnAdvertenciaCancelarEditar.addEventListener("click", () =>
-	cancelar(ventanaModalEditar, seccionCategoria)
-);
-//funcion confirmar elimar categoria
-const confirmarEliminarCategoria = (array, categoriaId) => {
-	const arrayFiltrado = array.filter(
-		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
-	);
-	console.log(arrayFiltrado);
-	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
-		generarTablaCategorias(arrayFiltrado);
-};
-const actualizarOperacionesConCategoriaEliminada = (
-	operaciones,
-	categoriaEliminada
-) => {
-	let operacionesConCategoriaEliminada = operaciones.filter((operacion) => {
-		operacion.categoria !== categoriaEliminada.nombreCategoria;
-	});
-	localStorage.setItem(
+// función para eliminar una categoría y las operaciones asociadas a esa categoria
+const eliminarCategoriaYOperaciones = (categoriaId) => {
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+	categoriasGuardadas = evaluarLocalStorage(
 		"categoria",
-		JSON.stringify(operacionesConCategoriaEliminada)
+		categoriasGuardadas,
+		categorias
 	);
-	generarTabla(operacionesConCategoriaEliminada);
+
+	const categoriaAEliminar = categoriasGuardadas.find(
+		(categoria) => categoria.id === categoriaId
+	).nombreCategoria;
+
+	const operacionesFiltradas = operacionesGuardadas.filter(
+		(operacion) => operacion.categoria !== categoriaAEliminar
+	);
+	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
+
+	const categoriasFiltradas = categoriasGuardadas.filter(
+		(categoria) => categoria.id !== categoriaId
+	);
+	localStorage.setItem("categoria", JSON.stringify(categoriasFiltradas));
+
+	generarTablaCategorias(categoriasFiltradas);
+	generarTabla(operacionesFiltradas);
 };
 
-//evento confirmar elimar categoria
+// evento para confirmar y eliminar una categoría
 btnAceptarEliminar.addEventListener("click", () => {
-	confirmarEliminarCategoria(
-		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-		btnAceptarEliminar.id.slice(8)
-	);
-	actualizarOperacionesConCategoriaEliminada(
-		evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
-		btnAceptarEliminar.id.slice(8)
-	);
-	mostrarSeccion(seccionCategoria, ventanaModalEliminar);
+	const categoriaId = btnAceptarEliminar.id.slice(8);
+	eliminarCategoriaYOperaciones(categoriaId);
+	cancelar(ventanaModalEliminar, seccionPrincipal);
 });
 
 // evento cancelar modal eliminar
