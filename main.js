@@ -543,9 +543,8 @@ document
 	.addEventListener("click", () => cancelar(seccionEditarOp, seccionPrincipal));
 
 // evento para agregar y actualizar operacion
-btnAgregarOperacion.addEventListener("click", (e) => {
-	e.preventDefault();
-	contenedorTablaOperaciones.classList.remove("hidden");
+btnAgregarOperacion.addEventListener("click", () => {
+	// contenedorTablaOperaciones.classList.remove("hidden");
 
 	const nuevaOperacion = {
 		id: uuidv4(),
@@ -560,22 +559,32 @@ btnAgregarOperacion.addEventListener("click", (e) => {
 		tipo: selectTipo.value,
 	};
 	// condicion para que no guarde e imprima una operacion sin monto
-	if (inputMonto.value > 0 && inputDescripcion.value > 0) {
+	if (inputMonto.value > 0 && inputDescripcion.value.length > 0) {
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
 		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
 		seccionNuevaOperacion.classList.add("hidden");
-	} else if (inputDescripcion.monto < 0) {
-		mensajeError2.classList.remove("hidden");
-		inputMonto.classList.add("border-red-500");
-	} else {
-		errorTipo.classList.remove("hidden");
-		inputDescripcion.classList.add("border-red-500");
 	}
+	// } else if (inputMonto.value < 0) {
+	// 	mensajeError2.classList.remove("hidden");
+	// 	inputMonto.classList.add("border-red-500");
+	// } else if (inputDescripcion.length < 0) {
+	// 	errorTipo.classList.remove("hidden");
+	// 	inputDescripcion.classList.add("border-red-500");
+	// } else if (inputMonto.value < 0 && inputDescripcion.value.length > 0) {
+	// 	console.log("descripcion completada");
+	// 	errorTipo.classList.add("hidden");
+	// 	inputDescripcion.classList.remove("border-red-500");
+	// 	mensajeError2.classList.remove("hidden");
+	// 	inputMonto.classList.add("border-red-500");
+	// } else {
+	// 	errorTipo.classList.remove("hidden");
+	// 	inputDescripcion.classList.add("border-red-500");
+	// }
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
-	vaciarInput();
+	// vaciarInput();
 	aparecerReportes();
 	actualizarResumen();
 
@@ -630,7 +639,12 @@ inputMonto.addEventListener("input", () => {
 });
 
 inputDescripcion.addEventListener("input", () => {
-	if (inputDescripcion.value.length === 0) {
+	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
+		inputDescripcion.classList.remove("border-red-500");
+		errorTipo.classList.add("hidden");
+	} else if (inputDescripcion.value < 0) {
+		inputDescripcion.value = 0;
+	} else if (inputDescripcion.value.length === 0) {
 		inputDescripcion.classList.add("border-red-500");
 		errorTipo.classList.remove("hidden");
 	} else {
