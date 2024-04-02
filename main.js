@@ -494,6 +494,18 @@ const generarTabla = (operaciones) => {
 
 generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
+const mensajeError = document.getElementById("mensaje-error");
+const mensajeError2 = document.getElementById("mensaje-input-vacio");
+const errorTipo = document.querySelector(".mensaje-input-vacio");
+console.log(errorTipo);
+//  funcion para innput vacios
+// const errorInputVacio = (input1, input2) => {
+// 	if (input1.value === null || input2 === null) {
+// 		mensajeError2.classList.remove("hidden");
+// 		inputMonto.classList.add("border-red-500");
+// 	}
+// };
+
 // funcion para editar las operaciones
 const editarSeccionOperaciones = (array, operacionId) => {
 	const operacionesEditadas = array.map((operacionAEditar) => {
@@ -531,8 +543,10 @@ document
 	.addEventListener("click", () => cancelar(seccionEditarOp, seccionPrincipal));
 
 // evento para agregar y actualizar operacion
-btnAgregarOperacion.addEventListener("click", () => {
+btnAgregarOperacion.addEventListener("click", (e) => {
+	e.preventDefault();
 	contenedorTablaOperaciones.classList.remove("hidden");
+
 	const nuevaOperacion = {
 		id: uuidv4(),
 		descripcion:
@@ -546,18 +560,17 @@ btnAgregarOperacion.addEventListener("click", () => {
 		tipo: selectTipo.value,
 	};
 	// condicion para que no guarde e imprima una operacion sin monto
-	if (inputMonto.value > 0) {
+	if (inputMonto.value > 0 && inputDescripcion.value > 0) {
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
 		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
 		seccionNuevaOperacion.classList.add("hidden");
+	} else if (inputDescripcion.monto < 0) {
+		mensajeError2.classList.remove("hidden");
+		inputMonto.classList.add("border-red-500");
 	} else {
-		mostrarSeccion(
-			seccionPrincipal,
-			seccionCategoria,
-			seccionReportes,
-			seccionNuevaOperacion
-		);
+		errorTipo.classList.remove("hidden");
+		inputDescripcion.classList.add("border-red-500");
 	}
 
 	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
@@ -599,8 +612,6 @@ const vaciarInput = () => {
 };
 
 // validación input monto para que no este vacia y no escriban de 10 números
-const mensajeError = document.getElementById("mensaje-error");
-const mensajeError2 = document.getElementById("mensaje-input-vacio");
 
 inputMonto.addEventListener("input", () => {
 	if (/^\d{1,10}$/.test(inputMonto.value)) {
@@ -615,6 +626,16 @@ inputMonto.addEventListener("input", () => {
 	} else {
 		inputMonto.classList.add("border-red-500");
 		mensajeError.classList.remove("hidden");
+	}
+});
+
+inputDescripcion.addEventListener("input", () => {
+	if (inputDescripcion.value.length === 0) {
+		inputDescripcion.classList.add("border-red-500");
+		errorTipo.classList.remove("hidden");
+	} else {
+		inputDescripcion.classList.remove("border-red-500");
+		errorTipo.classList.add("hidden");
 	}
 });
 //----------------------------FIN SECCION OPERACIONES--------------------------------------------------------------------------------------------
