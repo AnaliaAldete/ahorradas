@@ -127,8 +127,10 @@
 								Ocultar Filtros
 							</button>
 						</div>
-						<div id="contenedor-filtros">
-							<div class="flex flex-col gap-2">
+
+						<!-- inicio form filtros -->
+						<form>
+							<div id="contenedor-filtros">
 								<div class="flex flex-col gap-2">
 									<label for="filtro-tipo">Tipo</label>
 									<select
@@ -176,7 +178,8 @@
 									</select>
 								</div>
 							</div>
-						</div>
+						</form>
+						<!-- fin form filtros -->
 					</div>
 					<!-- FIN CONTENEDOR FILTROS -->
 				</div>
@@ -242,7 +245,7 @@
 
 						<div id="cuerpo-tabla-operaciones"></div>
 					</div>
-					<!-- Fin tabla operaciones -->
+					<!-- fin tabla operaciones -->
 				</div>
 				<!-- FIN CONTENEDOR OPERACIONES -->
 			</section>
@@ -253,85 +256,94 @@
 					class="max-w-[850px] bg-[#EEE9D7] border-2 rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
 				>
 					<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
-					<div class="flex flex-col gap-2 font-bold">
-						<label for="input-descripcion" class="font-bold">Descripción</label>
-						<input
-							type="text"
-							id="input-descripcion"
-							placeholder="Ingresar descripción"
-							class="border-solid border-2 p-2 rounded"
-							required
-						/>
-					</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="input-monto" class="font-bold">Monto</label>
-						<input
-							type="number"
-							id="input-monto"
-							placeholder="Ingresar monto"
-							class="border-solid border-2 p-2 rounded focus:outline-none"
-							required
-							min="0"
-						/>
-						<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
-							El número no puede tener más de 10 dígitos.
-						</p>
-						<p
-							id="mensaje-input-vacio"
-							class="text-red-500 text-xs italic hidden"
-						>
-							Ingrese un monto por favor
-						</p>
-					</div>
+					<!-- inicio form nueva operacion -->
+					<form>
+						<div class="flex flex-col gap-2 font-bold">
+							<label for="input-descripcion" class="font-bold"
+								>Descripción</label
+							>
+							<input
+								type="text"
+								id="input-descripcion"
+								placeholder="Ingresar descripción"
+								class="border-solid border-2 p-2 rounded"
+								required
+							/>
+						</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="select-tipo" class="font-bold">Tipo</label>
-						<select
-							name="select-tipo"
-							id="select-tipo"
-							class="border-solid border-2 p-2 rounded"
-							required
-						>
-							<option value="gasto">Gasto</option>
-							<option value="ganancia">Ganancia</option>
-						</select>
-					</div>
+						<div class="flex flex-col gap-2">
+							<label for="input-monto" class="font-bold">Monto</label>
+							<input
+								type="number"
+								id="input-monto"
+								placeholder="Ingresar monto"
+								class="border-solid border-2 p-2 rounded focus:outline-none"
+								required
+								min="0"
+							/>
+							<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
+								El número no puede tener más de 10 dígitos.
+							</p>
+							<p
+								id="mensaje-input-vacio"
+								class="text-red-500 text-xs italic hidden"
+							>
+								Ingrese un monto por favor
+							</p>
+						</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="select-categoria" class="font-bold">Categoria</label>
-						<select
-							name="select-categoria"
-							id="select-categoria"
-							class="select-categoria border-2 p-2 rounded"
-							required
-						></select>
-					</div>
+						<div class="flex flex-col gap-2">
+							<label for="select-tipo" class="font-bold">Tipo</label>
+							<select
+								name="select-tipo"
+								id="select-tipo"
+								class="border-solid border-2 p-2 rounded"
+								required
+							>
+								<option value="gasto">Gasto</option>
+								<option value="ganancia">Ganancia</option>
+							</select>
+						</div>
 
-					<div class="flex flex-col gap-2 pb-7">
-						<label for="input-fecha" class="font-bold">Fecha</label>
-						<input
-							type="date"
-							id="input-fecha"
-							class="border-2 p-2 rounded"
-							required
-						/>
-					</div>
+						<div class="flex flex-col gap-2">
+							<label for="select-categoria" class="font-bold">Categoria</label>
+							<select
+								name="select-categoria"
+								id="select-categoria"
+								class="select-categoria border-2 p-2 rounded"
+								required
+							></select>
+						</div>
 
-					<div class="flex justify-end gap-2">
-						<button
-							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
-							id="btn-cancelar--nueva"
-						>
-							Cancelar
-						</button>
-						<button
-							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
-							id="btn-agregar-operacion"
-						>
-							Agregar
-						</button>
-					</div>
+						<div class="flex flex-col gap-2 pb-7">
+							<label for="input-fecha" class="font-bold">Fecha</label>
+							<input
+								type="date"
+								id="input-fecha"
+								class="border-2 p-2 rounded"
+								required
+							/>
+						</div>
+
+						<div class="flex justify-end gap-2">
+							<button
+								type="button"
+								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								id="btn-cancelar--nueva"
+							>
+								Cancelar
+							</button>
+							<button
+								type="button"
+								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								id="btn-agregar-operacion"
+							>
+								Agregar
+							</button>
+						</div>
+					</form>
+					<!-- fin form nueva operacion -->
 				</div>
 			</section>
 			<!-- FIN SECCION NUEVA OPERACION -->
@@ -343,89 +355,95 @@
 				>
 					<h2 class="text-4xl pb-7">Editar Operación</h2>
 
-					<div class="flex flex-col gap-2 font-bold">
-						<label for="editar-input-descripcion" class="font-bold"
-							>Descripción</label
-						>
-						<input
-							type="text"
-							id="editar-input-descripcion"
-							class="border-solid border-2 p-2 rounded"
-						/>
-					</div>
+					<!-- inicio form editar operacion -->
+					<form>
+						<div class="flex flex-col gap-2 font-bold">
+							<label for="editar-input-descripcion" class="font-bold"
+								>Descripción</label
+							>
+							<input
+								type="text"
+								id="editar-input-descripcion"
+								class="border-solid border-2 p-2 rounded"
+							/>
+						</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="editar-input-monto" class="font-bold">Monto</label>
-						<input
-							type="number"
-							id="editar-input-monto"
-							class="border-solid border-2 p-2 rounded focus:outline-none"
-							required
-							min="0"
-						/>
+						<div class="flex flex-col gap-2">
+							<label for="editar-input-monto" class="font-bold">Monto</label>
+							<input
+								type="number"
+								id="editar-input-monto"
+								class="border-solid border-2 p-2 rounded focus:outline-none"
+								required
+								min="0"
+							/>
 
-						<p
-							id="editar-mensaje-error"
-							class="text-red-500 text-xs italic hidden"
-						>
-							El número no puede tener más de 10 dígitos.
-						</p>
+							<p
+								id="editar-mensaje-error"
+								class="text-red-500 text-xs italic hidden"
+							>
+								El número no puede tener más de 10 dígitos.
+							</p>
 
-						<p
-							id="editar-mensaje-input-vacio"
-							class="text-red-500 text-xs italic hidden"
-						>
-							Ingrese un monto por favor
-						</p>
-					</div>
+							<p
+								id="editar-mensaje-input-vacio"
+								class="text-red-500 text-xs italic hidden"
+							>
+								Ingrese un monto por favor
+							</p>
+						</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="editar-select-tipo" class="font-bold">Tipo</label>
-						<select
-							name="editar-select-tipo"
-							id="editar-select-tipo"
-							class="border-solid border-2 p-2 rounded"
-						>
-							<option value="gasto">Gasto</option>
-							<option value="ganancia">Ganancia</option>
-						</select>
-					</div>
+						<div class="flex flex-col gap-2">
+							<label for="editar-select-tipo" class="font-bold">Tipo</label>
+							<select
+								name="editar-select-tipo"
+								id="editar-select-tipo"
+								class="border-solid border-2 p-2 rounded"
+							>
+								<option value="gasto">Gasto</option>
+								<option value="ganancia">Ganancia</option>
+							</select>
+						</div>
 
-					<div class="flex flex-col gap-2">
-						<label for="editar-select-categoria" class="font-bold"
-							>Categoria</label
-						>
-						<select
-							name="editar-select-categoria"
-							id="editar-select-categoria"
-							class="select-categoria border-2 p-2 rounded"
-						></select>
-					</div>
+						<div class="flex flex-col gap-2">
+							<label for="editar-select-categoria" class="font-bold"
+								>Categoria</label
+							>
+							<select
+								name="editar-select-categoria"
+								id="editar-select-categoria"
+								class="select-categoria border-2 p-2 rounded"
+							></select>
+						</div>
 
-					<div class="flex flex-col gap-2 pb-7">
-						<label for="editar-input-fecha" class="font-bold">Fecha</label>
-						<input
-							type="date"
-							id="editar-input-fecha"
-							class="border-2 p-2 rounded"
-						/>
-					</div>
+						<div class="flex flex-col gap-2 pb-7">
+							<label for="editar-input-fecha" class="font-bold">Fecha</label>
+							<input
+								type="date"
+								id="editar-input-fecha"
+								class="border-2 p-2 rounded"
+							/>
+						</div>
 
-					<div class="flex justify-end gap-2">
-						<button
-							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
-							id="editar-btn-cancelar--nueva"
-						>
-							Cancelar
-						</button>
+						<div class="flex justify-end gap-2">
+							<button
+								type="button"
+								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								id="editar-btn-cancelar--nueva"
+							>
+								Cancelar
+							</button>
 
-						<button
-							class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
-							id="editar-btn-agregar"
-						>
-							Guardar Cambios
-						</button>
-					</div>
+							<button
+								type="button"
+								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								id="editar-btn-agregar"
+							>
+								Guardar Cambios
+							</button>
+						</div>
+					</form>
+					<!-- fin form editar operacion-->
 				</div>
 			</section>
 			<!-- FIN SECCION EDITAR OPERACION -->
@@ -438,7 +456,8 @@
 				<div class="rounded-md max-w-[850px] p-5 lg:w-4/6 bg-[#EEE9D7]">
 					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
 
-					<div>
+					<!-- inicio form categoria nombre -->
+					<form>
 						<label for="nombre" class="font-bold pb-2 block">Nombre</label>
 
 						<div class="flex justify-between gap-[4px]">
@@ -447,52 +466,62 @@
 								id="nombre"
 								class="border-2 border-solid rounded-md w-[87%]"
 							/>
+
 							<button
+								type="button"
 								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
 								id="btn-agregar-categoria"
 							>
 								Agregar
 							</button>
 						</div>
-					</div>
+					</form>
+					<!-- fin form categoria nombre -->
 
-					<!-- inicio tabla categorias -->
+					<!-- INICIO TABLA CATEGORIAS -->
 					<div class="pt-11 leading-[3rem]" id="tabla-categorias"></div>
-					<!-- fin tabla categorias -->
+					<!-- FIN TABLA CATEGORIAS -->
 				</div>
 			</section>
-
 			<!-- FIN SECCION CATEGORÍAS -->
 
-			<!-- INICIO SECCION EDITAR-->
+			<!-- INICIO SECCION EDITAR CATEGORIAS-->
 			<section class="hidden w-full flex-grow" id="seccion-editar">
 				<div
 					class="rounded-md w-[90%] max-w-[500px] p-5 bg-[#EEE9D7] m-auto flex flex-col justify-center gap-10"
 				>
 					<h2 class="text-3xl md:text-4xl text-center">Editar Categoría</h2>
-					<div class="flex flex-col gap-y-2">
-						<label for="label-editar">Nombre</label>
-						<input
-							type="text"
-							id="label-editar"
-							class="border-solid border-2 rounded-md h-10"
-						/>
-					</div>
 
-					<div class="flex justify-center gap-x-4">
-						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
-							id="btn-cancelar--editar"
-						>
-							Cancelar
-						</button>
-						<button
-							class="aceptar-editar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
-							id="btn-aceptar-editar"
-						>
-							Editar
-						</button>
-					</div>
+					<!-- inicio form editar categoria -->
+					<form>
+						<div class="flex flex-col gap-y-2">
+							<label for="label-editar">Nombre</label>
+							<input
+								type="text"
+								id="label-editar"
+								class="border-solid border-2 rounded-md h-10"
+							/>
+						</div>
+
+						<div class="flex justify-center gap-x-4">
+							<button
+								type="button"
+								class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+								id="btn-cancelar--editar"
+							>
+								Cancelar
+							</button>
+
+							<button
+								type="button"
+								class="aceptar-editar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+								id="btn-aceptar-editar"
+							>
+								Editar
+							</button>
+						</div>
+					</form>
+					<!-- fin form editar categoria -->
 				</div>
 			</section>
 			<!-- FIN SECCION EDITAR-->
@@ -536,6 +565,7 @@
 				</div>
 			</section>
 			<!-- Fin ventana modal editar operación -->
+
 			<!-- inicio ventana modal editar categoría -->
 			<section class="hidden w-full" id="advertencia-editar">
 				<div
@@ -615,6 +645,7 @@
 				</div>
 			</section>
 			<!-- Fin ventana modal elimiar operación -->
+
 			<!-- Inicio ventana modal elimiar categoría -->
 			<section class="hidden w-full" id="advertencia-eliminar">
 				<div
@@ -657,6 +688,7 @@
 				</div>
 			</section>
 			<!-- Fin ventana modal elimiar categoría -->
+
 			<!-- Inicio ventana modal no elimiar categoría porque hay operaciones asociadas a ella -->
 			<section class="hidden w-full" id="advertencia-no-eliminar">
 				<div
@@ -674,7 +706,7 @@
 					<div>
 						<p class="ps-8">
 							No se puede eliminar la categoría porque existen operaciones
-							asociadas.Por favor, elimine las operaciones primero
+							asociadas. Por favor, elimine las operaciones primero.
 						</p>
 					</div>
 
@@ -845,7 +877,7 @@
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>
-				<p>👑Code Queens</p>
+				<p>👑 Code Queens</p>
 			</div>
 			<a href="https://github.com/AnaliaAldete/ahorradas" target="_blank"
 				><i
