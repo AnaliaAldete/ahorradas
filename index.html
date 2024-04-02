@@ -654,6 +654,38 @@
 				</div>
 			</section>
 			<!-- Fin ventana modal elimiar categoría -->
+			<!-- Inicio ventana modal no elimiar categoría porque hay operaciones asociadas a ella -->
+			<section class="hidden w-full" id="advertencia-no-eliminar">
+				<div
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+				>
+					<div class="flex items-center gap-[14px]">
+						<img
+							src="imagenes/alerta.gif"
+							alt="gif-mensaje-de-alerta"
+							class="w-[60px]"
+						/>
+						<h2 class="text-4xl text-[red]">Advertencia</h2>
+					</div>
+
+					<div>
+						<p class="ps-8">
+							No se puede eliminar la categoría porque existen operaciones
+							asociadas.Por favor, elimine las operaciones primero
+						</p>
+					</div>
+
+					<div class="flex justify-center md:justify-end gap-x-4">
+						<button
+							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							id="btn-advertencia-no-eliminar"
+						>
+							Aceptar
+						</button>
+					</div>
+				</div>
+			</section>
+			<!-- Fin ventana modal no elimiar categoría porque hay operaciones asociadas a ella -->
 			<!--FIN VENTANAS MODALES ELIMINAR-->
 
 			<!-- INICIO SECCION REPORTES-->

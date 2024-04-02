@@ -35,6 +35,9 @@ const ventanaModalEliminarOp = document.getElementById(
 	"advertencia-eliminar--operaciones"
 );
 const ventanaModalEliminar = document.getElementById("advertencia-eliminar");
+const ventanaModalNoEliminar = document.getElementById(
+	"advertencia-no-eliminar"
+);
 
 //botones
 const btnMenuHamburguesa = document.getElementById("btn-menu-hamburguesa");
@@ -67,6 +70,9 @@ const btnAdvertenciaEliminarOp = document.querySelector(
 );
 const btnAdvertenciaCancelarEliminarOp = document.getElementById(
 	"btn-advertencia-eliminar--cancelar-op"
+);
+const btnAdvertenciaNoEliminar = document.getElementById(
+	"btn-advertencia-no-eliminar"
 );
 
 //menues
@@ -849,12 +855,30 @@ btnAdvertenciaCancelarEditar.addEventListener("click", () =>
 	cancelar(ventanaModalEditar, seccionCategoria)
 );
 //funcion confirmar elimar categoria
+// const confirmarEliminarCategoria = (array, categoriaId) => {
+// 	const arrayFiltrado = array.filter(
+// 		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
+// 	);
+// 	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
+// 		generarTablaCategorias(arrayFiltrado);
+// };
+
 const confirmarEliminarCategoria = (array, categoriaId) => {
-	const arrayFiltrado = array.filter(
-		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
-	);
-	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+
+	let operacionesAsociadas = operacionesGuardadas.some((operacion) => {
+		return operacion.categoria === categoriaId.nombreCategoria;
+	});
+
+	if (operacionesAsociadas) {
+		cancelar(ventanaModalEliminar, ventanaModalNoEliminar);
+	} else {
+		const arrayFiltrado = array.filter(
+			(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
+		);
+		localStorage.setItem("categoria", JSON.stringify(arrayFiltrado));
 		generarTablaCategorias(arrayFiltrado);
+	}
 };
 
 //evento confirmar elimar categoria
@@ -869,6 +893,11 @@ btnAceptarEliminar.addEventListener("click", () => {
 // evento cancelar modal eliminar
 btnAdvertenciaCancelarEliminar.addEventListener("click", () =>
 	cancelar(ventanaModalEliminar, seccionCategoria)
+);
+
+//evento aceptar no eliminar categroia si hay operaciones asociadas
+btnAdvertenciaNoEliminar.addEventListener("click", () =>
+	cancelar(ventanaModalNoEliminar, seccionPrincipal)
 );
 
 // funcion para condicion de agrgar categoria repetida
