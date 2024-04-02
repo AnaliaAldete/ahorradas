@@ -82,10 +82,10 @@
 		<!-- INICIO MAIN -->
 		<main
 			id="main"
-			class="flex gap-5 py-5 lg:flex-row lg:py-10 flex-1 bg-[#E66B75] dark:bg-gray-800 justify-center items-center"
+			class="flex gap-5 py-5 md:px-5 lg:flex-row lg:py-10 flex-1 bg-[#E66B75] dark:bg-gray-800 justify-center items-center"
 		>
 			<section
-				class="flex flex-col lg:flex-row gap-[15px] lg:max-h-[646px] justify-center w-full items-center md:items-stretch"
+				class="flex flex-col md:flex-row gap-[15px] justify-center w-full items-center md:items-stretch"
 				id="seccion-principal"
 			>
 				<div
@@ -183,7 +183,7 @@
 
 				<!-- INICIO CONTENEDOR OPERACIONES -->
 				<div
-					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3 bg-[#EEE9D7] max-w-[630px] w-[90%]"
+					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3 bg-[#EEE9D7] lg:max-w-[630px] w-[90%]"
 					id="container-operaciones"
 				>
 					<div
@@ -260,6 +260,7 @@
 							id="input-descripcion"
 							placeholder="Ingresar descripción"
 							class="border-solid border-2 p-2 rounded"
+							required
 						/>
 					</div>
 
@@ -290,6 +291,7 @@
 							name="select-tipo"
 							id="select-tipo"
 							class="border-solid border-2 p-2 rounded"
+							required
 						>
 							<option value="gasto">Gasto</option>
 							<option value="ganancia">Ganancia</option>
@@ -302,12 +304,18 @@
 							name="select-categoria"
 							id="select-categoria"
 							class="select-categoria border-2 p-2 rounded"
+							required
 						></select>
 					</div>
 
 					<div class="flex flex-col gap-2 pb-7">
 						<label for="input-fecha" class="font-bold">Fecha</label>
-						<input type="date" id="input-fecha" class="border-2 p-2 rounded" />
+						<input
+							type="date"
+							id="input-fecha"
+							class="border-2 p-2 rounded"
+							required
+						/>
 					</div>
 
 					<div class="flex justify-end gap-2">
@@ -427,9 +435,7 @@
 				class="hidden flex justify-center items-center w-full"
 				id="seccion-categoria"
 			>
-				<div
-					class="border-solid border-2 rounded-md max-w-[850px] p-5 lg:w-4/6 bg-[#EEE9D7]"
-				>
+				<div class="rounded-md max-w-[850px] p-5 lg:w-4/6 bg-[#EEE9D7]">
 					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
 
 					<div>
@@ -451,10 +457,7 @@
 					</div>
 
 					<!-- inicio tabla categorias -->
-					<div
-						class="pt-11 leading-[3rem] text-[13px]"
-						id="tabla-categorias"
-					></div>
+					<div class="pt-11 leading-[3rem]" id="tabla-categorias"></div>
 					<!-- fin tabla categorias -->
 				</div>
 			</section>

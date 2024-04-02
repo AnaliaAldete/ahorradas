@@ -416,7 +416,7 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 		btnAdvertenciaEliminarOp.id.slice(10)
 	);
-	mostrarSeccion(contenedorPrincipal, ventanaModalEliminarOp);
+	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
 });
 
 //btn cancelar modal de eliminar operacion
