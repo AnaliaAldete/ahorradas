@@ -716,8 +716,9 @@
 
 					<div>
 						<p class="ps-8">
-							No se puede eliminar la categoría porque existen operaciones
-							asociadas. Por favor, elimine las operaciones primero.
+							<span class="font-black">No</span> se puede eliminar esta
+							<span class="font-black">categoría</span> porque existen
+							operaciones asociadas. Por favor, elimine las operaciones primero.
 						</p>
 					</div>
 
@@ -740,6 +741,7 @@
 					class="lg:w-4/6 rounded-md flex flex-col items-center gap-5 p-2 md:p-5 max-w-[800px] m-auto bg-[#EEE9D7] w-[90%]"
 				>
 					<h2 class="text-4xl">Reportes</h2>
+
 					<div id="container-img-reportes">
 						<figure>
 							<img
@@ -748,82 +750,102 @@
 								alt="Imagen reportes"
 							/>
 						</figure>
+
 						<p class="text-3xl text-center">Operaciones insuficientes</p>
+
 						<p class="text-center">Prueba agregando más operaciones</p>
 					</div>
+
 					<div
 						class="w-full flex flex-col gap-3 md:gap-6 hidden"
 						id="tabla-reportes"
 					>
 						<h3 class="text-xl text-center sm: text-left">Resumen</h3>
+
 						<div class="flex flex-col gap-3">
 							<div class="flex flex-col text-center sm:flex-row">
 								<div class="sm:w-[50%] font-bold sm:text-left">
 									Categoría con mayor ganancia
 								</div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-categoria-mayor-ganancia"
 								></div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mayor-ganacia-categoria"
 								></div>
 							</div>
+
 							<div class="flex flex-col text-center sm:flex-row">
 								<div class="sm:w-[50%] font-bold sm:text-left">
 									Categoría con mayor gasto
 								</div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-categoria-mayor-gasto"
 								></div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mayor-gasto-categoria"
 								></div>
 							</div>
+
 							<div class="flex flex-col text-center sm:flex-row">
 								<div class="sm:w-[50%] font-bold sm:text-left">
 									Categoría con mayor balance
 								</div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-categoria-mayor-balance"
 								></div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mayor-balance-categoria"
 								></div>
 							</div>
+
 							<div class="flex flex-col text-center sm:flex-row">
 								<div class="sm:w-[50%] font-bold sm:text-left">
 									Mes con mayor ganancia
 								</div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mes-mayor-ganacia"
 								></div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mayor-ganancia-mes"
 								></div>
 							</div>
+
 							<div class="flex flex-col text-center sm:flex-row">
 								<div class="sm:w-[50%] font-bold sm:text-left sm:text-left">
 									Mes con mayor gasto
 								</div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mes-mayor-gasto"
 								></div>
+
 								<div
 									class="sm:w-[25%] text-center"
 									id="container-mayor-gasto-mes"
 								></div>
 							</div>
 						</div>
+
 						<h3 class="text-xl text-center">Totales por categorías</h3>
+
 						<div class="flex flex-col text-center text-[14px] md:text-base">
 							<div class="flex">
 								<div
@@ -831,25 +853,31 @@
 								>
 									Categoría
 								</div>
+
 								<div
 									class="w-[25%] font-bold border border-gray-300 md:border-none"
 								>
 									Ganancias
 								</div>
+
 								<div
 									class="w-[25%] font-bold border border-gray-300 md:border-none"
 								>
 									Gastos
 								</div>
+
 								<div
 									class="w-[25%] font-bold border borderborder-gray-300 md:border-none"
 								>
 									Balance
 								</div>
 							</div>
+
 							<div id="cuerpo-tabla-totales-categorias"></div>
 						</div>
+
 						<h3 class="text-xl text-center">Totales por mes</h3>
+
 						<div class="flex flex-col text-center text-[14px] md:text-base">
 							<div class="flex">
 								<div
@@ -857,22 +885,26 @@
 								>
 									Mes
 								</div>
+
 								<div
 									class="w-[25%] font-bold border border-gray-300 md:border-none"
 								>
 									Ganancias
 								</div>
+
 								<div
 									class="w-[25%] font-bold border border-gray-300 md:border-none"
 								>
 									Gastos
 								</div>
+
 								<div
 									class="w-[25%] font-bold border border-gray-300 md:border-none"
 								>
 									Balance
 								</div>
 							</div>
+
 							<div id="cuerpo-tabla-totales-mes"></div>
 						</div>
 					</div>

@@ -11,7 +11,7 @@ const contenedorTablaOperaciones = document.getElementById(
 );
 const contenedorFiltros = document.getElementById("contenedor-filtros");
 
-//enlases
+//enlaces
 const enlaceReportes = document.getElementById("enlace-reporte");
 const enlaceBalance = document.getElementById("enlace-balance");
 const enlaceCategoria = document.getElementById("enlace-categoria");
@@ -26,6 +26,7 @@ const seccionReportes = document.getElementById("seccion-reportes");
 const seccionNuevaOperacion = document.getElementById(
 	"seccion-nueva-operacion"
 );
+
 // ventanas modales
 const ventanaModalEditarOp = document.getElementById(
 	"advertencia-editar--operaciones"
@@ -117,7 +118,7 @@ const balanceTotal = document.getElementById("balance-total");
 const tablasReportes = document.getElementById("tabla-reportes");
 const containerImgReportes = document.getElementById("container-img-reportes");
 
-//elemntos de edicion
+//elementos de edicion
 const seccionEditarOp = document.getElementById("editar-nueva-operacion");
 const editarDescripcion = document.getElementById("editar-input-descripcion");
 const editarMonto = document.getElementById("editar-input-monto");
@@ -129,6 +130,7 @@ const editarFecha = document.getElementById("editar-input-fecha");
 const btnAdvertenciaAceptarEditarOp = document.querySelector(
 	".btn-advertencia-editar--aceptar-op"
 );
+
 //containes de los elementos de reportes
 const containerCategoriaMayorGanancia = document.getElementById(
 	"container-categoria-mayor-ganancia"
@@ -171,12 +173,12 @@ btnMenuHamburguesa.addEventListener("click", () => {
 	iconoX.classList.toggle("hidden");
 });
 
-// funcion para aparecer y desaparecer secciones
+// funcion para aparecer y ocultar secciones
 const mostrarSeccion = (seccion, ...contenedores) => {
+	seccion.classList.remove("hidden");
 	contenedores.forEach((contenedor) => {
 		contenedor.classList.add("hidden");
 	});
-	seccion.classList.remove("hidden");
 };
 
 enlaceBalance.addEventListener("click", () =>
@@ -293,7 +295,7 @@ let resultadoGanacia = 0;
 let resultadoGasto = 0;
 let resultadoTotal = 0;
 
-// Función para sumar ganancias o gastos generales
+// funcion para sumar ganancias o gastos generales
 const sumarGananciaOGasto = (tipo, monto) => {
 	if (tipo === "ganancia") {
 		resultadoGanacia += parseInt(monto);
@@ -302,7 +304,7 @@ const sumarGananciaOGasto = (tipo, monto) => {
 	}
 };
 
-// Función para calcular el resultado total entre gasto y ganancia generales
+// funcion para calcular el resultado total entre gasto y ganancia generales
 const calcularTotal = () => {
 	if (resultadoGanacia > resultadoGasto) {
 		resultadoTotal = resultadoGanacia - resultadoGasto;
@@ -311,7 +313,7 @@ const calcularTotal = () => {
 	}
 };
 
-// Función para actualizar el DOM de los balances generales
+// funcion para actualizar el DOM de los balances generales
 const actualizarBalance = () => {
 	balanceGanancia.innerText = `+$${resultadoGanacia}`;
 	balanceGasto.innerText = `-$${resultadoGasto}`;
@@ -328,7 +330,7 @@ const actualizarBalance = () => {
 	}
 };
 
-// Función para añadir eventos a los btns de editar operaciones
+// funcion para añadir eventos a los btns de editar operaciones
 const eventosBtnsEditarOp = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
@@ -346,6 +348,7 @@ const eventosBtnsEditarOp = (btns) => {
 					.split("/")
 					.reverse()
 					.join("-");
+				quitarErrorYColor();
 			}
 			btnAdvertenciaAceptarEditarOp.setAttribute(
 				"id",
@@ -356,15 +359,9 @@ const eventosBtnsEditarOp = (btns) => {
 	});
 };
 
-// funcion hidden
-// const hidden = (mostrar, ocultar) => {
-// 	mostrar.classList.remove("hidden");
-// 	ocultar.classList.add("hidden");
-// };
-
 // aparece ventana advertencia
 const formEditarOperacion = document.getElementById("form-editar-operacion");
-console.log(formEditarOperacion);
+
 formEditarOperacion.addEventListener("submit", (e) => {
 	e.preventDefault();
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
@@ -497,14 +494,6 @@ const generarTabla = (operaciones) => {
 
 generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
-const mensajeError = document.getElementById("mensaje-error");
-const mensajeError2 = document.getElementById("mensaje-input-vacio");
-const mensajeErrorEditar = document.getElementById("editar-mensaje-error");
-const mensajeError2Editar = document.getElementById(
-	"editar-mensaje-input-vacio"
-);
-const errorTipo = document.querySelector(".mensaje-input-vacio");
-
 // funcion para editar las operaciones
 const editarSeccionOperaciones = (array, operacionId) => {
 	const operacionesEditadas = array.map((operacionAEditar) => {
@@ -546,7 +535,7 @@ document
 	.getElementById("form-nueva-operacion")
 	.addEventListener("submit", (e) => {
 		e.preventDefault();
-
+		contenedorTablaOperaciones.classList.remove("hidden");
 		const nuevaOperacion = {
 			id: uuidv4(),
 			descripcion:
@@ -609,6 +598,16 @@ const vaciarInput = () => {
 	inputFecha.value = fechaActualFormateada;
 };
 
+// validaciones de input
+const mensajeError = document.getElementById("mensaje-error");
+const mensajeError2 = document.getElementById("mensaje-input-vacio");
+const mensajeErrorEditar = document.getElementById("editar-mensaje-error");
+const mensajeError2Editar = document.getElementById(
+	"editar-mensaje-input-vacio"
+);
+const errorTipo = document.querySelector(".mensaje-input-vacio");
+const errorDescripcion = document.getElementById("error-descripcion");
+
 // validación para que input monto no este vacia y no escriban de 10 números
 inputMonto.addEventListener("input", () => {
 	if (/^\d{1,10}$/.test(inputMonto.value)) {
@@ -625,6 +624,7 @@ inputMonto.addEventListener("input", () => {
 		mensajeError.classList.remove("hidden");
 	}
 });
+
 editarMonto.addEventListener("input", () => {
 	if (/^\d{1,10}$/.test(editarMonto.value)) {
 		editarMonto.classList.remove("border-red-500");
@@ -640,6 +640,7 @@ editarMonto.addEventListener("input", () => {
 		mensajeErrorEditar.classList.remove("hidden");
 	}
 });
+
 // validación para que input descripcion no este vacia
 inputDescripcion.addEventListener("input", () => {
 	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
@@ -655,7 +656,7 @@ inputDescripcion.addEventListener("input", () => {
 		errorTipo.classList.add("hidden");
 	}
 });
-const errorDescripcion = document.getElementById("error-descripcion");
+
 editarDescripcion.addEventListener("input", () => {
 	if (/^\d{a,z}$/.test(editarDescripcion.value)) {
 		editarDescripcion.classList.remove("border-red-500");
@@ -670,6 +671,15 @@ editarDescripcion.addEventListener("input", () => {
 		errorDescripcion.classList.add("hidden");
 	}
 });
+
+// funcion para
+const quitarErrorYColor = () => {
+	editarMonto.classList.remove("border-red-500");
+	mensajeErrorEditar.classList.add("hidden");
+	mensajeError2Editar.classList.add("hidden");
+	editarDescripcion.classList.remove("border-red-500");
+	errorDescripcion.classList.add("hidden");
+};
 //----------------------------FIN SECCION OPERACIONES--------------------------------------------------------------------------------------------
 
 //-------------------------------INICIO SECCION CATEGORIAS----------------------------------------------------------------------------------------
@@ -817,22 +827,6 @@ const generarTablaCategorias = (categorias) => {
 		eventosBtnsEliminar(document.querySelectorAll(".btn-eliminar"));
 
 		cargarSelect(filtroCategoria);
-
-		// probando cambiar texto en el boton
-		// funcion para cambiar texto de btn deshabilitar
-		// const btnOn = document.querySelectorAll(".on");
-
-		// for (btn of btnOn) {
-		// 	btn.addEventListener("click", () => {
-		// 		// const deshabilitarCategoria = () => {
-		// 		if (btn.innerHTML === "On") {
-		// 			btn.innerText = "Off";
-		// 		} else {
-		// 			btn.innerText = "On";
-		// 		}
-		// 		// };
-		// 	});
-		// }
 	}
 };
 
