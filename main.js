@@ -543,75 +543,83 @@ document
 	.addEventListener("click", () => cancelar(seccionEditarOp, seccionPrincipal));
 
 // evento para agregar y actualizar operacion
-btnAgregarOperacion.addEventListener("click", () => {
-	// contenedorTablaOperaciones.classList.remove("hidden");
+document
+	.getElementById("form-nueva-operacion")
+	.addEventListener("submit", (e) => {
+		e.preventDefault();
 
-	const nuevaOperacion = {
-		id: uuidv4(),
-		descripcion:
-			inputDescripcion.value.charAt(0).toUpperCase() +
-			inputDescripcion.value.slice(1),
-		categoria:
-			selectCategoria.value.charAt(0).toUpperCase() +
-			selectCategoria.value.slice(1),
-		fecha: fechaFormateada.split("-").reverse().join("/"),
-		monto: inputMonto.value,
-		tipo: selectTipo.value,
-	};
-	// condicion para que no guarde e imprima una operacion sin monto
-	if (inputMonto.value > 0 && inputDescripcion.value.length > 0) {
-		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
-		operacionesGuardadas.push(nuevaOperacion);
-		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-		seccionNuevaOperacion.classList.add("hidden");
-	}
-	// } else if (inputMonto.value < 0) {
-	// 	mensajeError2.classList.remove("hidden");
-	// 	inputMonto.classList.add("border-red-500");
-	// } else if (inputDescripcion.length < 0) {
-	// 	errorTipo.classList.remove("hidden");
-	// 	inputDescripcion.classList.add("border-red-500");
-	// } else if (inputMonto.value < 0 && inputDescripcion.value.length > 0) {
-	// 	console.log("descripcion completada");
-	// 	errorTipo.classList.add("hidden");
-	// 	inputDescripcion.classList.remove("border-red-500");
-	// 	mensajeError2.classList.remove("hidden");
-	// 	inputMonto.classList.add("border-red-500");
-	// } else {
-	// 	errorTipo.classList.remove("hidden");
-	// 	inputDescripcion.classList.add("border-red-500");
-	// }
+		// contenedorTablaOperaciones.classList.remove("hidden");
 
-	generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
+		const nuevaOperacion = {
+			id: uuidv4(),
+			descripcion:
+				inputDescripcion.value.charAt(0).toUpperCase() +
+				inputDescripcion.value.slice(1),
+			categoria:
+				selectCategoria.value.charAt(0).toUpperCase() +
+				selectCategoria.value.slice(1),
+			fecha: fechaFormateada.split("-").reverse().join("/"),
+			monto: inputMonto.value,
+			tipo: selectTipo.value,
+		};
+		// condicion para que no guarde e imprima una operacion sin monto
+		if (inputMonto.value > 0 && inputDescripcion.value.length > 0) {
+			let operacionesGuardadas = JSON.parse(
+				localStorage.getItem("operaciones")
+			);
+			operacionesGuardadas.push(nuevaOperacion);
+			localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
+			seccionNuevaOperacion.classList.add("hidden");
+		}
+		// } else if (inputMonto.value < 0) {
+		// 	mensajeError2.classList.remove("hidden");
+		// 	inputMonto.classList.add("border-red-500");
+		// } else if (inputDescripcion.length < 0) {
+		// 	errorTipo.classList.remove("hidden");
+		// 	inputDescripcion.classList.add("border-red-500");
+		// } else if (inputMonto.value < 0 && inputDescripcion.value.length > 0) {
+		// 	console.log("descripcion completada");
+		// 	errorTipo.classList.add("hidden");
+		// 	inputDescripcion.classList.remove("border-red-500");
+		// 	mensajeError2.classList.remove("hidden");
+		// 	inputMonto.classList.add("border-red-500");
+		// } else {
+		// 	errorTipo.classList.remove("hidden");
+		// 	inputDescripcion.classList.add("border-red-500");
+		// }
 
-	// vaciarInput();
-	aparecerReportes();
-	actualizarResumen();
+		generarTabla(
+			evaluarLocalStorage("operaciones", operacionesGuardadas, datos)
+		);
 
-	actualizarTotalesPorPropiedad(
-		cuerpoTablaTotalesCategorias,
-		"categoria",
-		obtenerGananciasOGastosPorCategoria("ganancia"),
-		obtenerGananciasOGastosPorCategoria("gasto"),
-		obtenerBalancePorPropiedad(
+		// vaciarInput();
+		aparecerReportes();
+		actualizarResumen();
+
+		actualizarTotalesPorPropiedad(
+			cuerpoTablaTotalesCategorias,
 			"categoria",
 			obtenerGananciasOGastosPorCategoria("ganancia"),
-			obtenerGananciasOGastosPorCategoria("gasto")
-		)
-	);
+			obtenerGananciasOGastosPorCategoria("gasto"),
+			obtenerBalancePorPropiedad(
+				"categoria",
+				obtenerGananciasOGastosPorCategoria("ganancia"),
+				obtenerGananciasOGastosPorCategoria("gasto")
+			)
+		);
 
-	actualizarTotalesPorPropiedad(
-		cuerpoTablaTotalesMes,
-		"fecha",
-		obtenerGananciasOGastosPorMes("ganancia"),
-		obtenerGananciasOGastosPorMes("gasto"),
-		obtenerBalancePorPropiedad(
+		actualizarTotalesPorPropiedad(
+			cuerpoTablaTotalesMes,
 			"fecha",
 			obtenerGananciasOGastosPorMes("ganancia"),
-			obtenerGananciasOGastosPorMes("gasto")
-		)
-	);
-});
+			obtenerGananciasOGastosPorMes("gasto"),
+			obtenerBalancePorPropiedad(
+				"fecha",
+				obtenerGananciasOGastosPorMes("ganancia"),
+				obtenerGananciasOGastosPorMes("gasto")
+			)
+		);
+	});
 
 // función para que aparezca los input vacios después de generar una nueva operación.
 const vaciarInput = () => {

@@ -257,7 +257,8 @@
 					<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
 
 					<!-- inicio form nueva operacion -->
-					<div>
+					<!-- <div> -->
+					<form id="form-nueva-operacion">
 						<div class="flex flex-col gap-2 font-bold">
 							<label for="input-descripcion" class="font-bold"
 								>Descripción</label
@@ -267,6 +268,7 @@
 								id="input-descripcion"
 								placeholder="Ingresar descripción"
 								class="border-solid border-2 p-2 rounded"
+								required
 							/>
 							<p class="mensaje-input-vacio text-red-500 text-xs italic hidden">
 								Ingrese una descripción por favor.
@@ -280,8 +282,8 @@
 								id="input-monto"
 								placeholder="Ingresar monto"
 								class="border-solid border-2 p-2 rounded focus:outline-none"
-								required
 								min="0"
+								required
 							/>
 							<p id="mensaje-error" class="text-red-500 text-xs italic hidden">
 								El número no puede tener más de 10 dígitos.
@@ -336,14 +338,15 @@
 								Cancelar
 							</button>
 							<button
-								type="button"
+								type="submit"
 								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
 								id="btn-agregar-operacion"
 							>
 								Agregar
 							</button>
 						</div>
-					</div>
+					</form>
+					<!-- </div> -->
 					<!-- fin form nueva operacion -->
 				</div>
 			</section>
