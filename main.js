@@ -363,7 +363,10 @@ const eventosBtnsEditarOp = (btns) => {
 // };
 
 // aparece ventana advertencia
-btnGuardarCambios.addEventListener("click", () => {
+const formEditarOperacion = document.getElementById("form-editar-operacion");
+console.log(formEditarOperacion);
+formEditarOperacion.addEventListener("submit", (e) => {
+	e.preventDefault();
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
 });
 
@@ -496,15 +499,11 @@ generarTabla(evaluarLocalStorage("operaciones", operacionesGuardadas, datos));
 
 const mensajeError = document.getElementById("mensaje-error");
 const mensajeError2 = document.getElementById("mensaje-input-vacio");
+const mensajeErrorEditar = document.getElementById("editar-mensaje-error");
+const mensajeError2Editar = document.getElementById(
+	"editar-mensaje-input-vacio"
+);
 const errorTipo = document.querySelector(".mensaje-input-vacio");
-console.log(errorTipo);
-//  funcion para innput vacios
-// const errorInputVacio = (input1, input2) => {
-// 	if (input1.value === null || input2 === null) {
-// 		mensajeError2.classList.remove("hidden");
-// 		inputMonto.classList.add("border-red-500");
-// 	}
-// };
 
 // funcion para editar las operaciones
 const editarSeccionOperaciones = (array, operacionId) => {
@@ -548,8 +547,6 @@ document
 	.addEventListener("submit", (e) => {
 		e.preventDefault();
 
-		// contenedorTablaOperaciones.classList.remove("hidden");
-
 		const nuevaOperacion = {
 			id: uuidv4(),
 			descripcion:
@@ -571,22 +568,6 @@ document
 			localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
 			seccionNuevaOperacion.classList.add("hidden");
 		}
-		// } else if (inputMonto.value < 0) {
-		// 	mensajeError2.classList.remove("hidden");
-		// 	inputMonto.classList.add("border-red-500");
-		// } else if (inputDescripcion.length < 0) {
-		// 	errorTipo.classList.remove("hidden");
-		// 	inputDescripcion.classList.add("border-red-500");
-		// } else if (inputMonto.value < 0 && inputDescripcion.value.length > 0) {
-		// 	console.log("descripcion completada");
-		// 	errorTipo.classList.add("hidden");
-		// 	inputDescripcion.classList.remove("border-red-500");
-		// 	mensajeError2.classList.remove("hidden");
-		// 	inputMonto.classList.add("border-red-500");
-		// } else {
-		// 	errorTipo.classList.remove("hidden");
-		// 	inputDescripcion.classList.add("border-red-500");
-		// }
 
 		generarTabla(
 			evaluarLocalStorage("operaciones", operacionesGuardadas, datos)
@@ -628,8 +609,7 @@ const vaciarInput = () => {
 	inputFecha.value = fechaActualFormateada;
 };
 
-// validación input monto para que no este vacia y no escriban de 10 números
-
+// validación para que input monto no este vacia y no escriban de 10 números
 inputMonto.addEventListener("input", () => {
 	if (/^\d{1,10}$/.test(inputMonto.value)) {
 		inputMonto.classList.remove("border-red-500");
@@ -645,7 +625,22 @@ inputMonto.addEventListener("input", () => {
 		mensajeError.classList.remove("hidden");
 	}
 });
-
+editarMonto.addEventListener("input", () => {
+	if (/^\d{1,10}$/.test(editarMonto.value)) {
+		editarMonto.classList.remove("border-red-500");
+		mensajeErrorEditar.classList.add("hidden");
+		mensajeError2Editar.classList.add("hidden");
+	} else if (editarMonto.value.length === 0) {
+		mensajeError2Editar.classList.remove("hidden");
+		editarMonto.classList.add("border-red-500");
+	} else if (editarMonto.value < 0) {
+		editarMonto.value = 0;
+	} else {
+		editarMonto.classList.add("border-red-500");
+		mensajeErrorEditar.classList.remove("hidden");
+	}
+});
+// validación para que input descripcion no este vacia
 inputDescripcion.addEventListener("input", () => {
 	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
 		inputDescripcion.classList.remove("border-red-500");
@@ -658,6 +653,21 @@ inputDescripcion.addEventListener("input", () => {
 	} else {
 		inputDescripcion.classList.remove("border-red-500");
 		errorTipo.classList.add("hidden");
+	}
+});
+const errorDescripcion = document.getElementById("error-descripcion");
+editarDescripcion.addEventListener("input", () => {
+	if (/^\d{a,z}$/.test(editarDescripcion.value)) {
+		editarDescripcion.classList.remove("border-red-500");
+		errorDescripcion.classList.add("hidden");
+	} else if (editarDescripcion.value < 0) {
+		editarDescripcion.value = 0;
+	} else if (editarDescripcion.value.length === 0) {
+		editarDescripcion.classList.add("border-red-500");
+		errorDescripcion.classList.remove("hidden");
+	} else {
+		editarDescripcion.classList.remove("border-red-500");
+		errorDescripcion.classList.add("hidden");
 	}
 });
 //----------------------------FIN SECCION OPERACIONES--------------------------------------------------------------------------------------------

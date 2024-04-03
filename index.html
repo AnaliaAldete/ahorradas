@@ -360,7 +360,7 @@
 					<h2 class="text-4xl pb-7">Editar Operación</h2>
 
 					<!-- inicio form editar operacion -->
-					<form>
+					<form id="form-editar-operacion">
 						<div class="flex flex-col gap-2 font-bold">
 							<label for="editar-input-descripcion" class="font-bold"
 								>Descripción</label
@@ -368,9 +368,16 @@
 							<input
 								type="text"
 								id="editar-input-descripcion"
-								class="border-solid border-2 p-2 rounded"
+								class="border-solid border-2 p-2 rounded focus:outline-none"
+								required
 							/>
 						</div>
+						<p
+							id="error-descripcion"
+							class="text-red-500 text-xs italic hidden"
+						>
+							Ingrese una descripción por favor.
+						</p>
 
 						<div class="flex flex-col gap-2">
 							<label for="editar-input-monto" class="font-bold">Monto</label>
@@ -439,7 +446,7 @@
 							</button>
 
 							<button
-								type="button"
+								type="submit"
 								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
 								id="editar-btn-agregar"
 							>
