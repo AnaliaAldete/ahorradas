@@ -2,7 +2,9 @@
 const body = document.body;
 
 // contenedores
-const seccionPrincipal = document.getElementById("seccion-principal");
+const containerBalanceYFiltros = document.getElementById(
+	"container-balance-filtros"
+);
 const contenedorImgOperaciones = document.getElementById(
 	"contenedor-img-operaciones"
 );
@@ -17,9 +19,7 @@ const enlaceBalance = document.getElementById("enlace-balance");
 const enlaceCategoria = document.getElementById("enlace-categoria");
 
 // secciones
-const containerBalanceYFiltros = document.getElementById(
-	"container-balance-filtros"
-);
+const seccionPrincipal = document.getElementById("seccion-principal");
 const seccionEditar = document.getElementById("seccion-editar");
 const seccionCategoria = document.getElementById("seccion-categoria");
 const seccionReportes = document.getElementById("seccion-reportes");
@@ -38,6 +38,10 @@ const ventanaModalEliminarOp = document.getElementById(
 const ventanaModalEliminar = document.getElementById("advertencia-eliminar");
 const ventanaModalNoEliminar = document.getElementById(
 	"advertencia-no-eliminar"
+);
+const modalCategoria = document.getElementById("advertencia-categoria");
+const modalEliminarCategoria = document.getElementById(
+	"eliminar-advertencia-categoria"
 );
 
 //botones
@@ -162,6 +166,16 @@ const containerfechaMayorGasto = document.getElementById(
 const containerMayorGastoMes = document.getElementById(
 	"container-mayor-gasto-mes"
 );
+//formularios
+const formEditarOperacion = document.getElementById("form-editar-operacion");
+
+// mensajes de error de validaciones de input
+const mensajeError = document.getElementById("mensaje-error");
+const mensajeError2 = document.getElementById("mensaje-input-vacio");
+const errorEditar = document.getElementById("editar-mensaje-error");
+const error2Editar = document.getElementById("editar-mensaje-input-vacio");
+const errorTipo = document.querySelector(".mensaje-input-vacio");
+const errorDescripcion = document.getElementById("error-descripcion");
 
 //----------------------------------------------------FIN DE ELEMENTOS--------------------------------------------------------------------------------------------------
 
@@ -298,7 +312,6 @@ const evaluarLocalStorage = (nombre, variable, objeto) => {
 };
 
 // funcionalidades de LA SECCION BALANCE
-
 let resultadoGanacia = 0;
 let resultadoGasto = 0;
 let resultadoTotal = 0;
@@ -373,9 +386,7 @@ const eventosBtnsEditarOp = (btns) => {
 	});
 };
 
-// aparece ventana advertencia
-const formEditarOperacion = document.getElementById("form-editar-operacion");
-
+// aparece ventana advertencia editar operacion
 formEditarOperacion.addEventListener("submit", (e) => {
 	e.preventDefault();
 	mostrarSeccion(ventanaModalEditarOp, seccionEditarOp);
@@ -413,7 +424,6 @@ const confirmarEliminarOperacion = (array, operacionId) => {
 	);
 	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
 	generarTabla(operacionesFiltradas);
-
 	mostrarImg(operacionesFiltradas);
 };
 
@@ -488,18 +498,14 @@ const generarTabla = (operaciones) => {
         </div>
     </div>
 </div>
-
 			`;
 		}
 		// llamando a mi nodeList de btns,
 		eventosBtnsEditarOp(document.querySelectorAll(".btn-editar-op"));
 		eventosBtnsEliminarOp(document.querySelectorAll(".btn-eliminar-op"));
 		calcularTotal();
-
 		actualizarBalance();
-
 		mostrarSeccion(seccionPrincipal, contenedorImgOperaciones);
-
 		ajustarVisibilidadCabecera();
 		window.addEventListener("DOMContentLoaded", ajustarVisibilidadCabecera);
 		window.addEventListener("resize", ajustarVisibilidadCabecera);
@@ -564,13 +570,11 @@ document
 			monto: inputMonto.value,
 			tipo: selectTipo.value,
 		};
-		// condicion para que no guarde e imprima una operacion sin monto
 
 		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 		operacionesGuardadas.push(nuevaOperacion);
 		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
 		seccionNuevaOperacion.classList.add("hidden");
-
 		generarTabla(
 			evaluarLocalStorage("operaciones", operacionesGuardadas, datos)
 		);
@@ -610,14 +614,6 @@ const vaciarInput = () => {
 	inputMonto.value = "";
 	inputFecha.value = fechaActualFormateada;
 };
-
-// validaciones de input
-const mensajeError = document.getElementById("mensaje-error");
-const mensajeError2 = document.getElementById("mensaje-input-vacio");
-const errorEditar = document.getElementById("editar-mensaje-error");
-const error2Editar = document.getElementById("editar-mensaje-input-vacio");
-const errorTipo = document.querySelector(".mensaje-input-vacio");
-const errorDescripcion = document.getElementById("error-descripcion");
 
 // validación para que input monto no este vacia y no escriban de 10 números
 const validarMonto = (input, error, error2) =>
@@ -726,11 +722,6 @@ const eventosBtnsEditar = (btns) => {
 };
 
 // funcion para poner la categoria a la ventana de advertencia
-const modalCategoria = document.getElementById("advertencia-categoria");
-const modalEliminarCategoria = document.getElementById(
-	"eliminar-advertencia-categoria"
-);
-
 const CategoriaVentanaModal = (span) =>
 	(span.innerHTML = inputEditarCategoria.value);
 
@@ -891,14 +882,6 @@ btnAdvertenciaCancelarEditar.addEventListener("click", () =>
 	cancelar(ventanaModalEditar, seccionCategoria)
 );
 //funcion confirmar elimar categoria
-// const confirmarEliminarCategoria = (array, categoriaId) => {
-// 	const arrayFiltrado = array.filter(
-// 		(categoriaAEliminar) => categoriaAEliminar.id !== categoriaId
-// 	);
-// 	localStorage.setItem("categoria", JSON.stringify(arrayFiltrado)),
-// 		generarTablaCategorias(arrayFiltrado);
-// };
-
 const confirmarEliminarCategoria = (array, categoriaId) => {
 	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 
@@ -1075,7 +1058,15 @@ const aplicarFiltrosAcumulativamente = () => {
 	operacionesFiltradas = filtrarPorFecha(fechaFiltro, operacionesFiltradas);
 
 	operacionesFiltradas = ordenarTabla(operacionesFiltradas);
-	generarTabla(operacionesFiltradas);
+
+	if (operacionesFiltradas.length > 0) {
+		generarTabla(operacionesFiltradas);
+		contenedorTablaOperaciones.classList.remove("hidden");
+		contenedorImgOperaciones.classList.add("hidden");
+	} else {
+		contenedorTablaOperaciones.classList.add("hidden");
+		contenedorImgOperaciones.classList.remove("hidden");
+	}
 };
 
 filtroTipo.addEventListener("change", aplicarFiltrosAcumulativamente);
@@ -1111,7 +1102,6 @@ inputFecha.addEventListener("change", () => {
 //----------------------------INICIO SECCION REPORTES-----------------------------------------------------------------------------
 
 //aparecer tablas de reportes cuando hay operaciones cargadas
-
 const aparecerReportes = () => {
 	const operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
 
