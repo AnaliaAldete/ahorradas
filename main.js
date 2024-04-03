@@ -266,9 +266,17 @@ const cancelar = (contenedor, seccion) => {
 	seccion.classList.remove("hidden");
 };
 
-btnCancelarNueva.addEventListener("click", () =>
-	cancelar(seccionNuevaOperacion, seccionPrincipal)
-);
+btnCancelarNueva.addEventListener("click", () => {
+	cancelar(seccionNuevaOperacion, seccionPrincipal);
+	vaciarInput();
+	quitarErrorYColor(
+		inputMonto,
+		mensajeError,
+		mensajeError2,
+		inputDescripcion,
+		errorDescripcion
+	);
+});
 btnCancelarEditar.addEventListener("click", () =>
 	cancelar(seccionEditar, seccionCategoria)
 );
@@ -348,7 +356,13 @@ const eventosBtnsEditarOp = (btns) => {
 					.split("/")
 					.reverse()
 					.join("-");
-				quitarErrorYColor();
+				quitarErrorYColor(
+					editarMonto,
+					errorEditar,
+					error2Editar,
+					editarDescripcion,
+					errorDescripcion
+				);
 			}
 			btnAdvertenciaAceptarEditarOp.setAttribute(
 				"id",
@@ -528,7 +542,9 @@ btnAdvertenciaAceptarEditarOp.addEventListener("click", () => {
 //cancelar seccion editar operacion
 document
 	.getElementById("editar-btn-cancelar--nueva")
-	.addEventListener("click", () => cancelar(seccionEditarOp, seccionPrincipal));
+	.addEventListener("click", () => {
+		cancelar(seccionEditarOp, seccionPrincipal);
+	});
 
 // evento para agregar y actualizar operacion
 document
@@ -549,14 +565,11 @@ document
 			tipo: selectTipo.value,
 		};
 		// condicion para que no guarde e imprima una operacion sin monto
-		if (inputMonto.value > 0 && inputDescripcion.value.length > 0) {
-			let operacionesGuardadas = JSON.parse(
-				localStorage.getItem("operaciones")
-			);
-			operacionesGuardadas.push(nuevaOperacion);
-			localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-			seccionNuevaOperacion.classList.add("hidden");
-		}
+
+		let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+		operacionesGuardadas.push(nuevaOperacion);
+		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
+		seccionNuevaOperacion.classList.add("hidden");
 
 		generarTabla(
 			evaluarLocalStorage("operaciones", operacionesGuardadas, datos)
@@ -627,38 +640,6 @@ const validarMonto = (input, error, error2) =>
 validarMonto(inputMonto, mensajeError, mensajeError2);
 validarMonto(editarMonto, errorEditar, error2Editar);
 
-// inputMonto.addEventListener("input", () => {
-// 	if (/^\d{1,10}$/.test(inputMonto.value)) {
-// 		inputMonto.classList.remove("border-red-500");
-// 		mensajeError.classList.add("hidden");
-// 		mensajeError2.classList.add("hidden");
-// 	} else if (inputMonto.value.length === 0) {
-// 		mensajeError2.classList.remove("hidden");
-// 		inputMonto.classList.add("border-red-500");
-// 	} else if (inputMonto.value < 0) {
-// 		inputMonto.value = 0;
-// 	} else {
-// 		inputMonto.classList.add("border-red-500");
-// 		mensajeError.classList.remove("hidden");
-// 	}
-// });
-
-// editarMonto.addEventListener("input", () => {
-// 	if (/^\d{1,10}$/.test(editarMonto.value)) {
-// 		editarMonto.classList.remove("border-red-500");
-// 		mensajeErrorEditar.classList.add("hidden");
-// 		mensajeError2Editar.classList.add("hidden");
-// 	} else if (editarMonto.value.length === 0) {
-// 		mensajeError2Editar.classList.remove("hidden");
-// 		editarMonto.classList.add("border-red-500");
-// 	} else if (editarMonto.value < 0) {
-// 		editarMonto.value = 0;
-// 	} else {
-// 		editarMonto.classList.add("border-red-500");
-// 		mensajeErrorEditar.classList.remove("hidden");
-// 	}
-// });
-
 // validación para que input descripcion no este vacia
 const validarDescripcion = (input, error) => {
 	input.addEventListener("input", () => {
@@ -680,43 +661,13 @@ const validarDescripcion = (input, error) => {
 validarDescripcion(inputDescripcion, errorTipo);
 validarDescripcion(editarDescripcion, errorDescripcion);
 
-// inputDescripcion.addEventListener("input", () => {
-// 	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
-// 		inputDescripcion.classList.remove("border-red-500");
-// 		errorTipo.classList.add("hidden");
-// 	} else if (inputDescripcion.value < 0) {
-// 		inputDescripcion.value = 0;
-// 	} else if (inputDescripcion.value.length === 0) {
-// 		inputDescripcion.classList.add("border-red-500");
-// 		errorTipo.classList.remove("hidden");
-// 	} else {
-// 		inputDescripcion.classList.remove("border-red-500");
-// 		errorTipo.classList.add("hidden");
-// 	}
-// });
-
-// editarDescripcion.addEventListener("input", () => {
-// 	if (/^\d{a,z}$/.test(editarDescripcion.value)) {
-// 		editarDescripcion.classList.remove("border-red-500");
-// 		errorDescripcion.classList.add("hidden");
-// 	} else if (editarDescripcion.value < 0) {
-// 		editarDescripcion.value = 0;
-// 	} else if (editarDescripcion.value.length === 0) {
-// 		editarDescripcion.classList.add("border-red-500");
-// 		errorDescripcion.classList.remove("hidden");
-// 	} else {
-// 		editarDescripcion.classList.remove("border-red-500");
-// 		errorDescripcion.classList.add("hidden");
-// 	}
-// });
-
 // funcion para
-const quitarErrorYColor = () => {
-	editarMonto.classList.remove("border-red-500");
-	errorEditar.classList.add("hidden");
-	error2Editar.classList.add("hidden");
-	editarDescripcion.classList.remove("border-red-500");
-	errorDescripcion.classList.add("hidden");
+const quitarErrorYColor = (input, error, error2, input2, error3) => {
+	input.classList.remove("border-red-500");
+	error.classList.add("hidden");
+	error2.classList.add("hidden");
+	input2.classList.remove("border-red-500");
+	error3.classList.add("hidden");
 };
 //----------------------------FIN SECCION OPERACIONES--------------------------------------------------------------------------------------------
 
