@@ -573,7 +573,7 @@ document
 			evaluarLocalStorage("operaciones", operacionesGuardadas, datos)
 		);
 
-		// vaciarInput();
+		vaciarInput();
 		aparecerReportes();
 		actualizarResumen();
 
