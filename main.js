@@ -601,82 +601,120 @@ const vaciarInput = () => {
 // validaciones de input
 const mensajeError = document.getElementById("mensaje-error");
 const mensajeError2 = document.getElementById("mensaje-input-vacio");
-const mensajeErrorEditar = document.getElementById("editar-mensaje-error");
-const mensajeError2Editar = document.getElementById(
-	"editar-mensaje-input-vacio"
-);
+const errorEditar = document.getElementById("editar-mensaje-error");
+const error2Editar = document.getElementById("editar-mensaje-input-vacio");
 const errorTipo = document.querySelector(".mensaje-input-vacio");
 const errorDescripcion = document.getElementById("error-descripcion");
 
 // validación para que input monto no este vacia y no escriban de 10 números
-inputMonto.addEventListener("input", () => {
-	if (/^\d{1,10}$/.test(inputMonto.value)) {
-		inputMonto.classList.remove("border-red-500");
-		mensajeError.classList.add("hidden");
-		mensajeError2.classList.add("hidden");
-	} else if (inputMonto.value.length === 0) {
-		mensajeError2.classList.remove("hidden");
-		inputMonto.classList.add("border-red-500");
-	} else if (inputMonto.value < 0) {
-		inputMonto.value = 0;
-	} else {
-		inputMonto.classList.add("border-red-500");
-		mensajeError.classList.remove("hidden");
-	}
-});
+const validarMonto = (input, error, error2) =>
+	input.addEventListener("input", () => {
+		if (/^\d{1,10}$/.test(input.value)) {
+			input.classList.remove("border-red-500");
+			error.classList.add("hidden");
+			error2.classList.add("hidden");
+		} else if (input.value.length === 0) {
+			error2.classList.remove("hidden");
+			input.classList.add("border-red-500");
+		} else if (input.value < 0) {
+			input.value = 0;
+		} else {
+			input.classList.add("border-red-500");
+			error.classList.remove("hidden");
+		}
+	});
 
-editarMonto.addEventListener("input", () => {
-	if (/^\d{1,10}$/.test(editarMonto.value)) {
-		editarMonto.classList.remove("border-red-500");
-		mensajeErrorEditar.classList.add("hidden");
-		mensajeError2Editar.classList.add("hidden");
-	} else if (editarMonto.value.length === 0) {
-		mensajeError2Editar.classList.remove("hidden");
-		editarMonto.classList.add("border-red-500");
-	} else if (editarMonto.value < 0) {
-		editarMonto.value = 0;
-	} else {
-		editarMonto.classList.add("border-red-500");
-		mensajeErrorEditar.classList.remove("hidden");
-	}
-});
+validarMonto(inputMonto, mensajeError, mensajeError2);
+validarMonto(editarMonto, errorEditar, error2Editar);
+
+// inputMonto.addEventListener("input", () => {
+// 	if (/^\d{1,10}$/.test(inputMonto.value)) {
+// 		inputMonto.classList.remove("border-red-500");
+// 		mensajeError.classList.add("hidden");
+// 		mensajeError2.classList.add("hidden");
+// 	} else if (inputMonto.value.length === 0) {
+// 		mensajeError2.classList.remove("hidden");
+// 		inputMonto.classList.add("border-red-500");
+// 	} else if (inputMonto.value < 0) {
+// 		inputMonto.value = 0;
+// 	} else {
+// 		inputMonto.classList.add("border-red-500");
+// 		mensajeError.classList.remove("hidden");
+// 	}
+// });
+
+// editarMonto.addEventListener("input", () => {
+// 	if (/^\d{1,10}$/.test(editarMonto.value)) {
+// 		editarMonto.classList.remove("border-red-500");
+// 		mensajeErrorEditar.classList.add("hidden");
+// 		mensajeError2Editar.classList.add("hidden");
+// 	} else if (editarMonto.value.length === 0) {
+// 		mensajeError2Editar.classList.remove("hidden");
+// 		editarMonto.classList.add("border-red-500");
+// 	} else if (editarMonto.value < 0) {
+// 		editarMonto.value = 0;
+// 	} else {
+// 		editarMonto.classList.add("border-red-500");
+// 		mensajeErrorEditar.classList.remove("hidden");
+// 	}
+// });
 
 // validación para que input descripcion no este vacia
-inputDescripcion.addEventListener("input", () => {
-	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
-		inputDescripcion.classList.remove("border-red-500");
-		errorTipo.classList.add("hidden");
-	} else if (inputDescripcion.value < 0) {
-		inputDescripcion.value = 0;
-	} else if (inputDescripcion.value.length === 0) {
-		inputDescripcion.classList.add("border-red-500");
-		errorTipo.classList.remove("hidden");
-	} else {
-		inputDescripcion.classList.remove("border-red-500");
-		errorTipo.classList.add("hidden");
-	}
-});
+const validarDescripcion = (input, error) => {
+	input.addEventListener("input", () => {
+		if (/^\d{a,z}$/.test(input.value)) {
+			input.classList.remove("border-red-500");
+			error.classList.add("hidden");
+		} else if (input.value < 0) {
+			input.value = 0;
+		} else if (input.value.length === 0) {
+			input.classList.add("border-red-500");
+			error.classList.remove("hidden");
+		} else {
+			input.classList.remove("border-red-500");
+			error.classList.add("hidden");
+		}
+	});
+};
 
-editarDescripcion.addEventListener("input", () => {
-	if (/^\d{a,z}$/.test(editarDescripcion.value)) {
-		editarDescripcion.classList.remove("border-red-500");
-		errorDescripcion.classList.add("hidden");
-	} else if (editarDescripcion.value < 0) {
-		editarDescripcion.value = 0;
-	} else if (editarDescripcion.value.length === 0) {
-		editarDescripcion.classList.add("border-red-500");
-		errorDescripcion.classList.remove("hidden");
-	} else {
-		editarDescripcion.classList.remove("border-red-500");
-		errorDescripcion.classList.add("hidden");
-	}
-});
+validarDescripcion(inputDescripcion, errorTipo);
+validarDescripcion(editarDescripcion, errorDescripcion);
+
+// inputDescripcion.addEventListener("input", () => {
+// 	if (/^\d{a,z}$/.test(inputDescripcion.value)) {
+// 		inputDescripcion.classList.remove("border-red-500");
+// 		errorTipo.classList.add("hidden");
+// 	} else if (inputDescripcion.value < 0) {
+// 		inputDescripcion.value = 0;
+// 	} else if (inputDescripcion.value.length === 0) {
+// 		inputDescripcion.classList.add("border-red-500");
+// 		errorTipo.classList.remove("hidden");
+// 	} else {
+// 		inputDescripcion.classList.remove("border-red-500");
+// 		errorTipo.classList.add("hidden");
+// 	}
+// });
+
+// editarDescripcion.addEventListener("input", () => {
+// 	if (/^\d{a,z}$/.test(editarDescripcion.value)) {
+// 		editarDescripcion.classList.remove("border-red-500");
+// 		errorDescripcion.classList.add("hidden");
+// 	} else if (editarDescripcion.value < 0) {
+// 		editarDescripcion.value = 0;
+// 	} else if (editarDescripcion.value.length === 0) {
+// 		editarDescripcion.classList.add("border-red-500");
+// 		errorDescripcion.classList.remove("hidden");
+// 	} else {
+// 		editarDescripcion.classList.remove("border-red-500");
+// 		errorDescripcion.classList.add("hidden");
+// 	}
+// });
 
 // funcion para
 const quitarErrorYColor = () => {
 	editarMonto.classList.remove("border-red-500");
-	mensajeErrorEditar.classList.add("hidden");
-	mensajeError2Editar.classList.add("hidden");
+	errorEditar.classList.add("hidden");
+	error2Editar.classList.add("hidden");
 	editarDescripcion.classList.remove("border-red-500");
 	errorDescripcion.classList.add("hidden");
 };
