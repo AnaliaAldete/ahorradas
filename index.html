@@ -258,8 +258,8 @@
 
 					<!-- inicio form nueva operacion -->
 					<!-- <div> -->
-					<form id="form-nueva-operacion">
-						<div class="flex flex-col gap-2 font-bold">
+					<form id="form-nueva-operacion" class="flex flex-col gap-2">
+						<div class="flex flex-col gap-2">
 							<label for="input-descripcion" class="font-bold"
 								>Descripción</label
 							>
@@ -360,8 +360,8 @@
 					<h2 class="text-4xl pb-7">Editar Operación</h2>
 
 					<!-- inicio form editar operacion -->
-					<form id="form-editar-operacion">
-						<div class="flex flex-col gap-2 font-bold">
+					<form id="form-editar-operacion" class="flex flex-col gap-2">
+						<div class="flex flex-col gap-2">
 							<label for="editar-input-descripcion" class="font-bold"
 								>Descripción</label
 							>
@@ -470,7 +470,6 @@
 					<!-- inicio form categoria nombre -->
 					<form>
 						<label for="nombre" class="font-bold pb-2 block">Nombre</label>
-
 						<div class="flex justify-between gap-[4px]">
 							<input
 								type="text"
@@ -504,13 +503,14 @@
 					<h2 class="text-3xl md:text-4xl text-center">Editar Categoría</h2>
 
 					<!-- inicio form editar categoria -->
-					<form>
+					<form class="flex flex-col gap-5" id="form-editar-categoria">
 						<div class="flex flex-col gap-y-2">
 							<label for="label-editar">Nombre</label>
 							<input
 								type="text"
 								id="label-editar"
 								class="border-solid border-2 rounded-md h-10"
+								required
 							/>
 						</div>
 
@@ -524,7 +524,7 @@
 							</button>
 
 							<button
-								type="button"
+								type="submit"
 								class="aceptar-editar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
 								id="btn-aceptar-editar"
 							>

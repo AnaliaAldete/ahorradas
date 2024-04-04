@@ -168,6 +168,7 @@ const containerMayorGastoMes = document.getElementById(
 );
 //formularios
 const formEditarOperacion = document.getElementById("form-editar-operacion");
+const formEditarCategoria = document.getElementById("form-editar-categoria");
 
 // mensajes de error de validaciones de input
 const mensajeError = document.getElementById("mensaje-error");
@@ -251,7 +252,8 @@ btnOperacion.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-btnEditar.addEventListener("click", () =>
+formEditarCategoria.addEventListener("submit", (e) => {
+	e.preventDefault();
 	mostrarSeccion(
 		ventanaModalEditar,
 		seccionPrincipal,
@@ -262,8 +264,8 @@ btnEditar.addEventListener("click", () =>
 		seccionEditarOp,
 		ventanaModalEliminar,
 		ventanaModalEliminarOp
-	)
-);
+	);
+});
 
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
@@ -794,8 +796,7 @@ const generarTablaCategorias = (categorias) => {
 			tablaCategorias.innerHTML += `
             <div class="flex justify-between" id="${id}">
             <p class="p-categorias">${nombreCategoria}</p>
-            <div class="flex gap-x-4 text-[darkturquoise]">
-            <button class="btn-on" id="on-${id}">On</button>			
+            <div class="flex gap-x-4 text-[darkturquoise]">			
             <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
             <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
             </div>			
