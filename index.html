@@ -464,7 +464,7 @@
 				class="hidden flex justify-center items-center w-full"
 				id="seccion-categoria"
 			>
-				<div class="rounded-md max-w-[850px] p-5 lg:w-4/6 bg-[#EEE9D7]">
+				<div class="rounded-md max-w-[850px] p-5 w-[90%] bg-[#EEE9D7]">
 					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
 
 					<!-- inicio form categoria nombre -->
@@ -474,13 +474,14 @@
 							<input
 								type="text"
 								id="nombre"
-								class="border-2 border-solid rounded-md w-[87%]"
+								class="border-2 border-solid truncate p-2 rounded-md w-[87%]"
+								placeholder="Ingrese nombre para nueva categoria"
 								required
 							/>
 
 							<button
 								type="submit"
-								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								class="border-2 border-solid rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
 								id="btn-agregar-categoria"
 							>
 								Agregar
@@ -499,7 +500,7 @@
 			<!-- INICIO SECCION EDITAR CATEGORIAS-->
 			<section class="hidden w-full flex-grow" id="seccion-editar">
 				<div
-					class="rounded-md w-[90%] max-w-[500px] p-5 bg-[#EEE9D7] m-auto flex flex-col justify-center gap-10"
+					class="rounded-md w-[90%] max-w-[850px] p-5 bg-[#EEE9D7] m-auto flex flex-col justify-center gap-10"
 				>
 					<h2 class="text-3xl md:text-4xl text-center">Editar Categoría</h2>
 
@@ -510,7 +511,7 @@
 							<input
 								type="text"
 								id="label-editar"
-								class="border-solid border-2 rounded-md h-10"
+								class="border-solid border-2 rounded-md p-1.5 ps-2"
 								required
 							/>
 						</div>

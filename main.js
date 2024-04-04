@@ -189,6 +189,9 @@ btnMenuHamburguesa.addEventListener("click", () => {
 	iconoX.classList.toggle("hidden");
 });
 
+// funcion para vaciar el input despues de agregar nombre
+const vaciarInputNombre = () => (inputNombre.value = "");
+
 // funcion para aparecer y ocultar secciones
 const mostrarSeccion = (seccion, ...contenedores) => {
 	seccion.classList.remove("hidden");
@@ -197,20 +200,21 @@ const mostrarSeccion = (seccion, ...contenedores) => {
 	});
 };
 
-enlaceBalance.addEventListener("click", () =>
-	mostrarSeccion(
-		seccionPrincipal,
-		seccionCategoria,
-		seccionReportes,
-		seccionNuevaOperacion,
-		seccionEditar,
-		ventanaModalEditar,
-		seccionEditarOp,
-		ventanaModalEditarOp,
-		ventanaModalEliminar,
-		ventanaModalEliminarOp
-	)
-);
+enlaceBalance.addEventListener("click", () => {
+	vaciarInputNombre(),
+		mostrarSeccion(
+			seccionPrincipal,
+			seccionCategoria,
+			seccionReportes,
+			seccionNuevaOperacion,
+			seccionEditar,
+			ventanaModalEditar,
+			seccionEditarOp,
+			ventanaModalEditarOp,
+			ventanaModalEliminar,
+			ventanaModalEliminarOp
+		);
+});
 enlaceCategoria.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionCategoria,
@@ -225,20 +229,21 @@ enlaceCategoria.addEventListener("click", () =>
 		ventanaModalEliminarOp
 	)
 );
-enlaceReportes.addEventListener("click", () =>
-	mostrarSeccion(
-		seccionReportes,
-		seccionPrincipal,
-		seccionCategoria,
-		seccionNuevaOperacion,
-		seccionEditar,
-		ventanaModalEditar,
-		seccionEditarOp,
-		ventanaModalEditarOp,
-		ventanaModalEliminar,
-		ventanaModalEliminarOp
-	)
-);
+enlaceReportes.addEventListener("click", () => {
+	vaciarInputNombre(),
+		mostrarSeccion(
+			seccionReportes,
+			seccionPrincipal,
+			seccionCategoria,
+			seccionNuevaOperacion,
+			seccionEditar,
+			ventanaModalEditar,
+			seccionEditarOp,
+			ventanaModalEditarOp,
+			ventanaModalEliminar,
+			ventanaModalEliminarOp
+		);
+});
 btnOperacion.addEventListener("click", () =>
 	mostrarSeccion(
 		seccionNuevaOperacion,
@@ -294,9 +299,10 @@ btnCancelarNueva.addEventListener("click", () => {
 		errorDescripcion
 	);
 });
-btnCancelarEditar.addEventListener("click", () =>
-	cancelar(seccionEditar, seccionCategoria)
-);
+btnCancelarEditar.addEventListener("click", () => {
+	vaciarInputNombre();
+	cancelar(seccionEditar, seccionCategoria);
+});
 
 //-------------------------------INICIO SECCION OPERACIONES-----------------------------------------------------------------------------------
 
@@ -711,6 +717,7 @@ const eventosBtnsEditar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(seccionEditar, seccionCategoria);
+			vaciarInputNombre();
 			inputEditarCategoria.value = obtenerId(
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				btnSeleccionado.id.slice(7)
@@ -733,7 +740,7 @@ const eventosBtnsEliminar = (btns) => {
 	btns.forEach((btnSeleccionado) => {
 		btnSeleccionado.addEventListener("click", () => {
 			mostrarSeccion(ventanaModalEliminar, seccionCategoria);
-
+			vaciarInputNombre();
 			confirmarEliminarCategoria(
 				evaluarLocalStorage("categoria", categoriasGuardadas, categorias),
 				obtenerId(
@@ -932,9 +939,6 @@ const noRepetir = () => {
 			inputNombre.value = "";
 	}
 };
-
-// funcion para vaciar el input despues de agregar nombre
-const vaciarInputNombre = () => (inputNombre.value = "");
 
 // evento para agregar y actualizar categorias
 formAgregarCategoria.addEventListener("submit", (e) => {
