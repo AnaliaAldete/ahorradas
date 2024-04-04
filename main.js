@@ -169,6 +169,7 @@ const containerMayorGastoMes = document.getElementById(
 //formularios
 const formEditarOperacion = document.getElementById("form-editar-operacion");
 const formEditarCategoria = document.getElementById("form-editar-categoria");
+const formAgregarCategoria = document.getElementById("form-agregar-categoria");
 
 // mensajes de error de validaciones de input
 const mensajeError = document.getElementById("mensaje-error");
@@ -936,7 +937,8 @@ const noRepetir = () => {
 const vaciarInputNombre = () => (inputNombre.value = "");
 
 // evento para agregar y actualizar categorias
-btnAgregarCategoria.addEventListener("click", () => {
+formAgregarCategoria.addEventListener("submit", (e) => {
+	e.preventDefault();
 	noRepetir();
 
 	const nuevaCategoria = {
