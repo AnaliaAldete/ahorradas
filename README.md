@@ -48,8 +48,8 @@ Se han aplicado buenas prácticas de desarrollo para garantizar un código limpi
 
 ## Créditos
 
-Este proyecto fue creado por Aldete Analía y Paula Gonzalez como parte de un curso de desarrollo web.
+Este proyecto fue creado por Aldete Analía y Gonzalez Paula como parte de la carrera de desarrollo Front-End.
 
 ## Contacto
 
-Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotras en [ana_292_1@hotmail.com] y [](mailto:ana_292_1@hotmail.com).
+Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotras en [ana_292_1@hotmail.com] y [gaby_pau@live.com.ar](mailto:ana_292_1@hotmail.com).
