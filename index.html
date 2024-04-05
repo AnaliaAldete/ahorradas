@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="imagen/jpg" href="imagenes/favicon.png" />
 		<script
 			src="https://kit.fontawesome.com/2b4110b56c.js"
 			crossorigin="anonymous"
@@ -19,12 +20,22 @@
 	<body class="flex flex-col min-h-screen dark:bg-gray-800">
 		<!-- INICIO HEADER -->
 
-		<header class="p-4 bg-[#202C40] text-white dark:bg-gray-900">
+		<header
+			class="p-3 bg-[#83c3ab] text-[#254438] dark:text-white dark:bg-gray-900"
+		>
 			<nav class="flex flex-col md:flex-row gap-5" id="navegador">
 				<div class="flex justify-between w-full">
-					<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
-						<i class="fa-solid fa-wallet"></i>AhorrADAs
-					</h1>
+					<div class="flex">
+						<h1 class="text-3xl md:text-5xl flex gap-3 items-center">
+							AhorrADAs
+						</h1>
+						<img
+							src="imagenes/pig.png"
+							alt="alcancia-chanchito"
+							class="max-w-[50px]"
+						/>
+					</div>
+
 					<div class="flex flex-row-reverse gap-3 items-center">
 						<button class="md:hidden" id="btn-menu-hamburguesa">
 							<i
@@ -36,9 +47,10 @@
 
 						<button
 							id="btn-modo-oscuro"
-							class="flex justify-center rounded-full w-7 h-7 bg-white order-2"
+							class="flex justify-center items-center rounded-full w-8 h-8 bg-white order-2"
 						>
-							<i class="fas fa-moon text-gray-800 text-lg"></i>
+							<img src="imagenes/luna.png" alt="imagen-luna" class="w-6" />
+							<!-- <i class="fas fa-moon text-gray-800 text-lg"></i> -->
 						</button>
 					</div>
 				</div>
@@ -81,7 +93,7 @@
 		<!-- INICIO MAIN -->
 		<main
 			id="main"
-			class="flex gap-5 py-5 md:px-5 lg:flex-row lg:py-10 flex-1 bg-[#E66B75] dark:bg-gray-800 justify-center items-center"
+			class="flex gap-5 py-5 md:px-5 lg:flex-row lg:py-10 flex-1 bg-white dark:bg-gray-800 justify-center items-center"
 		>
 			<section
 				class="flex flex-col md:flex-row gap-[15px] justify-center w-full items-center md:items-stretch"
@@ -93,10 +105,10 @@
 				>
 					<!-- INICIO CONTENEDOR BALANCE -->
 					<div
-						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5 bg-[#EEE9D7]"
+						class="w-full p-4 border-solid border-2 border-[#f7492f] rounded-md flex flex-col gap-5 bg-[#f0e1d6]"
 						id="container-balance"
 					>
-						<h2 class="text-4xl">Balance</h2>
+						<h2 class="text-4xl text-[#f7332f]">Balance</h2>
 
 						<div class="flex justify-between text-l">
 							<div>Ganacias</div>
@@ -124,12 +136,15 @@
 
 					<!-- INICIO CONTENEDOR FILTROS -->
 					<div
-						class="w-full p-4 border-solid border-2 rounded-md flex flex-col gap-5 bg-[#EEE9D7]"
+						class="w-full p-4 border-solid border-2 border-[#f7492f] rounded-md flex flex-col gap-5 bg-[#f0e1d6]"
 						id="container-filtros"
 					>
 						<div class="flex justify-between">
-							<h3 class="text-2xl">Filtros</h3>
-							<button class="text-[blue]" id="btn-ocultar-filtros">
+							<h3 class="text-2xl text-[#f7332f]">Filtros</h3>
+							<button
+								class="text-[#2c7156] font-medium"
+								id="btn-ocultar-filtros"
+							>
 								Ocultar Filtros
 							</button>
 						</div>
@@ -142,7 +157,7 @@
 									<select
 										name="tipo"
 										id="filtro-tipo"
-										class="border-solid border-2 p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] p-2 rounded"
 									>
 										<option value="todos">Todos</option>
 										<option value="gasto">Gasto</option>
@@ -155,7 +170,7 @@
 									<select
 										name="categoria"
 										id="filtro-categoria"
-										class="filtro select-categoria border-solid border-2 p-2 rounded"
+										class="filtro select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
 									></select>
 								</div>
 
@@ -164,7 +179,7 @@
 									<input
 										type="date"
 										id="filtro-fecha"
-										class="border-solid border-2 p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] p-2 rounded"
 									/>
 								</div>
 
@@ -173,7 +188,7 @@
 									<select
 										name="ordenar"
 										id="filtro-ordenar"
-										class="border-solid border-2 p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] p-2 rounded"
 									>
 										<option value="mas">Más Reciente</option>
 										<option value="menos">Menos Reciente</option>
@@ -192,16 +207,16 @@
 
 				<!-- INICIO CONTENEDOR OPERACIONES -->
 				<div
-					class="flex flex-col p-5 gap-3 border-2 rounded-md lg:w-2/3 bg-[#EEE9D7] lg:max-w-[630px] w-[90%]"
+					class="flex flex-col p-5 gap-3 border-2 border-[#f0e1d6] rounded-md lg:w-2/3 bg-[#f0e1d6] lg:max-w-[630px] w-[90%]"
 					id="container-operaciones"
 				>
 					<div
 						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
 					>
-						<h3 class="text-2xl">Operaciones</h3>
+						<h3 class="text-3xl text-[#f7332f]">Operaciones</h3>
 						<button
 							id="btn-operacion"
-							class="bg-[#0C316F] p-2 rounded text-white bg-[#0C316F]"
+							class="bg-[#83c3ab] p-2 rounded text-[#254438]"
 						>
 							+ Nueva operación
 						</button>
@@ -212,10 +227,11 @@
 						id="contenedor-img-operaciones"
 					>
 						<img
-							src="imagenes/undraw_Vault_re_s4my.png"
+							src="imagenes/operaciones.jpeg"
 							alt="Sin operaciones"
+							class="max-w-sm rounded-full"
 						/>
-						<p class="text-3xl">Sin resultados</p>
+						<p class="text-2xl text-[#f7332f]">Sin resultados</p>
 						<p class="text-center">Cambia los filtros o agrega operaciones</p>
 					</div>
 
@@ -925,7 +941,7 @@
 
 		<!-- INICIO FOOTER -->
 		<footer
-			class="flex justify-center items-center gap-5 text-white p-5 bg-[#202C40] dark:bg-gray-900"
+			class="flex justify-center items-center gap-5 text-[#254438] p-3 bg-[#83c3ab] dark:bg-gray-900"
 		>
 			<div class="flex flex-col items-center">
 				<p>Hecho con 💖 Por</p>

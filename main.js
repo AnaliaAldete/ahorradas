@@ -276,9 +276,9 @@ formEditarCategoria.addEventListener("submit", (e) => {
 //funcionalidad del modo oscuro
 btnModoOscuro.addEventListener("click", () => {
 	if (body.classList.toggle("dark")) {
-		btnModoOscuro.innerHTML = `<i class="fa-regular fa-sun text-gray-800 text-lg"></i>`;
+		btnModoOscuro.innerHTML = `<img src="imagenes/sol.png" alt="imagen-sol" class="w-6" />`;
 	} else {
-		btnModoOscuro.innerHTML = `<i class="fas fa-moon text-gray-800 text-lg"></i>`;
+		btnModoOscuro.innerHTML = `<img src="imagenes/luna.png" alt="imagen-luna" class="w-6" />`;
 	}
 });
 
