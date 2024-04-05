@@ -207,13 +207,13 @@
 
 				<!-- INICIO CONTENEDOR OPERACIONES -->
 				<div
-					class="flex flex-col p-5 gap-3 border-2 border-[#f0e1d6] rounded-md lg:w-2/3 bg-[#f0e1d6] lg:max-w-[630px] w-[90%]"
+					class="flex flex-col p-5 gap-3 border-solid border-2 border-[#f0e1d6] rounded-md lg:w-2/3 bg-[#f0e1d6] lg:max-w-[630px] w-[90%]"
 					id="container-operaciones"
 				>
 					<div
 						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
 					>
-						<h3 class="text-3xl text-[#f7332f]">Operaciones</h3>
+						<h3 class="text-4xl text-[#f7332f]">Operaciones</h3>
 						<button
 							id="btn-operacion"
 							class="bg-[#83c3ab] p-2 rounded text-[#254438]"
@@ -242,7 +242,7 @@
 					>
 						<div
 							id="cabecera-tabla-operaciones"
-							class="hidden bg-[#0C316F] text-white flex text-center font-bold"
+							class="hidden bg-[#83C3AB] text-[#254438] flex text-center font-bold"
 						>
 							<div class="flex-1 py-2 border-b border-r border-gray-300">
 								<span>Descripción</span>
@@ -275,9 +275,11 @@
 			<!-- INICIO SECCION NUEVA OPERACION -->
 			<section class="hidden w-full" id="seccion-nueva-operacion">
 				<div
-					class="max-w-[850px] bg-[#EEE9D7] border-2 rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
+					class="max-w-[850px] bg-[#F0E1D6] border-solid border-2 border-[#f7492f] rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
 				>
-					<h2 class="text-4xl font-bold pb-7 text-center">Nueva Operación</h2>
+					<h2 class="text-4xl text-[#f7332f] pb-7 text-center">
+						Nueva Operación
+					</h2>
 
 					<!-- inicio form nueva operacion -->
 					<!-- <div> -->
@@ -290,7 +292,7 @@
 								type="text"
 								id="input-descripcion"
 								placeholder="Ingresar descripción"
-								class="border-solid border-2 p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
 								required
 							/>
 							<p class="mensaje-input-vacio text-red-500 text-xs italic hidden">
@@ -304,7 +306,7 @@
 								type="number"
 								id="input-monto"
 								placeholder="Ingresar monto"
-								class="border-solid border-2 p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
 								min="0"
 								required
 							/>
@@ -324,7 +326,7 @@
 							<select
 								name="select-tipo"
 								id="select-tipo"
-								class="border-solid border-2 p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded"
 								required
 							>
 								<option value="gasto">Gasto</option>
@@ -337,7 +339,7 @@
 							<select
 								name="select-categoria"
 								id="select-categoria"
-								class="select-categoria border-2 p-2 rounded"
+								class="select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
 								required
 							></select>
 						</div>
@@ -347,7 +349,7 @@
 							<input
 								type="date"
 								id="input-fecha"
-								class="border-2 p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded"
 								required
 							/>
 						</div>
@@ -355,14 +357,14 @@
 						<div class="flex justify-end gap-2">
 							<button
 								type="button"
-								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
 								id="btn-cancelar--nueva"
 							>
 								Cancelar
 							</button>
 							<button
 								type="submit"
-								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
 								id="btn-agregar-operacion"
 							>
 								Agregar
@@ -378,9 +380,9 @@
 			<!-- INICIO SECCION EDITAR OPERACION -->
 			<section class="hidden w-full" id="editar-nueva-operacion">
 				<div
-					class="bg-[#EEE9D7] flex flex-col p-5 gap-3 border-2 rounded-md max-w-[850px] w-[90%] m-auto"
+					class="bg-[#F0E1D6] flex flex-col p-5 gap-3 border-solid border-2 border-[#f7492f] rounded-md max-w-[850px] w-[90%] m-auto"
 				>
-					<h2 class="text-4xl pb-7">Editar Operación</h2>
+					<h2 class="text-4xl text-[#f7332f] pb-7">Editar Operación</h2>
 
 					<!-- inicio form editar operacion -->
 					<form id="form-editar-operacion" class="flex flex-col gap-2">
@@ -391,7 +393,7 @@
 							<input
 								type="text"
 								id="editar-input-descripcion"
-								class="border-solid border-2 p-2 rounded focus:outline-none"
+								class="border-solid border-2 p-2 border-[#faaea2] rounded focus:outline-none"
 								required
 							/>
 						</div>
@@ -407,7 +409,7 @@
 							<input
 								type="number"
 								id="editar-input-monto"
-								class="border-solid border-2 p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
 								required
 								min="0"
 							/>
@@ -432,7 +434,7 @@
 							<select
 								name="editar-select-tipo"
 								id="editar-select-tipo"
-								class="border-solid border-2 p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded"
 							>
 								<option value="gasto">Gasto</option>
 								<option value="ganancia">Ganancia</option>
@@ -446,7 +448,7 @@
 							<select
 								name="editar-select-categoria"
 								id="editar-select-categoria"
-								class="select-categoria border-2 p-2 rounded"
+								class="select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
 							></select>
 						</div>
 
@@ -455,14 +457,14 @@
 							<input
 								type="date"
 								id="editar-input-fecha"
-								class="border-2 p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] p-2 rounded"
 							/>
 						</div>
 
 						<div class="flex justify-end gap-2">
 							<button
 								type="button"
-								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
 								id="editar-btn-cancelar--nueva"
 							>
 								Cancelar
@@ -470,7 +472,7 @@
 
 							<button
 								type="submit"
-								class="rounded-md bg-[#0C316F] py-2 px-[17px] text-white"
+								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
 								id="editar-btn-agregar"
 							>
 								Guardar Cambios
@@ -487,8 +489,10 @@
 				class="hidden flex justify-center items-center w-full"
 				id="seccion-categoria"
 			>
-				<div class="rounded-md max-w-[850px] p-5 w-[90%] bg-[#EEE9D7]">
-					<h2 class="text-4xl pb-12 text-center">Categoría</h2>
+				<div
+					class="border-[#f7492f] border-2 border-[#f0e1d6] rounded-md max-w-[850px] p-5 w-[90%] bg-[#F0E1D6]"
+				>
+					<h2 class="text-4xl text-[#f7332f] pb-12 text-center">Categoría</h2>
 
 					<!-- inicio form categoria nombre -->
 					<form id="form-agregar-categoria">
@@ -497,14 +501,14 @@
 							<input
 								type="text"
 								id="nombre"
-								class="border-2 border-solid truncate p-2 rounded-md w-[87%]"
+								class="border-2 border-solid border-[#faaea2] truncate p-2 rounded-md w-[87%]"
 								placeholder="Ingrese nombre para nueva categoria"
 								required
 							/>
 
 							<button
 								type="submit"
-								class="border-2 border-solid rounded-md bg-[#28364c] py-2 px-[17px] text-white"
+								class="border-2 border-solid border-[#83c3ab] rounded-md bg-[#83c3ab] py-2 px-[17px] text-[#254438]"
 								id="btn-agregar-categoria"
 							>
 								Agregar
@@ -523,9 +527,11 @@
 			<!-- INICIO SECCION EDITAR CATEGORIAS-->
 			<section class="hidden w-full flex-grow" id="seccion-editar">
 				<div
-					class="rounded-md w-[90%] max-w-[850px] p-5 bg-[#EEE9D7] m-auto flex flex-col justify-center gap-10"
+					class="border-[#f7492f] border-2 border-[#f0e1d6] rounded-md w-[90%] max-w-[850px] p-5 bg-[#F0E1D6] m-auto flex flex-col justify-center gap-10"
 				>
-					<h2 class="text-3xl md:text-4xl text-center">Editar Categoría</h2>
+					<h2 class="text-3xl md:text-4xl text-[#f7332f] text-center">
+						Editar Categoría
+					</h2>
 
 					<!-- inicio form editar categoria -->
 					<form class="flex flex-col gap-5" id="form-editar-categoria">
@@ -534,7 +540,7 @@
 							<input
 								type="text"
 								id="label-editar"
-								class="border-solid border-2 rounded-md p-1.5 ps-2"
+								class="border-solid border-2 border-[#faaea2] rounded-md p-1.5 ps-2"
 								required
 							/>
 						</div>
@@ -542,7 +548,7 @@
 						<div class="flex justify-center gap-x-4">
 							<button
 								type="button"
-								class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+								class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 								id="btn-cancelar--editar"
 							>
 								Cancelar
@@ -550,7 +556,7 @@
 
 							<button
 								type="submit"
-								class="aceptar-editar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+								class="aceptar-editar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 								id="btn-aceptar-editar"
 							>
 								Editar
@@ -566,7 +572,7 @@
 			<!-- inicio ventana modal editar operación -->
 			<section class="hidden w-full" id="advertencia-editar--operaciones">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
@@ -586,14 +592,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 							id="btn-advertencia-editar--cancelar-op"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-editar--aceptar-op rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="btn-advertencia-editar--aceptar-op rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 						>
 							Aceptar
 						</button>
@@ -605,7 +611,7 @@
 			<!-- inicio ventana modal editar categoría -->
 			<section class="hidden w-full" id="advertencia-editar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[500px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[500px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
@@ -625,13 +631,13 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 							id="btn-advertencia-editar--cancelar"
 						>
 							Cancelar
 						</button>
 						<button
-							class="btn-advertencia-editar--aceptar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="btn-advertencia-editar--aceptar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 						>
 							Aceptar
 						</button>
@@ -645,7 +651,7 @@
 			<!-- inicio ventana modal elimiar operación -->
 			<section class="hidden w-full" id="advertencia-eliminar--operaciones">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
@@ -666,14 +672,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 							id="btn-advertencia-eliminar--cancelar-op"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-eliminar--aceptar-op rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="btn-advertencia-eliminar--aceptar-op rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 						>
 							Aceptar
 						</button>
@@ -685,7 +691,7 @@
 			<!-- Inicio ventana modal elimiar categoría -->
 			<section class="hidden w-full" id="advertencia-eliminar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
@@ -709,14 +715,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 							id="btn-advertencia-eliminar--cancelar"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-eliminar--aceptar rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="btn-advertencia-eliminar--aceptar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 						>
 							Eliminar
 						</button>
@@ -728,7 +734,7 @@
 			<!-- Inicio ventana modal no elimiar categoría porque hay operaciones asociadas a ella -->
 			<section class="hidden w-full" id="advertencia-no-eliminar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#EEE9D7] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
@@ -749,7 +755,7 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#0C316F] py-1.5 px-[15px] text-white"
+							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
 							id="btn-advertencia-no-eliminar"
 						>
 							Aceptar
@@ -763,22 +769,24 @@
 			<!-- INICIO SECCION REPORTES-->
 			<section id="seccion-reportes" class="hidden w-full">
 				<div
-					class="lg:w-4/6 rounded-md flex flex-col items-center gap-5 p-2 md:p-5 max-w-[800px] m-auto bg-[#EEE9D7] w-[90%]"
+					class="border-[#f7492f] border-2 border-[#f0e1d6] lg:w-4/6 rounded-md flex flex-col items-center gap-14 p-2 md:p-5 max-w-[800px] m-auto bg-[#F0E1D6] w-[90%]"
 				>
-					<h2 class="text-4xl">Reportes</h2>
+					<h2 class="text-4xl text-[#f7332f]">Reportes</h2>
 
 					<div id="container-img-reportes">
-						<figure>
+						<figure class="flex justify-center pb-9">
 							<img
-								src="imagenes/undraw_Charts_re_5qe9.png"
-								class="md:max-w-[500px]"
+								src="imagenes/reporte.jpeg"
+								class="max-w-sm rounded-full"
 								alt="Imagen reportes"
 							/>
 						</figure>
 
-						<p class="text-3xl text-center">Operaciones insuficientes</p>
+						<p class="text-2xl text-[#f7332f] text-center pb-3">
+							Operaciones insuficientes
+						</p>
 
-						<p class="text-center">Prueba agregando más operaciones</p>
+						<p class="text-center pb-7">Prueba agregando más operaciones</p>
 					</div>
 
 					<div
