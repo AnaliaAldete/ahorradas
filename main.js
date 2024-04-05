@@ -343,6 +343,36 @@ const calcularTotal = () => {
 	}
 };
 
+// funcion para ver gif segun resultado
+// const gifSegunResultado =()=>{
+//     if()
+// }
+// funcion para agregar gif
+const contenedorGif = document.getElementById("contenedor-gif");
+let chanchitosGanancias = [
+	"imagenes/ch-llenandose.gif",
+	"imagenes/ch-anteojos.gif",
+	"imagenes/ch-saltando.gif",
+];
+let chanchitosPerdidas = [
+	"imagenes/ch-billetera.gif",
+	"imagenes/ch-bye.gif",
+	"imagenes/ch-disparando.gif",
+	"imagenes/ch-monedas.gif",
+];
+const agregarGif = (array) => {
+	contenedorGif.classList.remove("hidden");
+	let gif = Math.floor(Math.random() * array.length);
+	contenedorGif.style.background = `url(${array[gif]}) center center no-repeat`;
+	contenedorGif.style.backgroundSize = "cover";
+};
+// para que se oculte el gif
+const ocultarGif = () => {
+	setTimeout(() => {
+		contenedorGif.classList.add("hidden");
+	}, 3000);
+};
+
 // funcion para actualizar el DOM de los balances generales
 const actualizarBalance = () => {
 	balanceGanancia.innerText = `+$${resultadoGanacia}`;
@@ -353,10 +383,14 @@ const actualizarBalance = () => {
 		balanceTotal.innerText = `+$${resultadoTotal}`;
 		balanceTotal.classList.add("text-green-500");
 		balanceTotal.classList.remove("text-red-500");
+		agregarGif(chanchitosGanancias);
+		ocultarGif();
 	} else {
 		balanceTotal.innerText = `-$${resultadoTotal}`;
 		balanceTotal.classList.remove("text-green-500");
 		balanceTotal.classList.add("text-red-500");
+		agregarGif(chanchitosPerdidas);
+		ocultarGif();
 	}
 };
 
