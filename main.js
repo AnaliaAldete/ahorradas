@@ -343,12 +343,9 @@ const calcularTotal = () => {
 	}
 };
 
-// funcion para ver gif segun resultado
-// const gifSegunResultado =()=>{
-//     if()
-// }
-// funcion para agregar gif
+// funcion para agregar gif aleatorio
 const contenedorGif = document.getElementById("contenedor-gif");
+
 let chanchitosGanancias = [
 	"imagenes/ch-llenandose.gif",
 	"imagenes/ch-anteojos.gif",
@@ -366,6 +363,7 @@ const agregarGif = (array) => {
 	contenedorGif.style.background = `url(${array[gif]}) center center no-repeat`;
 	contenedorGif.style.backgroundSize = "cover";
 };
+
 // para que se oculte el gif
 const ocultarGif = () => {
 	setTimeout(() => {
