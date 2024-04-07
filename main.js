@@ -359,6 +359,8 @@ let chanchitosPerdidas = [
 	"imagenes/ch-disparando.gif",
 	"imagenes/ch-monedas.gif",
 ];
+
+// funcion para que agregue gif
 const agregarGif = (array) => {
 	mostrarSeccion(contenedorGif, contenedorFiltros);
 	btnOcultarFiltros.innerText = "Mostrar filtros";
@@ -1002,12 +1004,11 @@ formAgregarCategoria.addEventListener("submit", (e) => {
 		nombreCategoria:
 			inputNombre.value.charAt(0).toUpperCase() + inputNombre.value.slice(1),
 	};
-	// condicion para que no guarde e imprima una categoria vacia
-	if (inputNombre.value.length > 0) {
-		let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
-		categoriasGuardadas.push(nuevaCategoria);
-		localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
-	}
+
+	let categoriasGuardadas = JSON.parse(localStorage.getItem("categoria"));
+	categoriasGuardadas.push(nuevaCategoria);
+	localStorage.setItem("categoria", JSON.stringify(categoriasGuardadas));
+
 	generarTablaCategorias(
 		evaluarLocalStorage("categoria", categoriasGuardadas, categorias)
 	);
