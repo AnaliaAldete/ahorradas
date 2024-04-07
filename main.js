@@ -501,6 +501,7 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 	);
 
 	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
+	mostrarSeccion(containerImgReportes, tablasReportes);
 });
 
 //btn cancelar modal de eliminar operacion
