@@ -360,7 +360,8 @@ let chanchitosPerdidas = [
 	"imagenes/ch-monedas.gif",
 ];
 const agregarGif = (array) => {
-	contenedorGif.classList.remove("hidden");
+	mostrarSeccion(contenedorGif, contenedorFiltros);
+	btnOcultarFiltros.innerText = "Mostrar filtros";
 	let gif = Math.floor(Math.random() * array.length);
 	contenedorGif.style.background = `url(${array[gif]}) center center no-repeat`;
 	contenedorGif.style.backgroundSize = "cover";
@@ -369,7 +370,8 @@ const agregarGif = (array) => {
 // para que se oculte el gif
 const ocultarGif = () => {
 	setTimeout(() => {
-		contenedorGif.classList.add("hidden");
+		mostrarSeccion(contenedorFiltros, contenedorGif);
+		btnOcultarFiltros.innerText = "Ocultar filtros";
 	}, 3000);
 };
 
@@ -393,9 +395,10 @@ const actualizarBalance = () => {
 		ocultarGif();
 	} else {
 		balanceTotal.innerText = `$${resultadoTotal}`;
+		btnOcultarFiltros.innerText = "Ocultar filtros";
 		balanceTotal.classList.remove("text-green-500");
 		balanceTotal.classList.remove("text-red-500");
-		contenedorGif.classList.add("hidden");
+		mostrarSeccion(contenedorFiltros, contenedorGif);
 	}
 };
 
