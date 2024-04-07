@@ -21,7 +21,7 @@
 		<!-- INICIO HEADER -->
 
 		<header
-			class="p-3 bg-[#83c3ab] text-[#254438] dark:text-white dark:bg-gray-900"
+			class="p-3 bg-[#83c3ab] text-[#254438] dark:text-[#52796f] dark:bg-gray-900"
 		>
 			<nav class="flex flex-col md:flex-row gap-5" id="navegador">
 				<div class="flex justify-between w-full">
@@ -47,10 +47,9 @@
 
 						<button
 							id="btn-modo-oscuro"
-							class="flex justify-center items-center rounded-full w-8 h-8 bg-white order-2"
+							class="flex justify-center items-center rounded-full w-8 h-8 bg-white dark:bg-[#f0e1d6] order-2"
 						>
 							<img src="imagenes/luna.png" alt="imagen-luna" class="w-6" />
-							<!-- <i class="fas fa-moon text-gray-800 text-lg"></i> -->
 						</button>
 					</div>
 				</div>
@@ -62,7 +61,7 @@
 					<li>
 						<a
 							href="Javascript:void(0);"
-							class="flex gap-2 items-center"
+							class="flex gap-2 items-center hover:text-[#256a4f]"
 							id="enlace-balance"
 							><i class="fa-solid fa-chart-line"></i>Balance</a
 						>
@@ -71,7 +70,7 @@
 					<li>
 						<a
 							href="Javascript:void(0);"
-							class="flex gap-2 items-center"
+							class="flex gap-2 items-center hover:text-[#256a4f]"
 							id="enlace-categoria"
 							><i class="fa-solid fa-tag"></i>Categoría</a
 						>
@@ -80,7 +79,7 @@
 					<li>
 						<a
 							href="Javascript:void(0);"
-							class="flex gap-2 items-center"
+							class="flex gap-2 items-center hover:text-[#256a4f]"
 							id="enlace-reporte"
 							><i class="fa-solid fa-chart-pie"></i>Reporte</a
 						>
@@ -105,10 +104,10 @@
 				>
 					<!-- INICIO CONTENEDOR BALANCE -->
 					<div
-						class="w-full p-4 border-solid border-2 border-[#f7492f] rounded-md flex flex-col gap-5 bg-[#f0e1d6]"
+						class="w-full p-4 border-solid border-2 border-[#eca3a2] dark:border-gray-300 rounded-md flex flex-col gap-5 bg-[#f0e1d6] dark:bg-[#52796f]"
 						id="container-balance"
 					>
-						<h2 class="text-4xl text-[#f7332f]">Balance</h2>
+						<h2 class="text-4xl text-[#f7332f] dark:text-[#faebd7]">Balance</h2>
 
 						<div class="flex justify-between text-l">
 							<div>Ganacias</div>
@@ -117,7 +116,12 @@
 
 						<div class="flex justify-between text-l">
 							<div>Gastos</div>
-							<div class="text-[#f14668]" id="balance-gasto">-$0</div>
+							<div
+								class="text-[#f14668] dark:text-[#e96c6c]"
+								id="balance-gasto"
+							>
+								-$0
+							</div>
 						</div>
 
 						<div class="flex justify-between text-xl">
@@ -136,13 +140,15 @@
 
 					<!-- INICIO CONTENEDOR FILTROS -->
 					<div
-						class="w-full p-4 border-solid border-2 border-[#f7492f] rounded-md flex flex-col gap-5 bg-[#f0e1d6]"
+						class="w-full p-4 border-solid border-2 border-[#eca3a2] dark:border-gray-300 rounded-md flex flex-col gap-5 bg-[#f0e1d6] dark:bg-[#52796f]"
 						id="container-filtros"
 					>
 						<div class="flex justify-between">
-							<h3 class="text-2xl text-[#f7332f]">Filtros</h3>
+							<h3 class="text-2xl text-[#f7332f] dark:text-[#faebd7]">
+								Filtros
+							</h3>
 							<button
-								class="text-[#2c7156] font-medium"
+								class="text-[#2c7156] dark:text-[#1f2937] font-medium"
 								id="btn-ocultar-filtros"
 							>
 								Ocultar Filtros
@@ -153,11 +159,13 @@
 						<form>
 							<div id="contenedor-filtros">
 								<div class="flex flex-col gap-2">
-									<label for="filtro-tipo">Tipo</label>
+									<label for="filtro-tipo" class="dark:text-[#f5f5f5]"
+										>Tipo</label
+									>
 									<select
 										name="tipo"
 										id="filtro-tipo"
-										class="border-solid border-2 border-[#faaea2] p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 									>
 										<option value="todos">Todos</option>
 										<option value="gasto">Gasto</option>
@@ -166,29 +174,35 @@
 								</div>
 
 								<div class="flex flex-col gap-2">
-									<label for="filtro-categoria">Categoría</label>
+									<label for="filtro-categoria" class="dark:text-[#f5f5f5]"
+										>Categoría</label
+									>
 									<select
 										name="categoria"
 										id="filtro-categoria"
-										class="filtro select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
+										class="filtro select-categoria border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 									></select>
 								</div>
 
 								<div class="flex flex-col gap-2">
-									<label for="filtro-fecha">Desde</label>
+									<label for="filtro-fecha" class="dark:text-[#f5f5f5]"
+										>Desde</label
+									>
 									<input
 										type="date"
 										id="filtro-fecha"
-										class="border-solid border-2 border-[#faaea2] p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 									/>
 								</div>
 
 								<div class="flex flex-col gap-2">
-									<label for="filtro-ordenar">Ordenar por</label>
+									<label for="filtro-ordenar" class="dark:text-[#f5f5f5]"
+										>Ordenar por</label
+									>
 									<select
 										name="ordenar"
 										id="filtro-ordenar"
-										class="border-solid border-2 border-[#faaea2] p-2 rounded"
+										class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 									>
 										<option value="mas">Más Reciente</option>
 										<option value="menos">Menos Reciente</option>
@@ -207,16 +221,18 @@
 
 				<!-- INICIO CONTENEDOR OPERACIONES -->
 				<div
-					class="flex flex-col p-5 gap-3 border-solid border-2 border-[#f0e1d6] rounded-md lg:w-2/3 bg-[#f0e1d6] lg:max-w-[630px] w-[90%]"
+					class="flex flex-col p-5 gap-3 border-solid border-2 border-[#eca3a2] dark:border-gray-300 rounded-md lg:w-2/3 bg-[#f0e1d6] dark:bg-[#52796f] lg:max-w-[630px] w-[90%]"
 					id="container-operaciones"
 				>
 					<div
 						class="flex flex-col items-center gap-3 lg:flex-row justify-between"
 					>
-						<h3 class="text-4xl text-[#f7332f]">Operaciones</h3>
+						<h3 class="text-4xl text-[#f7332f] dark:text-[#faebd7]">
+							Operaciones
+						</h3>
 						<button
 							id="btn-operacion"
-							class="bg-[#83c3ab] p-2 rounded text-[#254438]"
+							class="bg-[#83c3ab] dark:bg-[#354153] p-2 rounded text-[#254438] dark:text-[#83c3ab]"
 						>
 							+ Nueva operación
 						</button>
@@ -231,7 +247,9 @@
 							alt="Sin operaciones"
 							class="max-w-sm rounded-full"
 						/>
-						<p class="text-2xl text-[#f7332f]">Sin resultados</p>
+						<p class="text-2xl text-[#f7332f] dark:text-[#faebd7]">
+							Sin resultados
+						</p>
 						<p class="text-center">Cambia los filtros o agrega operaciones</p>
 					</div>
 
@@ -244,23 +262,23 @@
 							id="cabecera-tabla-operaciones"
 							class="hidden bg-[#83C3AB] text-[#254438] flex text-center font-bold"
 						>
-							<div class="flex-1 py-2 border-b border-r border-gray-300">
+							<div class="flex-1 py-2">
 								<span>Descripción</span>
 							</div>
 
-							<div class="flex-1 py-2 border-b border-r border-gray-300">
+							<div class="flex-1 py-2">
 								<span>Categoría</span>
 							</div>
 
-							<div class="flex-1 py-2 border-b border-r border-gray-300">
+							<div class="flex-1 py-2">
 								<span>Fecha</span>
 							</div>
 
-							<div class="flex-1 py-2 border-b border-r border-gray-300">
+							<div class="flex-1 py-2">
 								<span>Monto</span>
 							</div>
 
-							<div class="flex-1 py-2 border-b border-gray-300">
+							<div class="flex-1 py-2">
 								<span>Acciones</span>
 							</div>
 						</div>
@@ -275,9 +293,11 @@
 			<!-- INICIO SECCION NUEVA OPERACION -->
 			<section class="hidden w-full" id="seccion-nueva-operacion">
 				<div
-					class="max-w-[850px] bg-[#F0E1D6] border-solid border-2 border-[#f7492f] rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
+					class="max-w-[850px] bg-[#F0E1D6] dark:bg-[#52796f] border-solid border-2 border-[#eca3a2] dark:border-gray-300 rounded-md flex flex-col p-5 gap-3 m-auto w-[90%]"
 				>
-					<h2 class="text-4xl text-[#f7332f] pb-7 text-center">
+					<h2
+						class="text-4xl text-[#f7332f] dark:text-[#faebd7] pb-7 text-center"
+					>
 						Nueva Operación
 					</h2>
 
@@ -285,14 +305,16 @@
 					<!-- <div> -->
 					<form id="form-nueva-operacion" class="flex flex-col gap-2">
 						<div class="flex flex-col gap-2">
-							<label for="input-descripcion" class="font-bold"
+							<label
+								for="input-descripcion"
+								class="font-bold dark:text-[#f5f5f5]"
 								>Descripción</label
 							>
 							<input
 								type="text"
 								id="input-descripcion"
 								placeholder="Ingresar descripción"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded focus:outline-none"
 								required
 							/>
 							<p class="mensaje-input-vacio text-red-500 text-xs italic hidden">
@@ -301,12 +323,14 @@
 						</div>
 
 						<div class="flex flex-col gap-2">
-							<label for="input-monto" class="font-bold">Monto</label>
+							<label for="input-monto" class="font-bold dark:text-[#f5f5f5]"
+								>Monto</label
+							>
 							<input
 								type="number"
 								id="input-monto"
 								placeholder="Ingresar monto"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded focus:outline-none"
 								min="0"
 								required
 							/>
@@ -322,11 +346,13 @@
 						</div>
 
 						<div class="flex flex-col gap-2">
-							<label for="select-tipo" class="font-bold">Tipo</label>
+							<label for="select-tipo" class="font-bold dark:text-[#f5f5f5]"
+								>Tipo</label
+							>
 							<select
 								name="select-tipo"
 								id="select-tipo"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 								required
 							>
 								<option value="gasto">Gasto</option>
@@ -335,21 +361,27 @@
 						</div>
 
 						<div class="flex flex-col gap-2">
-							<label for="select-categoria" class="font-bold">Categoria</label>
+							<label
+								for="select-categoria"
+								class="font-bold dark:text-[#f5f5f5]"
+								>Categoria</label
+							>
 							<select
 								name="select-categoria"
 								id="select-categoria"
-								class="select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="select-categoria border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 								required
 							></select>
 						</div>
 
 						<div class="flex flex-col gap-2 pb-7">
-							<label for="input-fecha" class="font-bold">Fecha</label>
+							<label for="input-fecha" class="font-bold dark:text-[#f5f5f5]"
+								>Fecha</label
+							>
 							<input
 								type="date"
 								id="input-fecha"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 								required
 							/>
 						</div>
@@ -357,14 +389,14 @@
 						<div class="flex justify-end gap-2">
 							<button
 								type="button"
-								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
+								class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-2 px-[17px] text-[#254438] dark:text-[#83c3ab]"
 								id="btn-cancelar--nueva"
 							>
 								Cancelar
 							</button>
 							<button
 								type="submit"
-								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
+								class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-2 px-[17px] text-[#254438] dark:text-[#83c3ab]"
 								id="btn-agregar-operacion"
 							>
 								Agregar
@@ -380,20 +412,24 @@
 			<!-- INICIO SECCION EDITAR OPERACION -->
 			<section class="hidden w-full" id="editar-nueva-operacion">
 				<div
-					class="bg-[#F0E1D6] flex flex-col p-5 gap-3 border-solid border-2 border-[#f7492f] rounded-md max-w-[850px] w-[90%] m-auto"
+					class="bg-[#F0E1D6] dark:bg-[#52796f] flex flex-col p-5 gap-3 border-solid border-2 border-[#eca3a2] dark:border-gray-300 rounded-md max-w-[850px] w-[90%] m-auto"
 				>
-					<h2 class="text-4xl text-[#f7332f] pb-7">Editar Operación</h2>
+					<h2 class="text-4xl text-[#f7332f] dark:text-[#faebd7] pb-7">
+						Editar Operación
+					</h2>
 
 					<!-- inicio form editar operacion -->
 					<form id="form-editar-operacion" class="flex flex-col gap-2">
 						<div class="flex flex-col gap-2">
-							<label for="editar-input-descripcion" class="font-bold"
+							<label
+								for="editar-input-descripcion"
+								class="font-bold dark:text-[#f5f5f5]"
 								>Descripción</label
 							>
 							<input
 								type="text"
 								id="editar-input-descripcion"
-								class="border-solid border-2 p-2 border-[#faaea2] rounded focus:outline-none"
+								class="border-solid border-2 p-2 border-[#faaea2] dark:border-[#1f2937] rounded focus:outline-none"
 								required
 							/>
 						</div>
@@ -405,11 +441,15 @@
 						</p>
 
 						<div class="flex flex-col gap-2">
-							<label for="editar-input-monto" class="font-bold">Monto</label>
+							<label
+								for="editar-input-monto"
+								class="font-bold dark:text-[#f5f5f5]"
+								>Monto</label
+							>
 							<input
 								type="number"
 								id="editar-input-monto"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded focus:outline-none"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded focus:outline-none"
 								required
 								min="0"
 							/>
@@ -430,11 +470,15 @@
 						</div>
 
 						<div class="flex flex-col gap-2">
-							<label for="editar-select-tipo" class="font-bold">Tipo</label>
+							<label
+								for="editar-select-tipo"
+								class="font-bold dark:text-[#f5f5f5]"
+								>Tipo</label
+							>
 							<select
 								name="editar-select-tipo"
 								id="editar-select-tipo"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 							>
 								<option value="gasto">Gasto</option>
 								<option value="ganancia">Ganancia</option>
@@ -442,29 +486,35 @@
 						</div>
 
 						<div class="flex flex-col gap-2">
-							<label for="editar-select-categoria" class="font-bold"
+							<label
+								for="editar-select-categoria"
+								class="font-bold dark:text-[#f5f5f5]"
 								>Categoria</label
 							>
 							<select
 								name="editar-select-categoria"
 								id="editar-select-categoria"
-								class="select-categoria border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="select-categoria border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 							></select>
 						</div>
 
 						<div class="flex flex-col gap-2 pb-7">
-							<label for="editar-input-fecha" class="font-bold">Fecha</label>
+							<label
+								for="editar-input-fecha"
+								class="font-bold dark:text-[#f5f5f5]"
+								>Fecha</label
+							>
 							<input
 								type="date"
 								id="editar-input-fecha"
-								class="border-solid border-2 border-[#faaea2] p-2 rounded"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] p-2 rounded"
 							/>
 						</div>
 
 						<div class="flex justify-end gap-2">
 							<button
 								type="button"
-								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
+								class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-2 px-[17px] text-[#254438] dark:text-[#83c3ab]"
 								id="editar-btn-cancelar--nueva"
 							>
 								Cancelar
@@ -472,7 +522,7 @@
 
 							<button
 								type="submit"
-								class="rounded-md bg-[#83C3AB] py-2 px-[17px] text-[#254438]"
+								class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-2 px-[17px] text-[#254438] dark:text-[#83c3ab]"
 								id="editar-btn-agregar"
 							>
 								Guardar Cambios
@@ -490,25 +540,33 @@
 				id="seccion-categoria"
 			>
 				<div
-					class="border-[#f7492f] border-2 border-[#f0e1d6] rounded-md max-w-[850px] p-5 w-[90%] bg-[#F0E1D6]"
+					class="border-[#eca3a2] dark:border-gray-300 border-2 rounded-md max-w-[850px] p-5 w-[90%] bg-[#F0E1D6] dark:bg-[#52796f]"
 				>
-					<h2 class="text-4xl text-[#f7332f] pb-12 text-center">Categoría</h2>
+					<h2
+						class="text-4xl text-[#f7332f] dark:text-[#faebd7] pb-12 text-center"
+					>
+						Categoría
+					</h2>
 
 					<!-- inicio form categoria nombre -->
 					<form id="form-agregar-categoria">
-						<label for="nombre" class="font-bold pb-2 block">Nombre</label>
+						<label
+							for="nombre"
+							class="text-xl font-bold pb-2 block dark:text-[#faebd7]"
+							>Nombre</label
+						>
 						<div class="flex justify-between gap-[4px]">
 							<input
 								type="text"
 								id="nombre"
-								class="border-2 border-solid border-[#faaea2] truncate p-2 rounded-md w-[87%]"
+								class="border-2 border-solid border-[#faaea2] dark:border-[#1f2937] truncate p-2 rounded-md w-[87%]"
 								placeholder="Ingrese nombre para nueva categoria"
 								required
 							/>
 
 							<button
 								type="submit"
-								class="border-2 border-solid border-[#83c3ab] rounded-md bg-[#83c3ab] py-2 px-[17px] text-[#254438]"
+								class="border-2 border-solid border-[#83c3ab] dark:border-[#354153] rounded-md bg-[#83c3ab] dark:bg-[#354153] py-2 px-[17px] text-[#254438] dark:text-[#83c3ab]"
 								id="btn-agregar-categoria"
 							>
 								Agregar
@@ -527,20 +585,24 @@
 			<!-- INICIO SECCION EDITAR CATEGORIAS-->
 			<section class="hidden w-full flex-grow" id="seccion-editar">
 				<div
-					class="border-[#f7492f] border-2 border-[#f0e1d6] rounded-md w-[90%] max-w-[850px] p-5 bg-[#F0E1D6] m-auto flex flex-col justify-center gap-10"
+					class="border-[#eca3a2] dark:border-gray-300 border-2 rounded-md w-[90%] max-w-[850px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto flex flex-col justify-center gap-10"
 				>
-					<h2 class="text-3xl md:text-4xl text-[#f7332f] text-center">
+					<h2
+						class="text-3xl md:text-4xl text-[#f7332f] dark:text-[#faebd7] text-center"
+					>
 						Editar Categoría
 					</h2>
 
 					<!-- inicio form editar categoria -->
 					<form class="flex flex-col gap-5" id="form-editar-categoria">
 						<div class="flex flex-col gap-y-2">
-							<label for="label-editar">Nombre</label>
+							<label for="label-editar" class="dark:text-[#f5f5f5]"
+								>Nombre</label
+							>
 							<input
 								type="text"
 								id="label-editar"
-								class="border-solid border-2 border-[#faaea2] rounded-md p-1.5 ps-2"
+								class="border-solid border-2 border-[#faaea2] dark:border-[#1f2937] rounded-md p-1.5 ps-2"
 								required
 							/>
 						</div>
@@ -548,7 +610,7 @@
 						<div class="flex justify-center gap-x-4">
 							<button
 								type="button"
-								class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+								class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 								id="btn-cancelar--editar"
 							>
 								Cancelar
@@ -556,7 +618,7 @@
 
 							<button
 								type="submit"
-								class="aceptar-editar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+								class="aceptar-editar rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 								id="btn-aceptar-editar"
 							>
 								Editar
@@ -572,19 +634,22 @@
 			<!-- inicio ventana modal editar operación -->
 			<section class="hidden w-full" id="advertencia-editar--operaciones">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
 							src="imagenes/alerta.gif"
 							alt="gif-mensaje-de-alerta"
-							class="w-[60px]"
+							class="w-[60px] rounded-[27px]"
 						/>
-						<h2 class="text-4xl text-[red]">Advertencia</h2>
+						<h2 class="text-4xl text-[red] dark:text-[#e96c6c]">Advertencia</h2>
 					</div>
 
 					<div>
-						<p class="ps-8" id="advertencia-editar--operacion">
+						<p
+							class="ps-8 dark:text-[#faebd7]"
+							id="advertencia-editar--operacion"
+						>
 							Está seguro que quiere editar esta
 							<span class="font-black">operación</span>?
 						</p>
@@ -592,14 +657,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 							id="btn-advertencia-editar--cancelar-op"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-editar--aceptar-op rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="btn-advertencia-editar--aceptar-op rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 						>
 							Aceptar
 						</button>
@@ -611,19 +676,22 @@
 			<!-- inicio ventana modal editar categoría -->
 			<section class="hidden w-full" id="advertencia-editar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[500px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[500px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
 							src="imagenes/alerta.gif"
 							alt="gif-mensaje-de-alerta"
-							class="w-[60px]"
+							class="w-[60px] rounded-[27px]"
 						/>
-						<h2 class="text-4xl text-[red]">Advertencia</h2>
+						<h2 class="text-4xl text-[red] dark:text-[#e96c6c]">Advertencia</h2>
 					</div>
 
 					<div>
-						<p class="ps-8" id="advertencia-editar--categoria">
+						<p
+							class="ps-8 dark:text-[#faebd7]"
+							id="advertencia-editar--categoria"
+						>
 							Está seguro que quiere editar la categoría
 							<span id="advertencia-categoria" class="font-black"></span>?
 						</p>
@@ -631,13 +699,13 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 							id="btn-advertencia-editar--cancelar"
 						>
 							Cancelar
 						</button>
 						<button
-							class="btn-advertencia-editar--aceptar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="btn-advertencia-editar--aceptar rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 						>
 							Aceptar
 						</button>
@@ -651,19 +719,22 @@
 			<!-- inicio ventana modal elimiar operación -->
 			<section class="hidden w-full" id="advertencia-eliminar--operaciones">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
 							src="imagenes/alerta.gif"
 							alt="gif-mensaje-de-alerta"
-							class="w-[60px]"
+							class="w-[60px] rounded-[27px]"
 						/>
-						<h2 class="text-4xl text-[red]">Advertencia</h2>
+						<h2 class="text-4xl text-[red] dark:text-[#e96c6c]">Advertencia</h2>
 					</div>
 
 					<div>
-						<p class="ps-8" id="advertencia-eliminar--operacion">
+						<p
+							class="ps-8 dark:text-[#faebd7]"
+							id="advertencia-eliminar--operacion"
+						>
 							Está seguro que quiere eliminar esta
 							<span class="font-black">operación</span>? Todos los datos de esta
 							operación se eliminaran de forma permanente.
@@ -672,14 +743,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 							id="btn-advertencia-eliminar--cancelar-op"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-eliminar--aceptar-op rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="btn-advertencia-eliminar--aceptar-op rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 						>
 							Aceptar
 						</button>
@@ -691,19 +762,22 @@
 			<!-- Inicio ventana modal elimiar categoría -->
 			<section class="hidden w-full" id="advertencia-eliminar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
 							src="imagenes/alerta.gif"
 							alt="gif-mensaje-de-alerta"
-							class="w-[60px]"
+							class="w-[60px] rounded-[27px]"
 						/>
-						<h2 class="text-4xl text-[red]">Advertencia</h2>
+						<h2 class="text-4xl text-[red] dark:text-[#e96c6c]">Advertencia</h2>
 					</div>
 
 					<div>
-						<p class="ps-8" id="advertencia-eliminar--categoria">
+						<p
+							class="ps-8 dark:text-[#faebd7]"
+							id="advertencia-eliminar--categoria"
+						>
 							Está seguro que quiere eliminar la categoría
 							<span
 								id="eliminar-advertencia-categoria"
@@ -715,14 +789,14 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 							id="btn-advertencia-eliminar--cancelar"
 						>
 							Cancelar
 						</button>
 
 						<button
-							class="btn-advertencia-eliminar--aceptar rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="btn-advertencia-eliminar--aceptar rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 						>
 							Eliminar
 						</button>
@@ -734,19 +808,19 @@
 			<!-- Inicio ventana modal no elimiar categoría porque hay operaciones asociadas a ella -->
 			<section class="hidden w-full" id="advertencia-no-eliminar">
 				<div
-					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] m-auto w-[90%]"
+					class="flex flex-col gap-8 rounded-md max-w-[600px] p-5 bg-[#F0E1D6] dark:bg-[#52796f] m-auto w-[90%]"
 				>
 					<div class="flex items-center gap-[14px]">
 						<img
 							src="imagenes/alerta.gif"
 							alt="gif-mensaje-de-alerta"
-							class="w-[60px]"
+							class="w-[60px] rounded-[27px]"
 						/>
-						<h2 class="text-4xl text-[red]">Advertencia</h2>
+						<h2 class="text-4xl text-[red] dark:text-[#e96c6c]">Advertencia</h2>
 					</div>
 
 					<div>
-						<p class="ps-8">
+						<p class="ps-8 dark:text-[#faebd7]">
 							<span class="font-black">No</span> se puede eliminar esta
 							<span class="font-black">categoría</span> porque existen
 							operaciones asociadas. Por favor, elimine las operaciones primero.
@@ -755,7 +829,7 @@
 
 					<div class="flex justify-center md:justify-end gap-x-4">
 						<button
-							class="rounded-md bg-[#83C3AB] py-1.5 px-[15px] text-[#254438]"
+							class="rounded-md bg-[#83C3AB] dark:bg-[#354153] py-1.5 px-[15px] text-[#254438] dark:text-[#83c3ab]"
 							id="btn-advertencia-no-eliminar"
 						>
 							Aceptar
@@ -769,9 +843,9 @@
 			<!-- INICIO SECCION REPORTES-->
 			<section id="seccion-reportes" class="hidden w-full">
 				<div
-					class="border-[#f7492f] border-2 border-[#f0e1d6] lg:w-4/6 rounded-md flex flex-col items-center gap-14 p-2 md:p-5 max-w-[800px] m-auto bg-[#F0E1D6] w-[90%]"
+					class="border-[#eca3a2] dark:border-gray-300 border-2 lg:w-4/6 rounded-md flex flex-col items-center gap-6 p-2 md:p-5 max-w-[800px] m-auto bg-[#F0E1D6] dark:bg-[#52796f] w-[90%]"
 				>
-					<h2 class="text-4xl text-[#f7332f]">Reportes</h2>
+					<h2 class="text-4xl text-[#f7332f] dark:text-[#faebd7]">Reportes</h2>
 
 					<div id="container-img-reportes">
 						<figure class="flex justify-center pb-9">
@@ -782,7 +856,9 @@
 							/>
 						</figure>
 
-						<p class="text-2xl text-[#f7332f] text-center pb-3">
+						<p
+							class="text-2xl text-[#f7332f] dark:text-[#faebd7] text-center pb-3"
+						>
 							Operaciones insuficientes
 						</p>
 
@@ -793,7 +869,11 @@
 						class="w-full flex flex-col gap-3 md:gap-6 hidden"
 						id="tabla-reportes"
 					>
-						<h3 class="text-xl text-center sm: text-left">Resumen</h3>
+						<h3
+							class="text-xl text-center text-left text-[#14b8a6] dark:text-[#faebd7] border-b border-b-teal-500"
+						>
+							Resumen
+						</h3>
 
 						<div class="flex flex-col gap-3">
 							<div class="flex flex-col text-center sm:flex-row">
@@ -877,30 +957,34 @@
 							</div>
 						</div>
 
-						<h3 class="text-xl text-center">Totales por categorías</h3>
+						<h3
+							class="text-xl text-center text-[#14b8a6] dark:text-[#faebd7] border-b border-b-teal-500"
+						>
+							Totales por categorías
+						</h3>
 
-						<div class="flex flex-col text-center text-[14px] md:text-base">
-							<div class="flex">
-								<div
-									class="w-[25%] font-bold text-left border border-gray-300 md:border-none"
-								>
-									Categoría
-								</div>
+						<div
+							class="flex flex-col text-center text-[14px] md:text-base border border-teal-600 dark:border-gray-300 md:border-none"
+						>
+							<div
+								class="flex border-b border-b-teal-600 dark:border-b-gray-300 md:border-none"
+							>
+								<div class="w-[25%] font-bold sm:text-left">Categoría</div>
 
 								<div
-									class="w-[25%] font-bold border border-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Ganancias
 								</div>
 
 								<div
-									class="w-[25%] font-bold border border-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Gastos
 								</div>
 
 								<div
-									class="w-[25%] font-bold border borderborder-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Balance
 								</div>
@@ -909,30 +993,34 @@
 							<div id="cuerpo-tabla-totales-categorias"></div>
 						</div>
 
-						<h3 class="text-xl text-center">Totales por mes</h3>
+						<h3
+							class="text-xl text-center text-[#14b8a6] dark:text-[#faebd7] border-b border-b-teal-500"
+						>
+							Totales por mes
+						</h3>
 
-						<div class="flex flex-col text-center text-[14px] md:text-base">
-							<div class="flex">
-								<div
-									class="w-[25%] font-bold text-left border border-gray-300 md:border-none"
-								>
-									Mes
-								</div>
+						<div
+							class="flex flex-col text-center text-[14px] md:text-base border border-teal-600 dark:border-gray-300 md:border-none"
+						>
+							<div
+								class="flex border-b border-b-teal-600 dark:border-b-gray-300 md:border-none"
+							>
+								<div class="w-[25%] font-bold sm:text-left">Mes</div>
 
 								<div
-									class="w-[25%] font-bold border border-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Ganancias
 								</div>
 
 								<div
-									class="w-[25%] font-bold border border-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Gastos
 								</div>
 
 								<div
-									class="w-[25%] font-bold border border-gray-300 md:border-none"
+									class="w-[25%] font-bold border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"
 								>
 									Balance
 								</div>
@@ -957,7 +1045,7 @@
 			</div>
 			<a href="https://github.com/AnaliaAldete/ahorradas" target="_blank"
 				><i
-					class="fa-brands fa-github inline-block w-12 text-4xl text-center"
+					class="fa-brands fa-github inline-block w-12 text-4xl text-center hover:text-[#256a4f]"
 				></i
 			></a>
 		</footer>

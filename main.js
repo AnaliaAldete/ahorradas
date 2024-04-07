@@ -338,8 +338,10 @@ const sumarGananciaOGasto = (tipo, monto) => {
 const calcularTotal = () => {
 	if (resultadoGanacia > resultadoGasto) {
 		resultadoTotal = resultadoGanacia - resultadoGasto;
-	} else {
+	} else if (resultadoGanacia < resultadoGasto) {
 		resultadoTotal = resultadoGasto - resultadoGanacia;
+	} else {
+		resultadoTotal = 0;
 	}
 };
 
@@ -383,12 +385,17 @@ const actualizarBalance = () => {
 		balanceTotal.classList.remove("text-red-500");
 		agregarGif(chanchitosGanancias);
 		ocultarGif();
-	} else {
+	} else if (resultadoGanacia < resultadoGasto) {
 		balanceTotal.innerText = `-$${resultadoTotal}`;
 		balanceTotal.classList.remove("text-green-500");
 		balanceTotal.classList.add("text-red-500");
 		agregarGif(chanchitosPerdidas);
 		ocultarGif();
+	} else {
+		balanceTotal.innerText = `$${resultadoTotal}`;
+		balanceTotal.classList.remove("text-green-500");
+		balanceTotal.classList.remove("text-red-500");
+		contenedorGif.classList.add("hidden");
 	}
 };
 
@@ -466,6 +473,14 @@ const confirmarEliminarOperacion = (array, operacionId) => {
 	localStorage.setItem("operaciones", JSON.stringify(operacionesFiltradas));
 	generarTabla(operacionesFiltradas);
 	mostrarImg(operacionesFiltradas);
+	let operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+	resultadoGanacia = 0;
+	resultadoGasto = 0;
+	resultadoTotal = 0;
+	for (let operacion of operacionesGuardadas) {
+		sumarGananciaOGasto(operacion.tipo, operacion.monto);
+	}
+	actualizarBalance();
 };
 
 // funcion para que vuelva a verse la imagen cuando esten vacias las operaciones
@@ -481,6 +496,7 @@ btnAdvertenciaEliminarOp.addEventListener("click", () => {
 		evaluarLocalStorage("operaciones", operacionesGuardadas, datos),
 		btnAdvertenciaEliminarOp.id.slice(10)
 	);
+
 	mostrarSeccion(seccionPrincipal, ventanaModalEliminarOp);
 });
 
@@ -519,21 +535,21 @@ const generarTabla = (operaciones) => {
 			cuerpoTablaOperaciones.innerHTML += `
 				<div class="flex text-center flex-col md:flex-row bg-[#FAEBD7]" id="${operacion.id}">
     <div class="flex md:flex-row md:w-[40%]">
-        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+        <div class="flex-1 py-2  border-b border-gray-300  w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
             <span>${operacion.descripcion}</span>
         </div>
-        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+        <div class="flex-1 py-2 border-b border-l md:border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
             <span>${operacion.categoria}</span>
         </div>
     </div>
     <div class="flex md:w-[60%]">
-        <div class="hidden flex-1 py-2 border-b border-r border-gray-300 md:flex justify-center items-center"> <!-- Agrega justify-center y items-center aquí -->
+        <div class="hidden flex-1 py-2 border-b md:border-r border-gray-300 md:flex justify-center items-center"> <!-- Agrega justify-center y items-center aquí -->
             <span>${operacion.fecha}</span>
         </div>
-        <div class="flex-1 py-2 border-b border-r border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+        <div class="flex-1 py-2 border-b border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
             <span class="${obtenerColor}">${obtenerSigno}${operacion.monto}</span>
         </div>
-        <div class="flex-1 py-2 border-b border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
+        <div class="flex-1 py-2 border-b border-l border-gray-300 w-[50%] flex items-center justify-center"> <!-- Agrega items-center y justify-center aquí -->
             <button class="btn-editar-op" id="editar-op${operacion.id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[35px]"/></button>
             <button class="btn-eliminar-op" id="eliminar-op${operacion.id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[30px]"/></button>
         </div>
@@ -835,7 +851,7 @@ const generarTablaCategorias = (categorias) => {
 			const { id, nombreCategoria } = categoria;
 			tablaCategorias.innerHTML += `
             <div class="flex justify-between" id="${id}">
-            <p class="p-categorias">${nombreCategoria}</p>
+            <p class="p-categorias dark:text-[#f5f5f5]">${nombreCategoria}</p>
             <div class="flex gap-x-4 text-[darkturquoise]">			
             <button class="btn-editar" id="editar-${id}"><img src="imagenes/editar.png" alt="logo-editar" class="w-[40px]"/></button>
             <button class="btn-eliminar" id="eliminar-${id}"><img src="imagenes/eliminar.png" alt="logo-eliminar" class="w-[35px]"/></button>							
@@ -1399,10 +1415,10 @@ const actualizarTotalesPorPropiedad = (
 				: "text-green-500";
 		tabla.innerHTML += `
             <div class="flex">            
-                <div class="w-[25%] text-left border border-gray-300 md:border-none">${propiedad}</div>
-                <div class="w-[25%] text-center text-green-500 border border-gray-300 md:border-none">${textoGanancia}</div>
-                <div class="w-[25%] text-center text-red-500 border border-gray-300 md:border-none">${textoGasto}</div>
-                <div class="w-[25%] text-center border border-gray-300 md:border-none ${colorBalance}">${textoBalance}</div>
+                <div class="w-[25%] sm:text-left">${propiedad}</div>
+                <div class="w-[25%] text-center text-green-500 border-l border-l-teal-600 dark:border-l-gray-300 md:border-none">${textoGanancia}</div>
+                <div class="w-[25%] text-center text-red-500 border-l border-l-teal-600 dark:border-l-gray-300 md:border-none">${textoGasto}</div>
+                <div class="w-[25%] text-center ${colorBalance}  border-l border-l-teal-600 dark:border-l-gray-300 md:border-none"">${textoBalance}</div>
             </div>         
         `;
 	}
